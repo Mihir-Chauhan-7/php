@@ -12,10 +12,10 @@ if(isset($_SESSION['id']))
 	$query = "Select * From session_log";
 	if($result = mysqli_query($conn , $query))
 	{
-		echo "<table border='1'><th>Id</th><th>Login Time</th><th>Logout Time</th>";
+		echo "<table border='1'><th>Log Id</th><th>User Id</th><th>Login Time</th><th>Logout Time</th>";
 		while($row=mysqli_fetch_assoc($result))
 	{
-		echo "<tr><td>".$row['id']."</td><td>".$row['login_time']."</td><td>".$row['logout_time']."</td></tr>";	
+		echo "<tr><td>".$row['id']."</td><td>".$row['sub_user_id']."</td><td>".$row['login_time']."</td><td>".$row['logout_time']."</td></tr>";	
 	}
 		echo "</table>";
 	}

@@ -1,6 +1,13 @@
 <?php
 
-$no=10;
+if(isset($_GET['no']) && !empty($_GET['no']))
+{
+	$no=$_GET['no'];
+	printM($no);
+	printW($no);
+}
+function printM($no)
+{
 	for($i=1;$i<$no;$i++)
 	{
 		if($i==1)
@@ -31,6 +38,10 @@ $no=10;
 		
 		echo "<br>";
 	}
+}
+
+function printW($no)
+{
 	for($i=1;$i<$no+1;$i++)
 	{
 		
@@ -64,6 +75,8 @@ $no=10;
 		
 		echo "<br>";
 	}
+}	
+	
 function printStar()
 {
 	echo "*";
@@ -75,11 +88,12 @@ function printSpaces($no)
 		echo "&nbsp&nbsp";
 		$j++;
 	}
-	// for ($j=1; $j <$no ; $j++) { 
-	// 			echo "&nbsp&nbsp";
-	// 		}
 }
 
 
 
 ?>
+<form>
+	<input type="text" name="no" placeholder="Enter No">
+	<input type="submit" value="Print">
+</form>
