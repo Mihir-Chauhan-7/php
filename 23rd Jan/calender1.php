@@ -97,7 +97,7 @@ function displayCalender($year,$month)
 				for ($i = 1; $i <= $number ; $i++) {
 					$offset++;
 					echo "<td align='center'>" . $i . "</td>";
-					if ($offset % 7 == 0)
+					if ($offset % 7 == 0 && $number != $i)
 					{
 						echo "</tr><tr>";
 					}
