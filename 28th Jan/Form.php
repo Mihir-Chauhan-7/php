@@ -26,21 +26,29 @@
 
         <input type="text" name="account[fname]" placeholder="First Name" 
                 value="<?php echo getValue('account','fname'); ?>" required>
-                <?php echo validateField('account','fname','text') ? " " : "* Invalid Details" ?>
+                <?php echo validateField('account','fname','text') 
+                ? " " 
+                : "* Invalid Details" ?>
                 <br><br>
         <input type="text" name="account[lname]" placeholder="Last Name" 
                 value="<?php echo getValue('account','lname'); ?>" required>
-                <?php echo validateField('account','lname','text') ? " " : "Invalid Details" ?>
+                <?php echo validateField('account','lname','text') 
+                ? " " 
+                : "Invalid Details" ?>
                 <br><br>
         <input type="date" name="account[dob]" 
                 value="<?php echo getValue('account','dob'); ?>"><br><br>
         <input type="text" name="account[phone]" 
                 value="<?php echo getValue('account','phone'); ?>" required>
-                <?php echo validateField('account','phone','no') ? " " : "* Invalid Details" ?>
+                <?php echo validateField('account','phone','no') 
+                ? " " 
+                : "* Invalid Details" ?>
                 <br><br>
         <input type="text" name="account[email]" 
                 value="<?php echo getValue('account','email'); ?>" required>
-                <?php echo validateField('account','email','email') ? " " : "* Invalid Email" ?>
+                <?php echo validateField('account','email','email') 
+                ? " " 
+                : "* Invalid Email" ?>
                 <br><br>
         <input type="password" name="account[password]" 
                 value="<?php echo getValue('account','password'); ?>" required><br><br>
@@ -51,11 +59,15 @@
     <legend>Address Information</legend>
         <input type='text' name='address[addressline1]' placeholder='Address Line 1' 
                 value="<?php echo getValue('address','addressline1'); ?>" required>
-                <?php echo validateField('address','addressline1','address') ? " " : "* Invalid Address" ?>
+                <?php echo validateField('address','addressline1','address') 
+                ? " " 
+                : "* Invalid Address" ?>
                 <br><br>
         <input type='text' name='address[addressline2]' placeholder='Address Line 2' 
                 value="<?php echo getValue('address','addressline2'); ?>" required>
-                <?php echo validateField('address','addressline2','address') ? " " : "* Invalid Address" ?>
+                <?php echo validateField('address','addressline2','address') 
+                ? " " 
+                : "* Invalid Address" ?>
                 <br><br>
         <input type='text' name='address[companyname]' placeholder='Company Name' 
                 value="<?php echo getValue('address','companyname'); ?>"><br><br>
@@ -76,7 +88,9 @@
     </select><br><br>    
         <input type='text' name='address[postalcode]' placeholder='Postal Code' 
                 value="<?php echo getValue('address','postalcode'); ?>" required>
-                <?php echo validateField('address','postalcode','code') ? " " : "* Invalid Code" ?>
+                <?php echo validateField('address','postalcode','code') 
+                ? " " 
+                : "* Invalid Code" ?>
                 <br><br>
 </fieldset>
 <fieldset>
@@ -90,7 +104,9 @@
         
         <?php $years = ['Under 1','1 to 2','2 to 5','5 to 10','Over 10'];?>
             <?php foreach($years as $value) : ?>
-                <?php $result = $value == getValue('other','businessyears') ? 'checked' : ''; ?>
+                <?php $result = $value == getValue('other','businessyears') 
+                ? 'checked' 
+                : ''; ?>
                 <input type='radio' name='other[businessyears]' 
                         value='<?php echo $value; ?>' <?php echo $result; ?>><?php echo $value; ?><br><br>
             <?php endforeach; ?>
