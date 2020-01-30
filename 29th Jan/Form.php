@@ -5,9 +5,6 @@
 </head>
 <body>
     <?php require_once 'Form_Data.php'; 
-        echo "GET <pre>";
-        print_r($_GET);
-        echo "</pre>";
     ?>
 <form method="GET">
 <fieldset>
