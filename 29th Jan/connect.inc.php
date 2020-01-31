@@ -37,7 +37,6 @@ function insertData($tablename,$formData)
 
 function fetchAllData($tablename)
 {
-	echo "All";
 	$query = "Select * From $tablename";
 	return mysqli_fetch_all(executeQuery($query),MYSQLI_ASSOC);
 }

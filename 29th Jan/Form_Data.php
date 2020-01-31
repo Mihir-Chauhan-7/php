@@ -5,7 +5,7 @@ setSessionValue('account');
 setSessionValue('address');
 setSessionValue('other');
 
-$data=$_GET;
+$data=$_SESSION;
 saveData($data);
 
 function getValue($section,$fieldName,$returnType = '')
@@ -19,17 +19,18 @@ function saveData($data)
 {
 	//For Customers Table
 	insertData('customers',prepareCustomerData($data['account']));
-	
+	$cid=$_SESSION['last_id'];
 	//For Address Table
 	insertData('customer_address',prepareAddressData($data['address']));
 	
+	foreach(prepareOtherData($data['other']) as $otherSubData)
+		insertData('customer_additional_info',$otherSubData);
 	//For Additional Table
-	insertData('customer_additional_info',prepareOtherData($data['other']));
 		
 
-	load("customers",$_SESSION['last_id']);//To Display Last Inserted Data
-	load("customer_address",$_SESSION['last_id']);
-	load("customer_additional_info",$_SESSION['last_id']);
+	load("customers",$cid);//To Display Last Inserted Data
+	load("customer_address",$cid);
+	//load("customer_additional_info",$_SESSION['last_id']);
 
 }
 
@@ -62,10 +63,18 @@ function prepareAddressData($addressData)
 
 function prepareOtherData($otherData)
 {
-	$otherData['cid'] = $_SESSION['last_id'];
+	
 	$otherData['hobbies'] = implode(",",$otherData['hobbies']);
 	$otherData['contactType'] = implode(",",$otherData['contactType']);//To Convert SubArray into String 
-	return $otherData;
+	$cid=$_SESSION['last_id'];
+	foreach($otherData as $key => $value)
+	{
+		$subArray['cid']=$cid;
+		$subArray['field_key']=$key;
+		$subArray['value']=$value;
+		$newData[]=$subArray;
+	}
+	return $newData;
 }
 
 function setSessionValue($section)
