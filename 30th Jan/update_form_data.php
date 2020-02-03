@@ -94,6 +94,7 @@
         
         ?>
             <?php foreach($years as $value) : ?>
+               
                 <?php $result = $value == getValue('other','businessyears',$customerId) 
                 ? 'checked' 
                 : ''; ?>

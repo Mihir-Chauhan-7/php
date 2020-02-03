@@ -27,6 +27,7 @@ function updateData($data){
     
     header('Location:update_form.php');
 }
+
 function prepareData($tablename,$data,$cid){
     $i = 0;
     $keys = "";
@@ -54,6 +55,7 @@ function prepareData($tablename,$data,$cid){
         return $query;
     }
 }
+
 function getOther($id){
 
     $new = [];
