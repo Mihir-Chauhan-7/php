@@ -22,7 +22,7 @@
     }
 ?>
     <h2>Blog Post</h2>
-    <a href="add_category.php">Add Post</a>
+    <a href="add_post.php">Add Post</a>
     <div>
         <?php displayPostList(); ?>
     </div>

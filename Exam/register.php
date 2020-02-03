@@ -1,5 +1,6 @@
 <?php
     require_once 'operations.php';
+    isset($_POST['update']) ? updateUser($_POST) : "";
     isset($_POST['submit']) ? registerUser($_POST) : "";
     isset($_GET['id']) ? setUserValues($_GET['id']) : "";
 ?>

@@ -59,4 +59,11 @@ function setUserValues($id)
     $user=fetchData('user',"uid=$id");
     $user[0]['btnShow']="true";
 }
+function updateUser($newData)
+{
+    print_r($newData);
+    unset($newData['cpassword']);
+    unset($newData['update']);
+    executeSQL(prepareUpdateData('user',$newData));
+}
 ?>

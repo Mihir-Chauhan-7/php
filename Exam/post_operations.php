@@ -27,18 +27,11 @@ function addPost($blogPostData)
     $blogPostData['uid']=$_SESSION['uid'];
     print_r($blogPostData);
     executeSQL(prepareData('blog_post',$blogPostData));
-    // $categoriesDB=getCategories();
-    // print_r($categoriesDB);
-    // foreach($selectedCategory as $singleCategory)
-    // {
-    //     foreach($categoriesDB as $array)
-    //     {
-    //        $catid= in_array($singleCategory,$array) ? $array['cid'] : "";
-    //     }
-    //     $query="Insert into post_category values(".$_SESSION['last_id'].",".$catid.")";
-    //     echo $query;
-    // }
-
+    foreach($selectedCategory as $singleCategory)
+    {
+        $query="Insert into post_category values(".$_SESSION['last_id'].",".$singleCategory.")";
+        executeSQL($query);
+    }
     //header("Location:manage_post.php");  
 }
 function getPostValue($fieldname)

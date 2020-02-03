@@ -16,7 +16,7 @@
             <input type="text" name="title" placeholder="Title" value="<?php echo getPostValue('title'); ?>"><br><br>
             <input type="text" name="content" placeholder="Content" value="<?php echo getPostValue('content'); ?>"><br><br>
             <input type="text" name="url" placeholder="url" value="<?php echo getPostValue('url'); ?>"><br><br>
-            <input type="date" name="published_at" placeholder="Meta Title" value="<?php echo getPostValue('meta_title') ;?>"><br><br>
+            <input type="date" name="published_at" value="<?php echo getPostValue('published_at') ;?>"><br><br>
             <input type="file" name="image"><br><br>
 
         <label>Category</label>   
@@ -25,7 +25,7 @@
         		<?php $selected = in_array($category['title'],[])  
         		? 'selected'
         		: ''; ?>
-        		<option value="<?php echo $category['title'] ?>" <?php echo $selected; ?>>
+        		<option value="<?php echo $category['cid'] ?>" <?php echo $selected; ?>>
         			<?php echo $category['title'] ?>
         		</option>
             	<?php endforeach; ?>

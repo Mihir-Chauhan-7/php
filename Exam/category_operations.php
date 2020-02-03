@@ -21,8 +21,9 @@ function displayCategoryList()
     echo "<table border='1'>";
     for($i=0;$i<sizeof($categoryList);$i++)
     {
+        $catNames=executeSQL("Select title From Category Where cid='".$categoryList[$i]['parent_id']."'");
         echo "<tr><td>".$categoryList[$i]['cid']."</td><td>".$categoryList[$i]['title']."</td>
-    <td>".$categoryList[$i]['content']."</td><td>".$categoryList[$i]['created_at']."</td><td>
+    <td>".$catNames[0]['title']."</td><td>".$categoryList[$i]['content']."</td><td>".$categoryList[$i]['created_at']."</td><td>
     <a href='add_category.php?id=".$categoryList[$i]['cid']."'>Edit</a>
     </td><td><a href='manage_category.php?action=delete&id=".$categoryList[$i]['cid']."'>Delete</a></td></tr>";
     }    
@@ -30,11 +31,13 @@ function displayCategoryList()
 }
 function addCategory($categoryData)
 {
-    //print_r(fetchData('category',"url='".$categoryData['url']."'")[0]['url']);
+
+    //print_r(fetchData('category',"url='".$categoryData['url']."'"));
     unset($categoryData['submit']);
     print_r($categoryData);
+    
     executeSQL(prepareData('category',$categoryData));
-    header("Location:manage_category.php");
+    //header("Location:manage_category.php");
 }
 function getCategories()
 {

@@ -16,6 +16,18 @@
             <input type="text" name="content" placeholder="Content" value="<?php echo getCategoryValue('content'); ?>"><br><br>
             <input type="text" name="url" placeholder="url" value="<?php echo getCategoryValue('url'); ?>"><br><br>
             <input type="text" name="meta_title" placeholder="Meta Title" value="<?php echo getCategoryValue('meta_title') ;?>"><br><br>
+            <?php $parentCatagoryList=getCategories();
+            ?>
+                <select name="parent_id">
+                <?php foreach($parentCatagoryList as $singleCategory) : ?>
+                <?php $selected = $singleCategory == getCategoryValue('parent') 
+                ? 'selected'
+                : ''; ?>
+                <option value="<?php echo $singleCategory['cid'] ?>" <?php echo $selected; ?>>
+                <?php echo $singleCategory['title'] ?>
+                </option>
+                <?php endforeach; ?>
+                </select>
             <input type="file" name="image"><br><br>
             <input type="submit" name="submit" value="Add Category">
             

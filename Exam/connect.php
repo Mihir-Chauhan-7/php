@@ -40,6 +40,20 @@ function prepareData($tablename,$data)
         echo $query;
         return $query;
 }
+function prepareUpdateData($tablename,$data)
+{
+    $i = 0;
+    $pre='';
+    $fields='';
+    foreach($data as $key => $value)
+       {
+            $i>0 ? $pre = "," : "";
+            $fields .= $pre.$key."='".$value."'";
+            $i++;
+        }
+        $query="Update $tablename SET $fields Where uid='".$_SESSION['uid']."'";
+        return $query;
+}
 
 function fetchData($tablename,$where="")
 {
