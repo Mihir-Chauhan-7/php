@@ -11,7 +11,7 @@
                 if(!empty($_POST['email']) && !empty($_POST['password']))
                 {
                     checkLogin($_POST['email'],$_POST['password']) ?
-                    header('Location:blog_post.php') : print("<strong>Invalid Email & Password</strong>"); 
+                    header('Location:manage_post.php') : print("<strong>Invalid Email & Password</strong>"); 
                 }
                 else
                 {
