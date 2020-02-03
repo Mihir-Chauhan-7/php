@@ -1,0 +1,11 @@
+array_diff= It Gives array of Unique Values of Array 1 (Argument 1) by Comparing it other arrays
+
+Values that are common between First array And each array is Excluded from Result array
+
+ex array 1 =['a','b','c','d','e'];
+array 2 =['b','c'];
+array 3 =['d','c'];
+
+result after array_diff
+
+['a','d','e']

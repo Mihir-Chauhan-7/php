@@ -1,0 +1,9 @@
+explode= It is used For Converting given String values (seperated by delimeter) to An Array
+Each seperated value is added as single Element in Result Array
+
+ex str="1,2,3,4";
+result=explode(",",str);
+
+Result 
+	result [1,2,3,4]
+  
