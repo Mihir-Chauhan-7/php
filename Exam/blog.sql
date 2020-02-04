@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2020 at 11:02 AM
+-- Generation Time: Feb 04, 2020 at 05:44 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -37,7 +37,7 @@ CREATE TABLE `blog_post` (
   `image` varchar(100) NOT NULL,
   `published_at` varchar(50) NOT NULL,
   `created_at` varchar(50) NOT NULL DEFAULT current_timestamp(),
-  `updated_at` varchar(50) DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -45,8 +45,8 @@ CREATE TABLE `blog_post` (
 --
 
 INSERT INTO `blog_post` (`pid`, `uid`, `title`, `url`, `content`, `image`, `published_at`, `created_at`, `updated_at`) VALUES
-(23, 1, 'Post 1', 'post1', 'abc', '', '2020-01-04', '2020-02-04 10:58:14', NULL),
-(24, 1, 'Post 2', 'post2', 'abc', '', '2020-04-05', '2020-02-04 10:58:45', NULL);
+(26, 1, 'Post 1', 'post1', 'abc', '', '1111-11-11', '2020-02-04 11:46:12', NULL),
+(34, 1, 'Post 1', 'post1', 'abc', '', '2020-02-04', '2020-02-04 13:05:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -63,7 +63,7 @@ CREATE TABLE `category` (
   `content` varchar(100) NOT NULL,
   `image` varchar(100) NOT NULL,
   `created_at` varchar(50) NOT NULL DEFAULT current_timestamp(),
-  `updated_at` varchar(50) DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -71,9 +71,11 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`cid`, `parent_id`, `title`, `meta_title`, `url`, `content`, `image`, `created_at`, `updated_at`) VALUES
-(17, 0, 'Cat 1', 'Category 1', 'cat1', 'content for cat 1', '', '2020-02-04 10:57:08', NULL),
-(18, 17, 'Cat 2', 'abc', 'cat2', 'content', '', '2020-02-04 10:57:28', NULL),
-(19, 18, 'Cat 3', 'abc', 'cat3', 'content', '', '2020-02-04 10:57:43', NULL);
+(17, 17, 'Cat 1', 'Category 1', 'cat1', 'content for cat 1', 'http://localhost/Cybercom/php/Exam/uploads/15260.jpg', '2020-02-04 10:57:08', '2020-02-04 10:56:59'),
+(18, 17, 'Cat 2', 'abc', 'cat2', 'content', 'http://localhost/Cybercom/php/Exam/uploads/53703.jpg', '2020-02-04 10:57:28', '2020-02-04 12:06:41'),
+(19, 18, 'Cat 3', 'abc', 'cat3', 'content', 'http://localhost/Cybercom/php/Exam/uploads/15262.jpg', '2020-02-04 10:57:43', '2020-02-04 12:06:48'),
+(21, 19, 'Cat 7', 'abc', 'cat7', 'a', 'http://localhost/Cybercom/php/Exam/uploads/36880.jpg', '2020-02-04 16:12:11', '2020-02-04 12:06:57'),
+(22, 18, 'Cat 6', 'abc', 'cat6', 'abcd', 'http://localhost/Cybercom/php/Exam/uploads/15250.jpg', '2020-02-04 16:15:12', '2020-02-04 10:50:10');
 
 -- --------------------------------------------------------
 
@@ -82,6 +84,7 @@ INSERT INTO `category` (`cid`, `parent_id`, `title`, `meta_title`, `url`, `conte
 --
 
 CREATE TABLE `post_category` (
+  `pcid` int(11) NOT NULL,
   `pid` int(11) NOT NULL,
   `cid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -90,9 +93,9 @@ CREATE TABLE `post_category` (
 -- Dumping data for table `post_category`
 --
 
-INSERT INTO `post_category` (`pid`, `cid`) VALUES
-(23, 17),
-(24, 18);
+INSERT INTO `post_category` (`pcid`, `pid`, `cid`) VALUES
+(10, 34, 17),
+(11, 34, 18);
 
 -- --------------------------------------------------------
 
@@ -111,7 +114,7 @@ CREATE TABLE `user` (
   `information` varchar(100) NOT NULL,
   `last_login` varchar(50) DEFAULT NULL,
   `created_at` varchar(50) NOT NULL DEFAULT current_timestamp(),
-  `updated_at` varchar(50) DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -119,7 +122,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`uid`, `prefix`, `fname`, `lname`, `mno`, `email`, `password`, `information`, `last_login`, `created_at`, `updated_at`) VALUES
-(1, 'Mr', 'Mihir', 'Chauhan', 123, 'abc@gmail.com', 'abc', 'Info', '10:59:47AM', '2020-02-04 10:59:42', NULL);
+(1, 'Mr', 'Mihir123', 'Chauhan', 123, 'abc@gmail.com', 'abc', '', '01:41:16PM', '2020-02-04 10:59:42', NULL),
+(2, 'Mr', 'Mihir', 'Chauhan', 123, 'abc4@gmail.com', '900150983cd24fb0d6963f7d28e17f72', '', '01:50:50PM', '2020-02-04 13:34:14', NULL),
+(3, 'Mr', 'Mihir', 'Chauhan', 123, 'chauhanmihir51@gmail.com', 'c56887a00f007b90856e362a9ae8e08c', 'abcd', '2020-02-04 05:20:38PM', '2020-02-04 13:45:53', '2020-02-04 11:50:38');
 
 --
 -- Indexes for dumped tables
@@ -142,8 +147,9 @@ ALTER TABLE `category`
 -- Indexes for table `post_category`
 --
 ALTER TABLE `post_category`
-  ADD PRIMARY KEY (`pid`,`cid`),
-  ADD KEY `cid` (`cid`);
+  ADD PRIMARY KEY (`pcid`),
+  ADD KEY `cid` (`cid`),
+  ADD KEY `pid` (`pid`);
 
 --
 -- Indexes for table `user`
@@ -159,19 +165,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `blog_post`
 --
 ALTER TABLE `blog_post`
-  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `post_category`
+--
+ALTER TABLE `post_category`
+  MODIFY `pcid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -187,8 +199,8 @@ ALTER TABLE `blog_post`
 -- Constraints for table `post_category`
 --
 ALTER TABLE `post_category`
-  ADD CONSTRAINT `post_category_ibfk_1` FOREIGN KEY (`pid`) REFERENCES `blog_post` (`pid`) ON DELETE CASCADE,
-  ADD CONSTRAINT `post_category_ibfk_2` FOREIGN KEY (`cid`) REFERENCES `category` (`cid`) ON DELETE CASCADE;
+  ADD CONSTRAINT `post_category_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `category` (`cid`) ON DELETE CASCADE,
+  ADD CONSTRAINT `post_category_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `blog_post` (`pid`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
