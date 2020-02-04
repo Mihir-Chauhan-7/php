@@ -6,8 +6,8 @@ function displayPostList()
     <th>Title</th><th>Published At</th><th colspan=2>Actions</th></thead>";
     for($i = 0 ; $i < sizeof($postList) ; $i++ )
     {
-        echo "<tr><td>".$postList[$i]['pid']."</td><td></td><td>".$postList[$i]['title']."
-        </td><td>".$postList[$i]['published_at']."</td><td>
+        echo "<tr><td>".$postList[$i]['pid']."</td><td>".$postList[$i]['category']."</td>
+        <td>".$postList[$i]['title']."</td><td>".$postList[$i]['published_at']."</td><td>
         <a href='add_post.php?id=".$postList[$i]['pid']."'>Edit</a>
         </td><td><a href='manage_post.php?action=delete&id=".$postList[$i]['pid']."'>Delete</a>
         </td></tr>";
@@ -17,9 +17,10 @@ function displayPostList()
 
 function getPosts()
 {
-    $query = "Select * From blog_post";
+    $query = "SELECT P.pid,P.title,P.published_at,GROUP_CONCAT(C.title) AS category
+                FROM blog_post P INNER JOIN post_category PC ON P.pid = PC.pid
+                INNER JOIN category C ON C.cid = PC.cid GROUP BY P.pid";
     return executeSQL($query);
-
 }
 function addPost($blogPostData)
 {

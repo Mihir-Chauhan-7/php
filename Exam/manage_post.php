@@ -9,11 +9,15 @@
      require_once 'config.php';
      require_once 'operations.php';
      require_once 'post_operations.php';
-     echo checkSession() ? "<form method='POST'>
-        <a href='manage_category.php'>Manage Category</a>
-        <a href='register.php?id=".$_SESSION['uid']."'>My Profile</a>
-        <input class='btn btn-outline-dark' style='float : right' type='submit' 
-        value='Logout' name='logout'></form>" 
+     echo checkSession() ? "
+        
+        <form method='POST'>
+        <div class=btn-group' role='group' aria-label='Basic example'>
+        <a class='btn btn-secondary' href='manage_category.php'>Manage Category</a>
+        <a class='btn btn-secondary' href='register.php?id=".$_SESSION['uid']."'>My Profile</a>
+        <a class='btn btn-secondary' href='add_post.php'>Add Post</a>
+        <input class='btn btn-secondary' style='float : right' type='submit' 
+        value='Logout' name='logout'></form></div>" 
      
      : die("Your Are Not Logged In");
     
@@ -25,8 +29,7 @@
         }
     }
 ?>
-    <h2>Blog Post</h2>
-    <a href="add_post.php">Add Post</a>
+    <center><h2>Blog Post</h2></center>
     <div>
         <?php displayPostList(); ?>
     </div>
