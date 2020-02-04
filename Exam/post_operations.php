@@ -2,14 +2,15 @@
 function displayPostList()
 {
     $postList = getPosts();
-    echo "<table border='1'>";
+    echo "<table class='table'><thead class='thead-dark'><th>ID</th><th>Category Name</th>
+    <th>Title</th><th>Published At</th><th colspan=2>Actions</th></thead>";
     for($i = 0 ; $i < sizeof($postList) ; $i++ )
     {
-        echo "<tr><td>".$postList[$i]['pid']."</td><td>".$postList[$i]['title']."</td>
-    <td>".$postList[$i]['published_at']."</td><td>
-    <a href='add_post.php?id=".$postList[$i]['pid']."'>Edit</a>
-    </td><td><a href='manage_post.php?action=delete&id=".$postList[$i]['pid']."'>Delete</a>
-    </td></tr>";
+        echo "<tr><td>".$postList[$i]['pid']."</td><td></td><td>".$postList[$i]['title']."
+        </td><td>".$postList[$i]['published_at']."</td><td>
+        <a href='add_post.php?id=".$postList[$i]['pid']."'>Edit</a>
+        </td><td><a href='manage_post.php?action=delete&id=".$postList[$i]['pid']."'>Delete</a>
+        </td></tr>";
     }    
     echo "</table>";
 }
@@ -22,18 +23,26 @@ function getPosts()
 }
 function addPost($blogPostData)
 {
-    $selectedCategory = $blogPostData['categories'];
-    unset($blogPostData['submit']);
-    unset($blogPostData['categories']);
-    $blogPostData['uid'] = $_SESSION['uid'];
-
-    executeSQL(prepareData('blog_post',$blogPostData));
-    foreach($selectedCategory as $singleCategory)
-    {
-        $query = "Insert into post_category values(".$_SESSION['last_id'].",".$singleCategory.")";
-        executeSQL($query);
+    //print_r($blogPostData);
+    if(checkExist('blog_post',"url='".$blogPostData['url']."'")){
+        echo "Url Already Exist";
     }
-    header("Location:manage_post.php");  
+    else{
+        $selectedCategory = $blogPostData['categories'];
+        unset($blogPostData['submit']);
+        unset($blogPostData['categories']);
+        $blogPostData['uid'] = $_SESSION['uid'];
+        executeSQL(prepareData('blog_post',$blogPostData));
+        $last_post_id=$_SESSION['last_id'];
+        foreach($selectedCategory as $singleCategory)
+        {
+
+            $query = "Insert into post_category values(NULL,".$last_post_id.",".$singleCategory.")";
+            echo $query;
+            executeSQL($query);
+            header("Location:manage_post.php");
+        }
+    }  
 }
 function getPostValue($fieldname)
 {
@@ -61,5 +70,6 @@ function updatePost($newData,$id)
     unset($newData['cpassword']);
     unset($newData['update']);
     executeSQL(prepareUpdateData('blog_post',$newData,"pid='".$id."'"));
+    header("Location:manage_post.php");
 }
 ?>

@@ -6,33 +6,44 @@ function getCategoryValue($fieldname)
     global $categoryData;
         if($fieldname == 'btnShow')
         {
-            return isset($categoryData[0][$fieldname]) 
-            ? $categoryData[0][$fieldname] 
+            return isset($categoryData[$fieldname]) 
+            ? $categoryData[$fieldname] 
             : "hidden";      
         }
-        return isset($categoryData[0][$fieldname]) 
-        ? $categoryData[0][$fieldname] 
+        return isset($categoryData[$fieldname]) 
+        ? $categoryData[$fieldname] 
         : "";
 }
 function setCategoryValue($id)
 {
     global $categoryData;
-    $categoryData = fetchData('category',"cid=$id");
-    $categoryData[0]['btnShow'] = "true";
-    $categoryData[0]['btnAdd'] = "hidden";
+    $categoryData = fetchData('category',"cid=$id")[0];
+    $categoryData['btnShow'] = "true";
+    $categoryData['btnAdd'] = "hidden";
 }
 function displayCategoryList()
 {
     $categoryList = getCategories();
-    echo "<table border='1'>";
+    echo "<table class='table' border=1><thead class='thead-dark'><th>ID</th><th>Image</th>
+        <th>Title</th><th>Parent Category</th><th>Publish Date</th><th colspan=2>Actions</th>
+        </thead>";
     for($i = 0 ; $i < sizeof($categoryList) ; $i++ )
     {
+        $image=!empty($categoryList[$i]['image']) ? 
+        
+        "<img class='img-fluid img-thumbnail' 
+        style='margin-right: -100px;width: 180px; height: auto' src='".$categoryList[$i]['image']."' />"  
+        
+        : "No Image";
+        
         $catNames = executeSQL("Select title From Category Where cid='"
-        .$categoryList[$i]['parent_id']."'");
-        $cat = isset($catNames[0]['title']) ? $catNames[0]['title'] : "-";
+            .$categoryList[$i]['parent_id']."'");
+        
+        $catTitle = isset($catNames[0]['title']) ? $catNames[0]['title'] : "-";
+        
         echo "<tr><td>".$categoryList[$i]['cid']."</td>
-            <td>".$categoryList[$i]['title']."</td><td>".$cat."</td>
-            <td>".$categoryList[$i]['content']."</td><td>".$categoryList[$i]['created_at'].
+            <td>".$image."</td><td>".$categoryList[$i]['title']."</td>
+            <td>".$catTitle."</td><td>".$categoryList[$i]['created_at'].
             "</td><td><a href='add_category.php?id=".$categoryList[$i]['cid']."'>Edit</a>
             </td><td>
             <a href='manage_category.php?action=delete&id=".$categoryList[$i]['cid']
@@ -40,18 +51,17 @@ function displayCategoryList()
     }    
     echo "</table>";
 }
-function addCategory($categoryData)
+function addCategory($categoryData,$file)
 {
-
-    if(!sizeof(fetchData('category',"url='".$categoryData['url']."'") ) > 0)
-    {
-        unset($categoryData['submit']);
-        executeSQL(prepareData('category',$categoryData));
-        header("Location:manage_category.php");    
-    }
-    else
-    {
+    if(checkExist('category',"url='".$categoryData['url']."'")){
         echo "Url Already Exist ! ";
+    }
+    else{
+        unset($categoryData['submit']);
+        !empty($file['image']['name']) ? $categoryData['image']=saveImage($file) : "";
+        print_r($categoryData);
+        executeSQL(prepareData('category',$categoryData));
+        header("Location:manage_category.php");
     }
     
 }
@@ -65,11 +75,11 @@ function deleteCategory($id)
 {
     deleteData('category',"cid='".$id."'");
 }
-function updateCategory($newData,$id)
+function updateCategory($newData,$id,$file)
 {
+    !empty($file['image']['name']) ? $newData['image']=saveImage($file) : ""; 
     unset($newData['update']);
-    print_r($newData);
     executeSQL(prepareUpdateData('category',$newData,"cid='".$id."'"));
-
+    header("Location:manage_category.php");
 }
 ?>

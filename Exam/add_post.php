@@ -3,11 +3,19 @@
 <head>
 <title>Add Blog Post</title>
 </head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <body>
 <fieldset> 
     <?php
+    require_once 'config.php';
     require_once 'post_operations.php';
     require_once 'category_operations.php';
+    echo checkSession() ? "<form method='POST'>
+        <a href='manage_category.php'>Manage Category</a>
+        <a href='register.php?id=".$_SESSION['uid']."'>My Profile</a>
+        <input style='float : right' type='submit' value='Logout' name='logout'></form>" 
+     
+     : die("Your Are Not Logged In");
     isset($_POST['update']) ? updatePost($_POST,$_GET['id']) : "";
     isset($_POST['submit']) ? addPost($_POST) : "";
     isset($_GET['id']) ? setPostValue($_GET['id']) : "" ;
@@ -24,7 +32,7 @@
         <label>Category</label>   
         <select name="categories[]" multiple>
         		<?php foreach(getCategories() as $category) : ?>
-        		<?php $selected = in_array($category['title'],[])  
+                <?php $selected = in_array($category['title'],[])  
         		? 'selected'
         		: ''; ?>
         		<option value="<?php echo $category['cid'] ?>" <?php echo $selected; ?>>

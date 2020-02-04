@@ -65,4 +65,21 @@ function deleteData($tablename,$where)
     $query = "Delete From $tablename Where $where"; 
     executeSQL($query);
 }
+function checkExist($tablename,$where)
+{
+    return sizeof(fetchData($tablename,$where))>0 ? true : false;
+}
+
+function saveImage($file){
+    $name = $file['image']['name'];
+    $tmpname = $file['image']['tmp_name'];
+    $extension = substr($name, strpos($name, '.') + 1);
+    if (!empty($name) && $extension == 'jpg') 
+    {
+	    if (move_uploaded_file($tmpname, 'uploads/' . $name))
+	    {
+	        return "http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) . "/uploads/" . $name;
+        }
+    }
+}
 ?>
