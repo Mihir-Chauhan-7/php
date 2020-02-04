@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 03, 2020 at 07:27 PM
+-- Generation Time: Feb 04, 2020 at 11:02 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -45,9 +45,8 @@ CREATE TABLE `blog_post` (
 --
 
 INSERT INTO `blog_post` (`pid`, `uid`, `title`, `url`, `content`, `image`, `published_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Title', 'a', 'a', '', '1111-11-11', '2020-02-03 17:13:30', NULL),
-(3, 1, 'Title', 'a', 'a', '', '1111-11-11', '2020-02-03 18:27:01', NULL),
-(4, 1, 'Title', 'a', 'a', '', '1111-11-11', '2020-02-03 18:27:01', NULL);
+(23, 1, 'Post 1', 'post1', 'abc', '', '2020-01-04', '2020-02-04 10:58:14', NULL),
+(24, 1, 'Post 2', 'post2', 'abc', '', '2020-04-05', '2020-02-04 10:58:45', NULL);
 
 -- --------------------------------------------------------
 
@@ -72,14 +71,9 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`cid`, `parent_id`, `title`, `meta_title`, `url`, `content`, `image`, `created_at`, `updated_at`) VALUES
-(3, 1, 'Cat 2', 'cfdfvsd', 'sadsa', 'abdsd', '', '2020-02-03 19:12:25', NULL),
-(4, 1, 'Cat 2', 'cfdfvsd', 'sadsa', 'abdsd', '', '2020-02-03 19:12:25', NULL),
-(5, 3, 'Title', 'a', 'a', 'a', '', '2020-02-03 19:15:57', NULL),
-(6, 3, 'Title', 'a', 'a', 'a', '', '2020-02-03 19:15:57', NULL),
-(7, 3, 'Title', 'a', 'a', 'a', '', '2020-02-03 19:16:28', NULL),
-(8, 3, 'Title', 'a', 'a', 'a', '', '2020-02-03 19:16:28', NULL),
-(9, 3, 'Title', 'a', 'a', 'a', '', '2020-02-03 19:23:37', NULL),
-(10, 3, 'Title', 'a', 'a', 'a', '', '2020-02-03 19:23:37', NULL);
+(17, 0, 'Cat 1', 'Category 1', 'cat1', 'content for cat 1', '', '2020-02-04 10:57:08', NULL),
+(18, 17, 'Cat 2', 'abc', 'cat2', 'content', '', '2020-02-04 10:57:28', NULL),
+(19, 18, 'Cat 3', 'abc', 'cat3', 'content', '', '2020-02-04 10:57:43', NULL);
 
 -- --------------------------------------------------------
 
@@ -91,6 +85,14 @@ CREATE TABLE `post_category` (
   `pid` int(11) NOT NULL,
   `cid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `post_category`
+--
+
+INSERT INTO `post_category` (`pid`, `cid`) VALUES
+(23, 17),
+(24, 18);
 
 -- --------------------------------------------------------
 
@@ -117,9 +119,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`uid`, `prefix`, `fname`, `lname`, `mno`, `email`, `password`, `information`, `last_login`, `created_at`, `updated_at`) VALUES
-(1, 'Mr', 'Mihir123', 'Chauhan', 123, 'abc@gmail.com', 'abc', 'ac', '07:13:05PM', '2020-02-03 14:55:27', NULL),
-(3, 'Mr', 'Mihir', 'abcd', 0, 'abc1@gmail.com', 'a', 'a', '03:06:26PM', '2020-02-03 15:06:05', NULL),
-(4, 'Mr', 'Mihir', 'abcd', 0, 'abc1@gmail.com', 'a', 'a', NULL, '2020-02-03 15:06:06', NULL);
+(1, 'Mr', 'Mihir', 'Chauhan', 123, 'abc@gmail.com', 'abc', 'Info', '10:59:47AM', '2020-02-04 10:59:42', NULL);
 
 --
 -- Indexes for dumped tables
@@ -159,19 +159,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `blog_post`
 --
 ALTER TABLE `blog_post`
-  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
