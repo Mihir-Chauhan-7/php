@@ -4,7 +4,7 @@ require_once 'connect.php';
 
 function registerUser($userData)
 {
-    if($userData['email']==fetchData('user',"email='".$userData['email']."'")[0]['email'])
+    if($userData['email'] == fetchData('user',"email='".$userData['email']."'")[0]['email'])
     {
         echo "Email Id is Already Registered";
     }
@@ -20,16 +20,16 @@ function registerUser($userData)
 }
 function checkSession()
 {
-    return isset($_SESSION['uid']) && !empty($_SESSION['uid']) ? true :false;
+    return isset($_SESSION['uid']) && !empty($_SESSION['uid']) ? true : false;
 }
 
 function checkLogin($email,$password)
 {
-    $query="Select * From user Where email='$email' limit 1";
-    $result=executeSQL($query)[0];
+    $query = "Select * From user Where email='$email' limit 1";
+    $result = executeSQL($query)[0];
     if($email == $result['email'] && $password == $result['password']){
-        $_SESSION['uid']=$result['uid'];
-        $query="UPDATE user SET last_login='".date("h:i:sA")."' where uid=".$result['uid'];
+        $_SESSION['uid'] = $result['uid'];
+        $query = "UPDATE user SET last_login='".date("h:i:sA")."' where uid=".$result['uid'];
         executeSQL($query);
         return true;
     }else{
@@ -46,7 +46,7 @@ function logOut()
 function getValue($fieldname)
 {
     global $user;
-        if($fieldname=='btnShow')
+        if($fieldname == 'btnShow')
         {
             return isset($user[0][$fieldname]) ? $user[0][$fieldname] : "hidden";      
         }
@@ -56,14 +56,15 @@ function getValue($fieldname)
 function setUserValues($id)
 {
     global $user;
-    $user=fetchData('user',"uid=$id");
-    $user[0]['btnShow']="true";
+    $user = fetchData('user',"uid=$id");
+    $user[0]['btnShow'] = "true";
+    $user[0]['btnAdd'] = "hidden";
 }
 function updateUser($newData)
 {
     print_r($newData);
     unset($newData['cpassword']);
     unset($newData['update']);
-    executeSQL(prepareUpdateData('user',$newData));
+    executeSQL(prepareUpdateData('user',$newData,"uid='".$_SESSION['uid']."'"));
 }
 ?>

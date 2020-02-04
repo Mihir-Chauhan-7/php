@@ -1,15 +1,15 @@
 <?php
 session_start();
-$hostName="localhost";
-$userName="root";
-$password="";
-$dbName="blog";
+$hostName = "localhost";
+$userName = "root";
+$password = "";
+$dbName = "blog";
 global $user;
 
 function getConnection()
 {
     global $hostName,$userName,$password,$dbName;
-    if($conn=mysqli_connect($hostName,$userName,$password,$dbName)){
+    if($conn = mysqli_connect($hostName,$userName,$password,$dbName)){
         return $conn;
     }else{
         return false;
@@ -18,7 +18,7 @@ function getConnection()
 
 function executeSQL($query)
 {
-    $conn=getConnection();
+    $conn = getConnection();
     if(mysqli_query($conn,$query))
     {
         $_SESSION['last_id'] = mysqli_insert_id($conn);
@@ -40,29 +40,29 @@ function prepareData($tablename,$data)
         echo $query;
         return $query;
 }
-function prepareUpdateData($tablename,$data)
+function prepareUpdateData($tablename,$data,$where)
 {
     $i = 0;
-    $pre='';
-    $fields='';
+    $pre = '';
+    $fields = '';
     foreach($data as $key => $value)
        {
             $i>0 ? $pre = "," : "";
             $fields .= $pre.$key."='".$value."'";
             $i++;
         }
-        $query="Update $tablename SET $fields Where uid='".$_SESSION['uid']."'";
+        $query = "Update $tablename SET $fields Where $where";
         return $query;
 }
 
-function fetchData($tablename,$where="")
+function fetchData($tablename,$where = "")
 {
-    $query="Select * From $tablename Where $where limit 1"; 
+    $query = "Select * From $tablename Where $where limit 1"; 
     return executeSQL($query);
 }
 function deleteData($tablename,$where)
 {
-    $query="Delete From $tablename Where $where"; 
+    $query = "Delete From $tablename Where $where"; 
     executeSQL($query);
 }
 ?>

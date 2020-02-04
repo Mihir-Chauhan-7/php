@@ -7,6 +7,7 @@
 <fieldset> 
     <?php
     require_once 'category_operations.php';
+    isset($_POST['update']) ? updateCategory($_POST,$_GET['id']) : "";
     isset($_GET['id']) ? setCategoryValue($_GET['id']) : "" ;
     isset($_POST['submit']) ? addCategory($_POST) : "";
     ?>
@@ -29,8 +30,8 @@
                 <?php endforeach; ?>
                 </select>
             <input type="file" name="image"><br><br>
-            <input type="submit" name="submit" value="Add Category">
-            
+            <input type="submit" name="submit" value="Add Category" <?php echo getCategoryValue('btnAdd') ?> >
+            <input type="submit" name="update" value="Update" <?php echo getCategoryValue('btnShow') ?> >
         </form>
 </fieldset>
 </body>

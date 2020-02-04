@@ -8,8 +8,10 @@
     <?php
     require_once 'post_operations.php';
     require_once 'category_operations.php';
+    isset($_POST['update']) ? updatePost($_POST,$_GET['id']) : "";
     isset($_POST['submit']) ? addPost($_POST) : "";
     isset($_GET['id']) ? setPostValue($_GET['id']) : "" ;
+
     ?>
         <legend>Blog Post Details</legend>
         <form method="POST">
@@ -30,8 +32,8 @@
         		</option>
             	<?php endforeach; ?>
     		</select><br><br>
-            <input type="submit" name="submit" value="Add Post">
-            
+            <input type="submit" name="submit" value="Add Post" <?php echo getPostValue('btnAdd') ?>>
+            <input type="submit" name="update" value="Update" <?php echo getPostValue('btnShow') ?>>
         </form>
 </fieldset>
 </body>
