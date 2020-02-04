@@ -26,14 +26,14 @@ function addPost($blogPostData)
     unset($blogPostData['submit']);
     unset($blogPostData['categories']);
     $blogPostData['uid'] = $_SESSION['uid'];
-    print_r($blogPostData);
+
     executeSQL(prepareData('blog_post',$blogPostData));
     foreach($selectedCategory as $singleCategory)
     {
         $query = "Insert into post_category values(".$_SESSION['last_id'].",".$singleCategory.")";
         executeSQL($query);
     }
-    //header("Location:manage_post.php");  
+    header("Location:manage_post.php");  
 }
 function getPostValue($fieldname)
 {

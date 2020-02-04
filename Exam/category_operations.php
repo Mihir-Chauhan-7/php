@@ -43,12 +43,17 @@ function displayCategoryList()
 function addCategory($categoryData)
 {
 
-    //print_r(fetchData('category',"url='".$categoryData['url']."'"));
-    unset($categoryData['submit']);
-    print_r($categoryData);
+    if(!sizeof(fetchData('category',"url='".$categoryData['url']."'") ) > 0)
+    {
+        unset($categoryData['submit']);
+        executeSQL(prepareData('category',$categoryData));
+        header("Location:manage_category.php");    
+    }
+    else
+    {
+        echo "Url Already Exist ! ";
+    }
     
-    executeSQL(prepareData('category',$categoryData));
-    //header("Location:manage_category.php");
 }
 function getCategories()
 {

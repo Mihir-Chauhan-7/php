@@ -1,8 +1,13 @@
 <?php
     require_once 'operations.php';
-    isset($_POST['update']) ? updateUser($_POST) : "";
-    isset($_POST['submit']) ? registerUser($_POST) : "";
-    isset($_GET['id']) ? setUserValues($_GET['id']) : "";
+    if(isset($_POST['submit'])){
+         registerUser($_POST); 
+    }else if(isset($_POST['update'])){
+        updateUser($_POST);
+    }else if(isset($_GET['id'])){
+        setUserValues($_GET['id']);
+    }
+    
 ?>
 <fieldset>
         <legend>Add User</legend>

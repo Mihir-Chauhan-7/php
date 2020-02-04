@@ -19,16 +19,16 @@ function getConnection()
 function executeSQL($query)
 {
     $conn = getConnection();
-    if(mysqli_query($conn,$query))
-    {
-        $_SESSION['last_id'] = mysqli_insert_id($conn);
-        return @mysqli_fetch_all(mysqli_query($conn,$query),MYSQLI_ASSOC);
-    }
-    else
-    {
-        echo "Error ".mysqli_error($conn);
-        return false;
-    }
+	if($result = mysqli_query($conn,$query))
+	{
+		$_SESSION['last_id'] = mysqli_insert_id($conn);
+		return @mysqli_fetch_all($result,MYSQLI_ASSOC);
+	}
+	else
+	{
+		echo "Error ".mysqli_error($conn);
+		return false;
+	}
 }
 
 function prepareData($tablename,$data)
