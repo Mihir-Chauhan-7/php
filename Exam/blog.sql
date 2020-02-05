@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2020 at 05:44 PM
+-- Generation Time: Feb 05, 2020 at 02:46 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -45,8 +45,9 @@ CREATE TABLE `blog_post` (
 --
 
 INSERT INTO `blog_post` (`pid`, `uid`, `title`, `url`, `content`, `image`, `published_at`, `created_at`, `updated_at`) VALUES
-(26, 1, 'Post 1', 'post1', 'abc', '', '1111-11-11', '2020-02-04 11:46:12', NULL),
-(34, 1, 'Post 1', 'post1', 'abc', '', '2020-02-04', '2020-02-04 13:05:12', NULL);
+(41, 3, 'Post 1', 'post1', 'post', '', '2020-02-05', '2020-02-05 14:06:08', NULL),
+(42, 3, 'Title', 'post4', 'post', '', '1212-12-12', '2020-02-05 14:08:59', NULL),
+(43, 3, 'Post 1', 'p', 'abc', '', '2121-05-11', '2020-02-05 14:14:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -71,11 +72,11 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`cid`, `parent_id`, `title`, `meta_title`, `url`, `content`, `image`, `created_at`, `updated_at`) VALUES
-(17, 17, 'Cat 1', 'Category 1', 'cat1', 'content for cat 1', 'http://localhost/Cybercom/php/Exam/uploads/15260.jpg', '2020-02-04 10:57:08', '2020-02-04 10:56:59'),
+(17, 18, 'Cat 1', 'Category 1', 'cat1', 'content for cat 1', 'http://localhost/Cybercom/php/Exam/uploads/15260.jpg', '2020-02-04 10:57:08', '2020-02-05 08:49:39'),
 (18, 17, 'Cat 2', 'abc', 'cat2', 'content', 'http://localhost/Cybercom/php/Exam/uploads/53703.jpg', '2020-02-04 10:57:28', '2020-02-04 12:06:41'),
 (19, 18, 'Cat 3', 'abc', 'cat3', 'content', 'http://localhost/Cybercom/php/Exam/uploads/15262.jpg', '2020-02-04 10:57:43', '2020-02-04 12:06:48'),
 (21, 19, 'Cat 7', 'abc', 'cat7', 'a', 'http://localhost/Cybercom/php/Exam/uploads/36880.jpg', '2020-02-04 16:12:11', '2020-02-04 12:06:57'),
-(22, 18, 'Cat 6', 'abc', 'cat6', 'abcd', 'http://localhost/Cybercom/php/Exam/uploads/15250.jpg', '2020-02-04 16:15:12', '2020-02-04 10:50:10');
+(22, 22, 'Cat 6', 'abc', 'cat6', 'abcd', 'http://localhost/Cybercom/php/Exam/uploads/15250.jpg', '2020-02-04 16:15:12', '2020-02-05 08:49:51');
 
 -- --------------------------------------------------------
 
@@ -94,8 +95,8 @@ CREATE TABLE `post_category` (
 --
 
 INSERT INTO `post_category` (`pcid`, `pid`, `cid`) VALUES
-(10, 34, 17),
-(11, 34, 18);
+(31, 43, 17),
+(32, 43, 19);
 
 -- --------------------------------------------------------
 
@@ -124,7 +125,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`uid`, `prefix`, `fname`, `lname`, `mno`, `email`, `password`, `information`, `last_login`, `created_at`, `updated_at`) VALUES
 (1, 'Mr', 'Mihir123', 'Chauhan', 123, 'abc@gmail.com', 'abc', '', '01:41:16PM', '2020-02-04 10:59:42', NULL),
 (2, 'Mr', 'Mihir', 'Chauhan', 123, 'abc4@gmail.com', '900150983cd24fb0d6963f7d28e17f72', '', '01:50:50PM', '2020-02-04 13:34:14', NULL),
-(3, 'Mr', 'Mihir', 'Chauhan', 123, 'chauhanmihir51@gmail.com', 'c56887a00f007b90856e362a9ae8e08c', 'abcd', '2020-02-04 05:20:38PM', '2020-02-04 13:45:53', '2020-02-04 11:50:38');
+(3, 'Mr', 'Mihir', 'Chauhan', 123, 'chauhanmihir51@gmail.com', 'c56887a00f007b90856e362a9ae8e08c', 'abcd', '2020-02-05 02:34:40PM', '2020-02-04 13:45:53', '2020-02-05 09:04:40');
 
 --
 -- Indexes for dumped tables
@@ -165,7 +166,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `blog_post`
 --
 ALTER TABLE `blog_post`
-  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -177,7 +178,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `post_category`
 --
 ALTER TABLE `post_category`
-  MODIFY `pcid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `pcid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `user`
