@@ -1,12 +1,12 @@
 <?php
 
-function checkSession()
-{
+isset($_GET['logout']) ? logOut() : "";
+
+function checkSession(){
     return isset($_SESSION['uid']) && !empty($_SESSION['uid']) ? true : false;
 }
 
-function logOut()
-{
+function logOut(){
     unset($_SESSION['uid']);
     header("Location:login.php");
 }
