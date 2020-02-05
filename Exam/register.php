@@ -4,51 +4,62 @@
 </head>
 <body>    
 <?php
+    $title="Registration";
     require_once 'operations.php';
     if(isset($_POST['submit'])){
-         registerUser($_POST); 
+        $title="Registration";
+        registerUser($_POST); 
     }else if(isset($_POST['update'])){
         updateUser($_POST);
     }else if(isset($_GET['id'])){
+        $title="Update";
         setUserValues($_GET['id']);
     }
     
 ?>
-<fieldset>
-        <legend>Add User</legend>
-        <form method="POST">
-        <?php $prefix = ['Mr','Miss','Mrs','Dr']; ?>
-        <select name="prefix">
-            <?php foreach($prefix as $value) : ?>
-            <?php $selected = $value == getValue('prefix') 
-            ? 'selected'
-            : ''; ?>
-        <option value="<?php echo $value ?>" <?php echo $selected; ?>>
-            <?php echo $value ?>
-        </option>
-            <?php endforeach; ?>
-        </select>
-        <input type="text" name="fname" placeholder="First Name" 
-            value="<?php echo getValue('fname'); ?>"><br><br>
-        <input type="text" name="lname" placeholder="Last Name" 
-            value="<?php echo getValue('lname'); ?>"><br><br>
-        <input type="text" name="email" placeholder="Email" 
-            value="<?php echo getValue('email'); ?>"><br><br>
-        <input type="text" name="mno" placeholder="Mobile No" 
-            value="<?php echo getValue('mno'); ?>"><br><br>
-        <input type="text" name="information" placeholder="Information"
-            value="<?php echo getValue('information') ?>"><br><br>
-            <input type="password" name="password" placeholder="Password" 
-        <?php echo getValue('btnAdd')?>><br><br>
-        <input type="password" name="cpassword" placeholder="Confirm Password"
-        <?php echo getValue('btnAdd')?>><br><br>
+<div class="card text-center" style="margin-top:20px;margin-left:450px;width: 30rem">
+  <div class="card-header">
+  <h5 class="card-title"><?php echo $title; ?></h5>
+  </div>
+  <div class="card-body">
+  <form method="POST">
+        <div class="input-group">
+            <?php $prefix = ['Mr','Miss','Mrs','Dr']; ?>
+            <select class="form-control" name="prefix">
+                <?php foreach($prefix as $value) : ?>
+                <?php $selected = $value == getValue('prefix') 
+                ? 'selected'
+                : ''; ?>
+            <option value="<?php echo $value ?>" <?php echo $selected; ?>>
+                <?php echo $value ?>
+            </option>
+                <?php endforeach; ?>
+            </select>
+            <input style="width: 300px" class="form-control" type="text" name="fname" placeholder="First Name" 
+                value="<?php echo getValue('fname'); ?>">
+        </div><br>
+        
+        <input  class="form-control" type="text" name="lname" placeholder="Last Name" 
+            value="<?php echo getValue('lname'); ?>"><br>
+        <input class="form-control" type="text" name="email" placeholder="Email" 
+            value="<?php echo getValue('email'); ?>"><br>
+        <input class="form-control" type="text" name="mno" placeholder="Mobile No" 
+            value="<?php echo getValue('mno'); ?>"><br>
+        <input class="form-control" type="text" name="information" placeholder="Information"
+            value="<?php echo getValue('information') ?>"><br>
+            <input class="form-control" type="password" name="password" placeholder="Password" 
+        <?php  echo getValue('btnAdd')?>><br>
+        <input class="form-control" type="password" name="cpassword" placeholder="Confirm Password"
+        <?php echo getValue('btnAdd')?>><br>
         <input type="checkbox" name="terms" <?php echo getValue('btnAdd')?>>
         <label for="terms" <?php echo getValue('btnAdd')?>>
-        Hereby,I Accept Terms & Conditions.</label><br><br>
-        <input type="submit" name="submit" value="Add" <?php echo getValue('btnAdd')?>>
-        <input type="submit" name="update" value="Update" <?php echo getValue('btnShow') ?>>
-            
+        Hereby,I Accept Terms & Conditions.</label><br>    
+  </div>
+  <div class="card-footer text-muted">
+  <input class="btn btn-outline-dark" type="submit" name="submit" value="Add" <?php echo getValue('btnAdd')?>>
+        <input class="btn btn-outline-dark" type="submit" name="update" value="Update" <?php echo getValue('btnShow') ?>>
         </form>
-    </fieldset>
+  </div>
+</div>
 </body>
 </html>

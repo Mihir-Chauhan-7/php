@@ -33,13 +33,6 @@ function checkLogin($email,$password)
         return false;
     }
 }
-
-function logOut()
-{
-    unset($_SESSION['uid']);
-    header("Location:login.php");
-}
-
 function getValue($fieldname)
 {
     global $user;

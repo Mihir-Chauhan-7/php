@@ -21,8 +21,8 @@
                 }
             }
         ?>
-        <div class="card text-center" style="margin-top: 100px;margin-left: 400px;
-        width: 18rem;">
+        <div class="card text-center" style="margin-top: 120px;margin-left: 520px;
+        width: 20rem;">
         <form method="POST">
             <div class="card-body" >
                 <h4 class="card-title">Login</h4>

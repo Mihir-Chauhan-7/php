@@ -2,7 +2,8 @@
 function displayPostList()
 {
     $postList = getPosts();
-    echo "<table class='table'><thead class='thead-dark'><th>ID</th><th>Category Name</th>
+    echo "<table class='table' style='text-align:center;margin:60px;width: 90%'>
+    <thead class='table-success'><th>ID</th><th>Category Name</th>
     <th>Title</th><th>Published At</th><th colspan=2>Actions</th></thead>";
     for($i = 0 ; $i < sizeof($postList) ; $i++ )
     {
@@ -35,14 +36,7 @@ function addPost($blogPostData)
         $blogPostData['uid'] = $_SESSION['uid'];
         executeSQL(prepareData('blog_post',$blogPostData));
         $last_post_id=$_SESSION['last_id'];
-        foreach($selectedCategory as $singleCategory)
-        {
-
-            $query = "Insert into post_category values(NULL,".$last_post_id.",".$singleCategory.")";
-            echo $query;
-            executeSQL($query);
-            header("Location:manage_post.php");
-        }
+        addPostRelation($selectedCategory,$last_post_id);
     }  
 }
 function getPostValue($fieldname)
@@ -50,26 +44,45 @@ function getPostValue($fieldname)
     global $singlePost;
         if($fieldname == 'btnShow')
         {
-            return isset($singlePost[0][$fieldname]) ? $singlePost[0][$fieldname] : "hidden";      
+            return isset($singlePost[$fieldname]) ? $singlePost[$fieldname] : "hidden";      
         }
-        return isset($singlePost[0][$fieldname]) ? $singlePost[0][$fieldname] : "";
+        return isset($singlePost[$fieldname]) ? $singlePost[$fieldname] : "";
 }
 function setPostValue($id)
 {
     global $singlePost;
-    $singlePost = fetchData('blog_post',"pid=$id");
-    $singlePost[0]['btnShow'] = "true";
-    $singlePost[0]['btnAdd'] = "hidden";
+    $query = "SELECT P.title,P.content,P.url,P.published_at,GROUP_CONCAT(C.title) 
+    AS category FROM blog_post P INNER JOIN post_category PC ON P.pid = PC.pid
+    INNER JOIN category C ON C.cid = PC.cid where (P.pid=$id) GROUP BY P.pid";
+    $singlePost=executeSQL($query)[0];
+    $singlePost['btnShow'] = "true";
+    $singlePost['btnAdd'] = "hidden";
+    $singlePost['category']=explode(",",$singlePost['category']);
+    
 }
 function deletePost($id)
 {
     deleteData('blog_post',"pid='".$id."'");
+}
+
+function addPostRelation($selectedCategory,$last_post_id)
+{
+    foreach($selectedCategory as $singleCategory)
+    {
+        $query = "Insert into post_category values(NULL,".$last_post_id.",".$singleCategory.")";
+        echo $query;
+        executeSQL($query);
+        header("Location:manage_post.php");
+    }
 }
 function updatePost($newData,$id)
 {
     print_r($newData);
     unset($newData['cpassword']);
     unset($newData['update']);
+    deleteData('post_category',"pid='".$id."'");
+    $selectedCategory = $newData['categories'];
+    addPostRelation($selectedCategory,$id);
     executeSQL(prepareUpdateData('blog_post',$newData,"pid='".$id."'"));
     header("Location:manage_post.php");
 }

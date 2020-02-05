@@ -24,7 +24,8 @@ function setCategoryValue($id)
 function displayCategoryList()
 {
     $categoryList = getCategories();
-    echo "<table class='table' border=1><thead class='thead-dark'><th>ID</th><th>Image</th>
+    echo "<table class='table' style='text-align:center;margin:60px;width: 90%'>
+        <thead class='table-success'><th>ID</th><th>Image</th>
         <th>Title</th><th>Parent Category</th><th>Publish Date</th><th colspan=2>Actions</th>
         </thead>";
     for($i = 0 ; $i < sizeof($categoryList) ; $i++ )
@@ -32,7 +33,7 @@ function displayCategoryList()
         $image=!empty($categoryList[$i]['image']) ? 
         
         "<img class='img-fluid img-thumbnail' 
-        style='margin-right: -100px;width: 180px; height: auto' src='".$categoryList[$i]['image']."' />"  
+        style='width: 180px; height: 110px' src='".$categoryList[$i]['image']."' />"  
         
         : "No Image";
         
