@@ -28,6 +28,10 @@ function displayCategoryList(){
         </thead>";
     for($i = 0 ; $i < sizeof($categoryList) ; $i++ ){
         
+        $categoryList[$i]['parent_title']=empty($categoryList[$i]['parent_title']) 
+            ? $categoryList[$i]['parent_title']="-" 
+            : $categoryList[$i]['parent_title'];
+
         $image = !empty($categoryList[$i]['image']) 
             ? "<img class='img-fluid img-thumbnail' 
             style='width: 180px; height: 110px' src='".$categoryList[$i]['image']."' />"  
@@ -63,6 +67,8 @@ function deleteCategory($id){
     deleteData('category',"cid='".$id."'");
 }
 function updateCategory($newData,$id,$file){
+    $newData['parent_id'] == $id ? $newData['parent_id'] = "NULL" : $newData['parent_id']; 
+    print_r($newData);
     !empty($file['image']['name']) ? $newData['image'] = saveImage($file) : ""; 
     unset($newData['update']);
     executeSQL(prepareUpdateData('category',$newData,"cid='".$id."'"));
