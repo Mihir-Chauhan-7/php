@@ -1,0 +1,28 @@
+SELECT P.pid,P.title,C.title
+From blog_post P 
+LEFT JOIN post_category PC ON P.pid=PC.pid
+LEFT JOIN category C ON C.cid=PC.cid
+
+To Display Parent Title
+
+SELECT
+    C.cid,
+    CP.title AS parent_title,
+    c.title,
+    C.created_at
+FROM
+    category C
+LEFT JOIN category CP ON
+    C.parent_id = CP.cid
+
+To Display Child
+
+SELECT
+    CP.cid AS parent_id,
+    GROUP_CONCAT(C.title) AS child,
+    CP.title AS parent_title
+FROM
+    category CP
+LEFT JOIN category C ON
+	CP.cid = C.parent_id
+GROUP BY C.parent_id
