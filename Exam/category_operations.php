@@ -24,7 +24,7 @@ function displayCategoryList(){
     
     echo "<table class='table' style='text-align:center;margin:60px;width: 90%'>
         <thead class='table-success'><th>ID</th><th>Image</th>
-        <th>Title</th><th>Parent Category</th><th>Publish Date</th><th colspan=2>Actions</th>
+        <th>Title</th><th>Parent Category</th><th>Created At</th><th colspan=2>Actions</th>
         </thead>";
     for($i = 0 ; $i < sizeof($categoryList) ; $i++ ){
         
@@ -51,9 +51,10 @@ function addCategory($categoryData,$file){
         echo "Url Already Exist ! ";
     }
     else{
-        unset($categoryData['submit']);
+        unset($categoryData['submit']); 
         !empty($file['image']['name']) ? $categoryData['image'] = saveImage($file) : "";
         print_r($categoryData);
+        echo prepareData('category',$categoryData);
         executeSQL(prepareData('category',$categoryData));
         header("Location:manage_category.php");
     }

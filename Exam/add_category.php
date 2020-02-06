@@ -49,11 +49,13 @@
     
         <div class="input-group">
             <select class="form-control" name="parent_id">
+                <option value=''>No Parent</option>
                 <?php $parentCatagoryList=getCategories(); ?>
                 <?php foreach($parentCatagoryList as $singleCategory) : ?>
                 <?php $selected = $singleCategory['cid'] == getCategoryValue('parent_id') 
                     ? 'selected'
                     : ''; ?>
+
                 <option value="<?php echo $singleCategory['cid'] ?>" <?php echo $selected; ?>>
                     <?php echo $singleCategory['title'] ?>
                 </option>
