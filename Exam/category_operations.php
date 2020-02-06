@@ -19,7 +19,9 @@ function setCategoryValue($id){
     $categoryData['btnAdd'] = "hidden";
 }
 function displayCategoryList(){
-    $categoryList = getCategories();
+    $categoryList =executeSQL("SELECT C.cid,CP.title AS parent_title,c.title,C.created_at,C.image From 
+        category C LEFT JOIN category CP ON C.parent_id=CP.cid"); 
+    
     echo "<table class='table' style='text-align:center;margin:60px;width: 90%'>
         <thead class='table-success'><th>ID</th><th>Image</th>
         <th>Title</th><th>Parent Category</th><th>Publish Date</th><th colspan=2>Actions</th>
@@ -30,13 +32,9 @@ function displayCategoryList(){
             ? "<img class='img-fluid img-thumbnail' 
             style='width: 180px; height: 110px' src='".$categoryList[$i]['image']."' />"  
             : "No Image";
-        
-        $catNames = executeSQL("Select title From Category Where cid='"
-            .$categoryList[$i]['parent_id']."'");
-        
-        $catTitle = isset($catNames[0]['title']) ? $catNames[0]['title'] : "-";
+
         echo "<tr><td>".$categoryList[$i]['cid']."</td><td>".$image."</td>
-            <td>".$categoryList[$i]['title']."</td><td>".$catTitle."</td>
+            <td>".$categoryList[$i]['title']."</td><td>".$categoryList[$i]['parent_title']."</td>
             <td>".$categoryList[$i]['created_at']."</td><td>
             <a href='add_category.php?id=".$categoryList[$i]['cid']."'>Edit</a></td><td>
             <a href='manage_category.php?action=delete&id=".$categoryList[$i]['cid']

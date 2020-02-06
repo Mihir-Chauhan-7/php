@@ -25,9 +25,8 @@
     <h5 class="card-title"><?php echo $title; ?></h5>
     </div>
     <div class="card-body">
-    <table>
     <form method="POST">
-        <tr>
+        <div>
             <div class="input-group"> 
                 <?php $prefix = ['Mr','Miss','Mrs','Dr']; ?>
                 <select class="form-control" name="prefix">
@@ -44,7 +43,7 @@
             <input class="form-control" type="text" name="fname" 
                 placeholder="First Name" value="<?php echo getValue('fname'); ?>">
             </div>
-        </tr>
+        </div>
     <div>
         <input class="form-control" type="text" name="lname" placeholder="Last Name"
             value="<?php echo getValue('lname'); ?>">
@@ -58,8 +57,8 @@
             value="<?php echo getValue('mno'); ?>">
     </div>
     <div>
-    <input class="form-control" type="text" name="information" placeholder="Information"
-        value="<?php echo getValue('information') ?>">
+        <input class="form-control" type="text" name="information" placeholder="Information"
+            value="<?php echo getValue('information') ?>">
     </div>
     <div>
         <input class="form-control" type="password" name="password" placeholder="Password" 
