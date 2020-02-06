@@ -17,7 +17,7 @@
             <div style='margin:10px;float:right' class=btn-group mr-2' role='group'>
                 <a class='btn btn-outline-dark' href='config.php?logout'>Logout</a>
             </div>"
-        : die("Your Are Not Logged In");
+        : header("Location:login.php");
     isset($_POST['update']) ? updatePost($_POST,$_GET['id']) : "";
     isset($_POST['submit']) ? addPost($_POST) : "";
     isset($_GET['id']) ? setPostValue($_GET['id']) : "" ;

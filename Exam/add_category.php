@@ -18,7 +18,7 @@
         <div style='float:right;margin:10px' class=btn-group mr-2' role='group'>
             <a class='btn btn-outline-dark' href='config.php?logout'>Logout</a>
         </div>"       
-        : die("Your Are Not Logged In");
+        : header("Location:login.php");
     
     isset($_POST['update']) ? updateCategory($_POST,$_GET['id'],$_FILES) : "";
     isset($_GET['id']) ? setCategoryValue($_GET['id']) : "" ;
