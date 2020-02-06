@@ -51,19 +51,22 @@ function setUserValues($id){
     $user[0]['btnShow'] = "true";
     $user[0]['btnAdd'] = "hidden";
 }
-function updateUser($newData){
-    unset($newData['password']);
-    unset($newData['cpassword']);
-    unset($newData['update']);
-    print_r($newData);
-    if($error=validateFields($newData)){
-        header("Location:register.php?id=".$_SESSION['uid']."&error=<strong>".$error."</strong>");
+function updateUser($newData,$id){
+    if(checkExist('user',"email='".$newData['email']."' AND uid!=".$id)){
+        echo "Email Id is Already Registered";
     }
     else{
-        echo prepareUpdateData('user',$newData,"uid='".$_SESSION['uid']."'");
-        executeSQL(prepareUpdateData('user',$newData,"uid='".$_SESSION['uid']."'"));
-        header("Location:manage_post.php");
+        unset($newData['password']);
+        unset($newData['cpassword']);
+        unset($newData['update']);
+        if($error=validateFields($newData)){
+            header("Location:register.php?id=".$_SESSION['uid']."&error=<strong>".$error."</strong>");
+        }
+        else{
+            echo prepareUpdateData('user',$newData,"uid='".$_SESSION['uid']."'");
+            executeSQL(prepareUpdateData('user',$newData,"uid='".$_SESSION['uid']."'"));
+            header("Location:manage_post.php");
+        }
     }
-    
 }
 ?>

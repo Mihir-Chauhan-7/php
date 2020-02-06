@@ -12,7 +12,7 @@
         registerUser($_POST); 
     }
     else if(isset($_POST['update'])){
-        updateUser($_POST);
+        updateUser($_POST,$_GET['id']);
     }
     else if(isset($_GET['id'])){
         $title = "Update";

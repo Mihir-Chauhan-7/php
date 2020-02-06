@@ -57,7 +57,7 @@ function deleteData($tablename,$where){
     executeSQL($query);
 }
 function checkExist($tablename,$where){
-    return sizeof(fetchData($tablename,$where))>0 ? true : false;
+    return sizeof(fetchData($tablename,$where)) > 0 ? true : false;
 }
 
 function saveImage($file){

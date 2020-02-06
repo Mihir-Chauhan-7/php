@@ -1,23 +1,53 @@
 <?php
 function displayPostList(){
     $postList = getPosts();
+    if(sizeof($postList)>0){
         echo "<table class='table' style='text-align:center;margin:60px;width: 90%'>
-            <thead class='table-success'><th>ID</th><th>Category Name</th>
-            <th>Title</th><th>Published At</th><th colspan=2>Actions</th></thead>";
-    for($i = 0 ; $i < sizeof($postList) ; $i++ ){
-        echo "<tr><td>".$postList[$i]['pid']."</td><td>".$postList[$i]['category']."</td>
-            <td>".$postList[$i]['title']."</td><td>".$postList[$i]['published_at']."</td>
-            <td><a href='add_post.php?id=".$postList[$i]['pid']."'>Edit</a>
-            </td><td><a href='manage_post.php?action=delete&id=".$postList[$i]['pid']."'
-            >Delete</a></td></tr>";
-    }    
-    echo "</table>";
+            <thead class='table-success'>
+               <th>ID</th>
+               <th>Category Name</th>
+               <th>Title</th>
+               <th>Published At</th>
+               <th colspan=2>Actions</th>
+            </thead>";
+        for($i = 0 ; $i < sizeof($postList) ; $i++ ){
+            echo "<tr>
+                  <td>".$postList[$i]['pid']."</td>
+                  <td>".$postList[$i]['category']."</td>
+                  <td>".$postList[$i]['title']."</td>
+                  <td>".$postList[$i]['published_at']."</td>
+                  <td><a href='add_post.php?id=".$postList[$i]['pid']."'>Edit</a></td>
+                  <td><a href='manage_post.php?action=delete&id=".$postList[$i]['pid']."'
+                       >Delete</a>
+                  </td>
+                  </tr>";
+        }    
+        echo "</table>";
+    }
+    else
+    {
+        echo "<center><hr><h4 class='display-4'>No Posts Yet...</h4></center>";
+    }
+        
 }
 
 function getPosts(){
-    $query = "SELECT P.pid,P.title,P.published_at,GROUP_CONCAT(C.title) AS category
-                FROM blog_post P INNER JOIN post_category PC ON P.pid = PC.pid
-                INNER JOIN category C ON C.cid = PC.cid GROUP BY P.pid";
+    $query = "SELECT
+                P.uid,
+                P.pid,
+                P.title,
+                P.published_at,
+                GROUP_CONCAT(C.title) AS category
+              FROM
+                blog_post P
+              INNER JOIN post_category PC ON
+                P.pid = PC.pid
+              INNER JOIN category C ON
+                C.cid = PC.cid
+              GROUP BY
+                P.pid
+              HAVING
+                P.uid =".$_SESSION['uid'];
     return executeSQL($query);
 }
 function addPost($blogPostData){
@@ -65,12 +95,18 @@ function addPostRelation($selectedCategory,$last_post_id){
     }
 }
 function updatePost($newData,$id){
-    unset($newData['cpassword']);
-    unset($newData['update']);
-    deleteData('post_category',"pid='".$id."'");
-    $selectedCategory = $newData['categories'];
-    addPostRelation($selectedCategory,$id);
-    executeSQL(prepareUpdateData('blog_post',$newData,"pid='".$id."'"));
-    header("Location:manage_post.php");
+    if(checkExist('blog_post',"url='".$newData['url']."' AND pid!=".$id)){
+        echo "Url Already Exist";
+    }
+    else{
+        unset($newData['cpassword']);
+        unset($newData['update']);
+        deleteData('post_category',"pid='".$id."'");
+        $selectedCategory = $newData['categories'];
+        addPostRelation($selectedCategory,$id);
+        executeSQL(prepareUpdateData('blog_post',$newData,"pid='".$id."'"));
+        header("Location:manage_post.php");
+    }
+    
 }
 ?>
