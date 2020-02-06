@@ -23,7 +23,7 @@
             <h4 class="card-title">Login</h4>
             <div>
                 <input type="text" class="form-control" name="email" placeholder="Email">
-            </div>
+            </div><br>
             <div>
                 <input type="password" class="form-control" name="password" 
                     placeholder="Password"><br>
