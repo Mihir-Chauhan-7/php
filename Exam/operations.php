@@ -7,11 +7,16 @@ function registerUser($userData){
         echo "Email Id is Already Registered";
     }
     else{
-        unset($userData['submit']);
-        unset($userData['cpassword']);
-        $userData['password'] = md5($userData['password']);
-        executeSQL(prepareData('user',$userData));
-        header("Location:login.php");
+        if($error=validateFields($userData)){
+            echo "<strong>".$error."</strong>";    
+        }
+        else{
+            unset($userData['submit']);
+            unset($userData['cpassword']);
+            $userData['password'] = md5($userData['password']);
+            executeSQL(prepareData('user',$userData));
+            header("Location:login.php");
+        }
     }
 }
 
@@ -50,8 +55,15 @@ function updateUser($newData){
     unset($newData['password']);
     unset($newData['cpassword']);
     unset($newData['update']);
-    echo prepareUpdateData('user',$newData,"uid='".$_SESSION['uid']."'");
-    executeSQL(prepareUpdateData('user',$newData,"uid='".$_SESSION['uid']."'"));
-    header("Location:manage_post.php");
+    print_r($newData);
+    if($error=validateFields($newData)){
+        echo "<strong>".$error."</strong>";    
+    }
+    else{
+        echo prepareUpdateData('user',$newData,"uid='".$_SESSION['uid']."'");
+        executeSQL(prepareUpdateData('user',$newData,"uid='".$_SESSION['uid']."'"));
+        header("Location:manage_post.php");
+    }
+    
 }
 ?>

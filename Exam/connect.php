@@ -71,4 +71,42 @@ function saveImage($file){
         }
     }
 }
+
+function validateFields($data){
+    $errorList="";
+    foreach($data as $key => $value)
+    {
+        switch ($key) {
+            case 'fname' :
+                $errorList .= strlen($value)>0 && preg_match("/^[A-Za-z]+$/",$value) 
+                    ? "" 
+                    : "Invalid First Name \n"; 
+                break;
+            case 'lname' :
+                $errorList .= strlen($value)>0 && preg_match("/^[A-Za-z]+$/",$value) 
+                    ? "" 
+                    : "Invalid Last Name \n"; 
+                break;
+            case 'mno' :
+                $errorList .= preg_match('/^[6-9][0-9]{9}$/',$value) 
+                    ? "" 
+                    : "Invalid Mobile No \n";
+                break;
+            case 'email' :
+                $errorList .= strlen($value)>0 && 
+                preg_match('/^([A-Za-z0-9\.]+)@([A-Za-z]+).([a-z]{1,8})([.a-z]{1,4})?$/', $value)
+                    ? "" 
+                    : "Invalid Email \n"; 
+                break;
+            case 'password' :
+                $errorList .= strlen($value)>0 && $value == $data['cpassword']
+                    ? "" 
+                    : "Invalid Password \n";
+            default:
+                break;
+        }
+    }
+    return strlen($errorList)>0 ? $errorList : false;
+	
+}
 ?>
