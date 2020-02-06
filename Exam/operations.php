@@ -8,7 +8,7 @@ function registerUser($userData){
     }
     else{
         if($error=validateFields($userData)){
-            echo "<strong>".$error."</strong>";    
+            echo "<strong>".$error."</strong>";   
         }
         else{
             unset($userData['submit']);
@@ -57,7 +57,7 @@ function updateUser($newData){
     unset($newData['update']);
     print_r($newData);
     if($error=validateFields($newData)){
-        echo "<strong>".$error."</strong>";    
+        header("Location:register.php?id=".$_SESSION['uid']."&error=<strong>".$error."</strong>");
     }
     else{
         echo prepareUpdateData('user',$newData,"uid='".$_SESSION['uid']."'");

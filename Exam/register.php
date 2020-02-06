@@ -71,7 +71,8 @@
     <div>    
         <input type="checkbox" name="terms" <?php echo getValue('btnAdd')?>>
         <label for="terms" <?php echo getValue('btnAdd')?>>
-            Hereby,I Accept Terms & Conditions.</label>    
+            Hereby,I Accept Terms & Conditions.</label> 
+        <?php echo isset($_GET['error']) ? $_GET['error'] : ""; ?>     
     </div>
     <div class="card-footer text-muted">
         <input class="btn btn-outline-dark" type="submit" name="submit" value="Add" 

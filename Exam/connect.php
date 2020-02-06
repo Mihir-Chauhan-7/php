@@ -80,28 +80,28 @@ function validateFields($data){
             case 'fname' :
                 $errorList .= strlen($value)>0 && preg_match("/^[A-Za-z]+$/",$value) 
                     ? "" 
-                    : "Invalid First Name \n"; 
+                    : "Invalid First Name <br>"; 
                 break;
             case 'lname' :
                 $errorList .= strlen($value)>0 && preg_match("/^[A-Za-z]+$/",$value) 
                     ? "" 
-                    : "Invalid Last Name \n"; 
+                    : "Invalid Last Name <br>"; 
                 break;
             case 'mno' :
                 $errorList .= preg_match('/^[6-9][0-9]{9}$/',$value) 
                     ? "" 
-                    : "Invalid Mobile No \n";
+                    : "Invalid Mobile No <br>";
                 break;
             case 'email' :
                 $errorList .= strlen($value)>0 && 
                 preg_match('/^([A-Za-z0-9\.]+)@([A-Za-z]+).([a-z]{1,8})([.a-z]{1,4})?$/', $value)
                     ? "" 
-                    : "Invalid Email \n"; 
+                    : "Invalid Email <br>"; 
                 break;
             case 'password' :
                 $errorList .= strlen($value)>0 && $value == $data['cpassword']
                     ? "" 
-                    : "Invalid Password \n";
+                    : "Invalid Password <br>";
             default:
                 break;
         }
