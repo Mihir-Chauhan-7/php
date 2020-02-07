@@ -1,21 +1,27 @@
 <?php
-
 require_once 'connect.php';
 
 function registerUser($userData){
     if(checkExist('user',"email='".$userData['email']."'")){
-        echo "Email Id is Already Registered";
+        $_SESSION['errorListRegister'] = "<br><strong>Email Id is Already Registered<strong>";
     }
     else{
-        if($error=validateFields($userData)){
-            echo "<strong>".$error."</strong>";   
+        if($error = validateFields($userData)){
+            $_SESSION['errorListRegister'] =  "<br><strong>".$error."</strong>";   
         }
         else{
-            unset($userData['submit']);
-            unset($userData['cpassword']);
-            $userData['password'] = md5($userData['password']);
-            executeSQL(prepareData('user',$userData));
-            header("Location:login.php");
+            if(isset($userData['terms'])){
+                unset($userData['submit']);
+                unset($userData['cpassword']);
+                $userData['password'] = md5($userData['password']);
+                executeSQL(prepareData('user',$userData));
+                header("Location:login.php");
+            }
+            else{
+                $_SESSION['errorListRegister'] = "<br><strong>Please Acccept Terms And 
+                    Conditions</strong>";
+            }
+            
         }
     }
 }
@@ -53,14 +59,16 @@ function setUserValues($id){
 }
 function updateUser($newData,$id){
     if(checkExist('user',"email='".$newData['email']."' AND uid!=".$id)){
-        echo "Email Id is Already Registered";
+        $_SESSION['errorListRegister'] = "<br><strong>Email Id is Already Registered</strong>";
+        header("Location:register.php?id=".$_SESSION['uid']."&error=".$_SESSION['errorListRegister']);
     }
     else{
         unset($newData['password']);
         unset($newData['cpassword']);
         unset($newData['update']);
         if($error=validateFields($newData)){
-            header("Location:register.php?id=".$_SESSION['uid']."&error=<strong>".$error."</strong>");
+            $_SESSION['errorListRegister'] = "<br><strong>".$error."</strong>";
+            header("Location:register.php?id=".$_SESSION['uid']."&error=".$_SESSION['errorListRegister']);
         }
         else{
             echo prepareUpdateData('user',$newData,"uid='".$_SESSION['uid']."'");

@@ -9,7 +9,7 @@
     require_once 'operations.php';
     if(isset($_POST['submit'])){
         $title = "Registration";
-        registerUser($_POST); 
+        registerUser($_POST);
     }
     else if(isset($_POST['update'])){
         updateUser($_POST,$_GET['id']);
@@ -72,7 +72,10 @@
         <input type="checkbox" name="terms" <?php echo getValue('btnAdd')?>>
         <label for="terms" <?php echo getValue('btnAdd')?>>
             Hereby,I Accept Terms & Conditions.</label> 
-        <?php echo isset($_GET['error']) ? $_GET['error'] : ""; ?>     
+        <?php echo isset($_GET['error']) ? $_GET['error'] : ""; ?>
+        <?php echo isset($_SESSION['errorListRegister']) ? $_SESSION['errorListRegister'] : ""; 
+            unset($_SESSION['errorListRegister']);
+        ?>     
     </div>
     <div class="card-footer text-muted">
         <input class="btn btn-outline-dark" type="submit" name="submit" value="Add" 
