@@ -8,11 +8,19 @@ class Router{
     {
         $route = preg_replace('/\//', '\\/', $route);
 
+        echo $route;
+
         $route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
+
+        echo $route."<br>";
 
         $route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
         
+        echo $route."<br>";
+
         $route = '/^' . $route . '$/i';
+
+        echo $route."<br>";
 
         $this->routes[$route]=$path;
     }

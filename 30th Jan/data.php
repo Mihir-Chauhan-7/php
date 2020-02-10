@@ -61,7 +61,6 @@ function getOther($id){
     $new = [];
     $otherInfo = mysqli_fetch_all(executeQuery("Select * From Customer_additional_info where cid=$id"),MYSQLI_ASSOC);
     foreach($otherInfo as $subArray){
-
         $new[$subArray['field_key']] = $subArray['value'];
     }
     $new['contactType'] = explode(',',$new['contactType']);
