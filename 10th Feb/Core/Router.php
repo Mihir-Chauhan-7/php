@@ -1,5 +1,7 @@
 <?php
 
+namespace Core;
+
 class Router{
 
     public $routes = [];
@@ -22,7 +24,7 @@ class Router{
 
         $route = preg_replace('/\{([a-z]+):([^\}]+)\}/','(?P<\1>\2)',$route);
         
-        
+
         $route = '/^'.$route.'$/i';
 
         $this->routes[$route] = $parameters;
@@ -44,6 +46,42 @@ class Router{
             }
         }
         return false;
+    }
+
+    public function dispatch($url)
+    {
+        if($this->match($url)){
+
+            $controller = $this->parameters['controller'];
+            $controller = $this->convertToStudlyCaps($controller);
+            $controller = "App\Controllers\\$controller";
+
+            if(class_exists($controller)){
+                $controller_object = new $controller();
+
+                $action = $this->parameters['action'];
+                $action = $this->convertToCamelCase($action);
+
+                if(is_callable([$controller_object, $action])){
+                    $controller_object->$action();
+                }else{
+                    echo "<br>Method $action (in controller $controller) not found";
+                }
+            }else{
+                echo "<br>Controller class $controller not found";
+            }
+        }else{
+            echo "<br>No Route matched";
+        }
+    }
+
+    public function convertToStudlyCaps($string)
+    {
+        return str_replace(' ', '',ucwords(str_replace('-',' ',$string)));
+    }
+    public function convertToCamelCase($string)
+    {
+        return lcfirst($this->convertToStudlyCaps($string));
     }
 }
 
