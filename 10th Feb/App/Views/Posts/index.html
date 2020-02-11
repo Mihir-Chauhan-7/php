@@ -5,4 +5,11 @@
 {% block body %}
 
     <h1>Posts</h1>
+    <table border=1>
+        <th>ID</th>
+        <th>Name</th>
+    {% for post in posts %}
+            <tr><td>{{ post.id }}</td><td>{{ post.fname }} {{ post.lname }}</td></tr>
+    {% endfor %}
+    </table>
 {% endblock %}

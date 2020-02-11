@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 
+use App\Models\Post;
 use Core\View;
 
 class Posts extends \Core\Controller
@@ -11,7 +12,10 @@ class Posts extends \Core\Controller
         // echo "<pre>";
         // htmlspecialchars(print_r($_GET));
         // echo "</pre>";
-        View::renderTemplate('Posts/index.html');
+        $posts= Post::getAll();
+        View::renderTemplate('Posts/index.html',[
+            'posts' => $posts
+        ]);
     }
     private function addNew()
     {
