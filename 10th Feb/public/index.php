@@ -2,13 +2,19 @@
 
 //require '../App/Controllers/Posts.php';
 //require '../Core/Router.php';
-spl_autoload_register(function ($class){
-    $root = dirname(__DIR__);
-    $file= $root.'/'.str_replace('\\','/',$class).'.php';
-    if(is_readable($file)){
-        require $root.'/'.str_replace('\\','/',$class).'.php';
-    }
-});
+use App\Controllers\Posts;
+
+require_once dirname(__DIR__).'/vendor/autoload.php';
+
+
+
+// spl_autoload_register(function ($class){
+//     $root = dirname(__DIR__);
+//     $file= $root.'/'.str_replace('\\','/',$class).'.php';
+//     if(is_readable($file)){
+//         require $root.'/'.str_replace('\\','/',$class).'.php';
+//     }
+// });
 
 //$router = new Router();
 $router = new Core\Router(); 
@@ -22,8 +28,9 @@ echo "URL : ".$_SERVER['QUERY_STRING'];
 // $router->add('posts/112/edit',['controller' => 'Posts','id' => 112,'action' => 'edit']);
 
 $router->add('{controller}/{action}');
-$router->add('admin/{controller}/{action}');
+$router->add('admin/{controller}/{action}',['namespace' => 'Admin']);
 $router->add('{controller}/{id:\d+}/{action}');
+
 
 // echo "<pre>";
 // print_r($router->getRoutes());
@@ -39,7 +46,5 @@ $router->add('{controller}/{id:\d+}/{action}');
 // {
 // 	echo "<br>No Path Found";
 // }
-$router->dispatch($_SERVER['QUERY_STRING'])
-
-
+$router->dispatch($_SERVER['QUERY_STRING']);
 ?>

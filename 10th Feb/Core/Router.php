@@ -56,7 +56,9 @@ class Router{
             
             $controller = $this->parameters['controller'];
             $controller = $this->convertToStudlyCaps($controller);
-            $controller = "App\Controllers\\$controller";
+            //$controller = "App\Controllers\\$controller";
+            $controller = $this->getNamespace().$controller;
+            echo $controller;
 
             if(class_exists($controller)){
                 $controller_object = new $controller($this->parameters);
@@ -67,7 +69,8 @@ class Router{
                 if(is_callable([$controller_object, $action])){
                     $controller_object->$action();
                 }else{
-                    echo "<br>Method $action (in controller $controller) not found";
+                    //echo "<br>Method $action (in controller $controller) not found";
+                    throw new \Exception("Method $action not Found in controller ".get_class($this));
                 }
             }else{
                 echo "<br>Controller class $controller not found";
@@ -97,6 +100,15 @@ class Router{
             }
         }
         return $url;
+    }
+    public function getNamespace()
+    {
+        $namespace = 'App\Controllers\\';
+        if(array_key_exists('namespace',$this->parameters)){
+            $namespace .= $this->parameters['namespace'].'\\';
+
+        } 
+        return $namespace;
     }
 }
 
