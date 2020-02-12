@@ -36,8 +36,8 @@ class Error{
             $message.="\n".str_repeat("_",135)."\n";
             error_log($message);
             
-            echo $code == 404 ? "<h1>Page Not Found</h1>" : "<h1>An Error Occured</h1>"; 
-            
+            //echo $code == 404 ? "<h1>Page Not Found</h1>" : "<h1>An Error Occured</h1>"; 
+            View::renderTemplate("$code.html");
         }
         
         
