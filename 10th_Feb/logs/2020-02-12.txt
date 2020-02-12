@@ -1,10 +1,4 @@
-[12-Feb-2020 14:51:27 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
-Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\10th_Feb\public\index.php(52): Core\Router->dispatch('Home/index/')
-#1 {main}
-Thrown in : C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Router.php On Line 77
-_______________________________________________________________________________________________________________________________________
-
-[12-Feb-2020 14:56:32 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+[12-Feb-2020 16:11:08 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
 Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\10th_Feb\public\index.php(52): Core\Router->dispatch('Home/index/')
 #1 {main}
 Thrown in : C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Router.php On Line 77

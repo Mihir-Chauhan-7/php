@@ -10,5 +10,4 @@ class Config{
     const PASSWORD = '';
     const SHOW_ERROR = false;
 }
-
 ?>
