@@ -8,8 +8,20 @@
     <table border=1>
         <th>ID</th>
         <th>Name</th>
+        <th colspan="2">Actions</th>
     {% for post in posts %}
-            <tr><td>{{ post.id }}</td><td>{{ post.fname }} {{ post.lname }}</td></tr>
+        <tr><td>{{ post.id }}</td><td>{{ post.fname }} {{ post.lname }}</td>
+            <td><a href="delete?id={{ post.id }}">Delete</a></td>
+        </tr>
     {% endfor %}
     </table>
+    <form action="/Cybercom/php/10th_Feb/public/posts/new">
+        <h4>Add User</h4>
+        <input type="text" name="fname" placeholder="Firstname"><br><br>
+        <input type="text" name="lname" placeholder="Lastname"><br><br>
+        <input type="text" name="email" placeholder="Email"><br><br>
+        <input type="text" name="password" placeholder="Password"><br><br>
+        <input type="date" name="dob"><br><br>
+        <input type="submit" value="Add">
+    </form>
 {% endblock %}

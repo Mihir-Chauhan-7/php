@@ -4,3 +4,81 @@ Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\10th_Feb\public\index.php(52): Cor
 Thrown in : C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Router.php On Line 77
 _______________________________________________________________________________________________________________________________________
 
+[12-Feb-2020 16:24:23 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\10th_Feb\public\index.php(52): Core\Router->dispatch('public/Home/ind...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Router.php On Line 77
+_______________________________________________________________________________________________________________________________________
+
+[12-Feb-2020 16:24:25 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\10th_Feb\public\index.php(52): Core\Router->dispatch('public/public/p...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Router.php On Line 77
+_______________________________________________________________________________________________________________________________________
+
+[12-Feb-2020 16:24:29 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\10th_Feb\public\index.php(52): Core\Router->dispatch('public/public/p...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Router.php On Line 77
+_______________________________________________________________________________________________________________________________________
+
+[12-Feb-2020 16:24:44 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\10th_Feb\public\index.php(52): Core\Router->dispatch('public/public/p...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Router.php On Line 77
+_______________________________________________________________________________________________________________________________________
+
+[12-Feb-2020 16:24:46 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\10th_Feb\public\index.php(52): Core\Router->dispatch('public/public/p...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Router.php On Line 77
+_______________________________________________________________________________________________________________________________________
+
+[12-Feb-2020 16:24:47 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\10th_Feb\public\index.php(52): Core\Router->dispatch('public/public/p...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Router.php On Line 77
+_______________________________________________________________________________________________________________________________________
+
+[12-Feb-2020 16:24:48 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\10th_Feb\public\index.php(52): Core\Router->dispatch('public/public/p...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Router.php On Line 77
+_______________________________________________________________________________________________________________________________________
+
+[12-Feb-2020 16:24:59 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\10th_Feb\public\index.php(52): Core\Router->dispatch('public/public/p...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Router.php On Line 77
+_______________________________________________________________________________________________________________________________________
+
+[12-Feb-2020 17:25:05 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\10th_Feb\public\index.php(52): Core\Router->dispatch('posts/index12')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Router.php On Line 77
+_______________________________________________________________________________________________________________________________________
+
+[12-Feb-2020 17:43:52 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'Method new not Found in controller App\Controllers\Posts'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Router.php(66): App\Controllers\Posts->__call('new', Array)
+#1 C:\xampp\htdocs\Cybercom\php\10th_Feb\public\index.php(52): Core\Router->dispatch('posts/new')
+#2 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\10th_Feb\App\Controllers\Posts.php On Line 39
+_______________________________________________________________________________________________________________________________________
+
+[12-Feb-2020 17:44:07 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'Method new not Found in controller App\Controllers\Posts'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Router.php(66): App\Controllers\Posts->__call('new', Array)
+#1 C:\xampp\htdocs\Cybercom\php\10th_Feb\public\index.php(52): Core\Router->dispatch('posts/new')
+#2 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\10th_Feb\App\Controllers\Posts.php On Line 39
+_______________________________________________________________________________________________________________________________________
+
+[12-Feb-2020 17:53:41 Asia/Kolkata] Uncaught Exception : 'Error'Message : 'Call to undefined function App\Models\prepareData()'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\10th_Feb\App\Controllers\Posts.php(22): App\Models\Post::insert(Array)
+#1 [internal function]: App\Controllers\Posts->new()
+#2 C:\xampp\htdocs\Cybercom\php\10th_Feb\App\Controllers\Posts.php(36): call_user_func_array(Array, Array)
+#3 C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Router.php(66): App\Controllers\Posts->__call('new', Array)
+#4 C:\xampp\htdocs\Cybercom\php\10th_Feb\public\index.php(52): Core\Router->dispatch('posts/new')
+#5 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\10th_Feb\App\Models\Post.php On Line 17
+_______________________________________________________________________________________________________________________________________
+

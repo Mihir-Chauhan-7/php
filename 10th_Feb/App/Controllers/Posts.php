@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 use App\Models\Post;
 use Core\View;
-
+use App\Config;
 class Posts extends \Core\Controller
 {
     private function index()
@@ -17,9 +17,15 @@ class Posts extends \Core\Controller
             'posts' => $posts
         ]);
     }
-    private function addNew()
+    private function delete(){
+        print_r($_GET);
+        Post::delete($_GET['id']);
+        $this->index();
+    }
+    private function new()
     {
-        echo "<br>Hello From the addNew action in Posts Controller";
+        Post::insert($_GET);
+        $this->index();
     }
     private function edit()
     {
