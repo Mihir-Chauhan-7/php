@@ -1,18 +1,15 @@
 <?php
 
 namespace Core;
+use App\Config;
 
 abstract class Model{
     protected static function getDB(){
 
         static $db=null;
         if($db === null){
-            $host="localhost";
-            $dbname="demo";
-            $username="root";
-            $pass="";
-
-            $conn=mysqli_connect($host,$username,$pass,$dbname);
+            $conn=mysqli_connect(Config::HOST_NAME,Config::USER_NAME,Config::PASSWORD
+                ,Config::DB_NAME);
             return $conn;
         }
         

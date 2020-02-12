@@ -69,10 +69,12 @@ class Router{
                     throw new \Exception("Method $action not Found in controller ".get_class($this));
                 }
             }else{
-                echo "<br>Controller class $controller not found";
+                //echo "<br>Controller class $controller not found";
+                throw new \Exception("Controller class $controller not found");
             }
         }else{
-            echo "<br>No Route matched";
+            //echo "<br>No Route matched";
+            throw new \Exception("No Route Matched.");
         }
     }
 

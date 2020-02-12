@@ -34,6 +34,7 @@ class Posts extends \Core\Controller
             if($this->before() !== false){
                 call_user_func_array([$this,$name],$arguments);
                 $this->after();
+                1/0;
             }
         }else{
             throw new \Exception("Method $name not Found in controller ".get_class($this));

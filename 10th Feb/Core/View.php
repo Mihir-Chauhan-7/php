@@ -17,7 +17,8 @@ class View{
             require $file;
         }
         else{
-            echo "$file not found";
+            //echo "$file not found";
+            throw new \Exception("$file Not Found");
         }
     }
     public static function renderTemplate($template,$args = []){
