@@ -12,7 +12,7 @@ class Posts extends \Core\Controller
         // echo "<pre>";
         // htmlspecialchars(print_r($_GET));
         // echo "</pre>";
-        $posts= Post::getAll();
+        $posts = Post::getAll();
         View::renderTemplate('Posts/index.html',[
             'posts' => $posts
         ]);
@@ -36,7 +36,7 @@ class Posts extends \Core\Controller
                 $this->after();
             }
         }else{
-            throw new \Exception("Method $name not Found in controller ".get_class($this));
+            throw new \Exception("Method $name not Found in controller " . get_class($this));
         }   
     }
     public function before()

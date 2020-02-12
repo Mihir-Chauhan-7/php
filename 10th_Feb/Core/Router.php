@@ -21,7 +21,7 @@ class Router{
         $route = preg_replace('/\//','\\/',$route);
         $route = preg_replace('/\{([a-z]+)\}/','(?P<\1>[a-z-]+)',$route);
         $route = preg_replace('/\{([a-z]+):([^\}]+)\}/','(?P<\1>\2)',$route);
-        $route = '/^'.$route.'$/i';
+        $route = '/^' . $route . '$/i';
         $this->routes[$route] = $parameters;
 
     }
@@ -33,11 +33,11 @@ class Router{
             if(preg_match($route,$url,$matches)){
                 foreach($matches as $key => $match){
                     if(is_string($key)){
-                        $params[$key]=$match;
+                        $params[$key] = $match;
                     }
                 }
 
-                $this->parameters=$params;
+                $this->parameters = $params;
                 return true;
             }
         }
@@ -103,7 +103,7 @@ class Router{
     {
         $namespace = 'App\Controllers\\';
         if(array_key_exists('namespace',$this->parameters)){
-            $namespace .= $this->parameters['namespace'].'\\';
+            $namespace .= $this->parameters['namespace'] . '\\';
 
         } 
         return $namespace;
