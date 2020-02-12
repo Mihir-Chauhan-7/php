@@ -8,7 +8,7 @@ class Config{
     const DB_NAME='demo';
     const USER_NAME='root';
     const PASSWORD='';
-
+    const SHOW_ERROR=false;
 }
 
 ?>

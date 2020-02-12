@@ -74,7 +74,7 @@ class Router{
             }
         }else{
             //echo "<br>No Route matched";
-            throw new \Exception("No Route Matched.");
+            throw new \Exception("No Route Matched.",404);
         }
     }
 
