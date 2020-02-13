@@ -4,35 +4,43 @@ namespace App\Controllers;
 use App\Models\Post;
 use Core\View;
 use App\Config;
+
 class Posts extends \Core\Controller
 {
     private function index()
     {
-        // echo "<br>Hello From the index action in Posts Controller<br>";
-        // echo "<pre>";
-        // htmlspecialchars(print_r($_GET));
-        // echo "</pre>";
         $posts = Post::getAll();
         View::renderTemplate('Posts/index.html',[
+            'action' => 'new',
+            'title' => 'Add',
             'posts' => $posts
         ]);
     }
     private function delete(){
         print_r($_GET);
-        Post::delete($_GET['id']);
-        $this->index();
+        Post::deleteData($_GET['id']);
+        header('Location: /Cybercom/php/10th_Feb/public/posts/index');
     }
     private function new()
     {
-        Post::insert($_GET);
-        $this->index();
+        Post::insertData($_GET);
+        header('Location: /Cybercom/php/10th_Feb/public/posts/index');
+    }
+    private function save()
+    {
+        print_r($_GET);
+        Post::updateData($_GET);
+        header('Location: /Cybercom/php/10th_Feb/public/posts/index');
     }
     private function edit()
     {
         echo "<br>Hello From Edit in Posts Controller";
-        echo "Route Parameters : <pre>";
-        htmlspecialchars(print_r($_GET));
-        echo "</pre>"; 
+        $userData=Post::getData($_GET['id']);
+        View::renderTemplate('Posts/index.html',[
+            'action' => 'save',
+            'title' => 'Update',
+            'user' => $userData[0]
+        ]);
 
     }
     public function __call($name, $arguments){
@@ -51,7 +59,7 @@ class Posts extends \Core\Controller
     }
     public function after()
     {
-        echo " After";
+        echo "<br>After";
     }
 }
 
