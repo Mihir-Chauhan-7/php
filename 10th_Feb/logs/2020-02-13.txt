@@ -1,0 +1,44 @@
+[13-Feb-2020 18:08:51 Asia/Kolkata] Uncaught Exception : 'PDOException'Message : 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'abc@gmail.com' for key 'email''
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Model.php(73): PDO->exec('Update users SE...')
+#1 C:\xampp\htdocs\Cybercom\php\10th_Feb\App\Controllers\Posts.php(42): Core\Model::updateData(Array)
+#2 [internal function]: App\Controllers\Posts->save()
+#3 C:\xampp\htdocs\Cybercom\php\10th_Feb\App\Controllers\Posts.php(71): call_user_func_array(Array, Array)
+#4 C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Router.php(66): App\Controllers\Posts->__call('save', Array)
+#5 C:\xampp\htdocs\Cybercom\php\10th_Feb\public\index.php(52): Core\Router->dispatch('posts/save')
+#6 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Model.php On Line 73
+_______________________________________________________________________________________________________________________________________
+
+[13-Feb-2020 18:09:05 Asia/Kolkata] Uncaught Exception : 'PDOException'Message : 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'abc@gmail.com' for key 'email''
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Model.php(73): PDO->exec('Update users SE...')
+#1 C:\xampp\htdocs\Cybercom\php\10th_Feb\App\Controllers\Posts.php(42): Core\Model::updateData(Array)
+#2 [internal function]: App\Controllers\Posts->save()
+#3 C:\xampp\htdocs\Cybercom\php\10th_Feb\App\Controllers\Posts.php(71): call_user_func_array(Array, Array)
+#4 C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Router.php(66): App\Controllers\Posts->__call('save', Array)
+#5 C:\xampp\htdocs\Cybercom\php\10th_Feb\public\index.php(52): Core\Router->dispatch('posts/save')
+#6 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Model.php On Line 73
+_______________________________________________________________________________________________________________________________________
+
+[13-Feb-2020 18:20:45 Asia/Kolkata] Uncaught Exception : 'PDOException'Message : 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'abc@gmail.com' for key 'email''
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Model.php(73): PDO->exec('Update users SE...')
+#1 C:\xampp\htdocs\Cybercom\php\10th_Feb\App\Controllers\Posts.php(42): Core\Model::updateData(Array)
+#2 [internal function]: App\Controllers\Posts->save()
+#3 C:\xampp\htdocs\Cybercom\php\10th_Feb\App\Controllers\Posts.php(71): call_user_func_array(Array, Array)
+#4 C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Router.php(66): App\Controllers\Posts->__call('save', Array)
+#5 C:\xampp\htdocs\Cybercom\php\10th_Feb\public\index.php(52): Core\Router->dispatch('posts/save')
+#6 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Model.php On Line 73
+_______________________________________________________________________________________________________________________________________
+
+[13-Feb-2020 18:25:33 Asia/Kolkata] Uncaught Exception : 'PDOException'Message : 'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'abc@gmail.com' for key 'email''
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Model.php(61): PDO->exec('INSERT INTO use...')
+#1 C:\xampp\htdocs\Cybercom\php\10th_Feb\App\Controllers\Posts.php(29): Core\Model::insertData(Array)
+#2 [internal function]: App\Controllers\Posts->new()
+#3 C:\xampp\htdocs\Cybercom\php\10th_Feb\App\Controllers\Posts.php(73): call_user_func_array(Array, Array)
+#4 C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Router.php(66): App\Controllers\Posts->__call('new', Array)
+#5 C:\xampp\htdocs\Cybercom\php\10th_Feb\public\index.php(52): Core\Router->dispatch('posts/new')
+#6 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\10th_Feb\Core\Model.php On Line 61
+_______________________________________________________________________________________________________________________________________
+

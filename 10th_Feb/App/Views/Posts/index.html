@@ -23,7 +23,7 @@
     </table>
     {% endif %}
 
-    <form action="{{ action }}">
+    <form action="{{ action }}" method="POST">
         <h4>{{ title }} User</h4>
         <input type="hidden" name="id" value="{{ user.id }}">
         <input type="text" name="fname" placeholder="Firstname" value="{{ user.fname }}"><br><br>

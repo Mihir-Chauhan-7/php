@@ -17,7 +17,7 @@ abstract class Model{
             $dsn = 'mysql:host=' . Config::HOST_NAME . ';dbname=' . Config::DB_NAME 
             . ';charset=utf8';
             $conn= new PDO($dsn,Config::USER_NAME,Config::PASSWORD);
-            $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+            //$conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         }
         return $conn;
     }
@@ -25,7 +25,7 @@ abstract class Model{
     {
         $tablename = static::$table;
         unset($data['posts/new']);
-        
+        unset($data['id']);
         $keys = array_keys($data);
         $values = array_values($data);
 
@@ -51,6 +51,7 @@ abstract class Model{
             $fields .= $pre.$key."='".$value."'";
             $i++;
         }
+
         $query = "Update $tablename SET $fields Where $primaryKey=$id";
         return $query;
     }
@@ -58,6 +59,7 @@ abstract class Model{
     {
         $conn = static::getDB();
         $conn->exec(static::prepareData($data));
+        return $conn->errorCode();
     }
     public static function getAll()
     {
@@ -70,6 +72,7 @@ abstract class Model{
     {
         $conn = static::getDB();
         $conn->exec(static::prepareUpdateData($data));
+        return $conn->errorCode();
     }
     public static function deleteData($id)
     {
@@ -77,6 +80,7 @@ abstract class Model{
         $primaryKey = static::$primaryKey;
         $conn = static::getDB();
         $conn->exec("DELETE FROM $tablename WHERE $primaryKey=$id");
+        return $conn->errorCode();
     }
     public static function getData($id)
     {

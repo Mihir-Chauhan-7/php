@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Models\Post;
@@ -17,31 +18,56 @@ class Posts extends \Core\Controller
         ]);
     }
     private function delete(){
-        print_r($_GET);
-        Post::deleteData($_GET['id']);
+        if($_SERVER['REQUEST_METHOD'] == 'GET'){
+            Post::deleteData($_GET['id']);
+        }
         header('Location: /Cybercom/php/10th_Feb/public/posts/index');
     }
     private function new()
     {
-        Post::insertData($_GET);
-        header('Location: /Cybercom/php/10th_Feb/public/posts/index');
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            if(Post::insertData($_POST) == 00000){
+                header('Location: /Cybercom/php/10th_Feb/public/posts/index');  
+            }
+            else{
+                View::renderTemplate('Posts/index.html',[
+                    'action' => 'new',
+                    'title' => 'Add',
+                    'user' => $_POST
+                ]);
+                echo "Invalid Details";
+            }
+        }
+
     }
     private function save()
     {
-        print_r($_GET);
-        Post::updateData($_GET);
-        header('Location: /Cybercom/php/10th_Feb/public/posts/index');
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            if(Post::updateData($_POST) == 00000){
+                header('Location: /Cybercom/php/10th_Feb/public/posts/index');        
+            }
+            else{
+                
+                View::renderTemplate('Posts/index.html',[
+                     'action' => 'save',
+                     'title' => 'Update',
+                     'user' => $_POST
+                 ]);
+                 echo "<br>Invalid Details";    
+            }
+        }
+        //header('Location: /Cybercom/php/10th_Feb/public/posts/index');
     }
     private function edit()
     {
-        echo "<br>Hello From Edit in Posts Controller";
-        $userData=Post::getData($_GET['id']);
-        View::renderTemplate('Posts/index.html',[
-            'action' => 'save',
-            'title' => 'Update',
-            'user' => $userData[0]
-        ]);
-
+        if($_SERVER['REQUEST_METHOD'] == 'GET'){
+            $userData = Post::getData($_GET['id']);
+            View::renderTemplate('Posts/index.html',[
+                'action' => 'save',
+                'title' => 'Update',
+                'user' => $userData[0]
+           ]);
+        }
     }
     public function __call($name, $arguments){
         if(method_exists($this,$name)){
@@ -62,5 +88,4 @@ class Posts extends \Core\Controller
         echo "<br>After";
     }
 }
-
 ?>
