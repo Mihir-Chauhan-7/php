@@ -3,10 +3,14 @@
 namespace Core;
 
 use Twig;
+use App\Models\Category;
 // use Twig_Loader_Filesystem;
 // use Twig_Environment;
 
-class View{
+class View
+
+
+{
 
     public static function render($view,$args){
         extract($args,EXTR_SKIP);

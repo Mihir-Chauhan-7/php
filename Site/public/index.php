@@ -23,8 +23,8 @@ $router = new Core\Router();
 //echo "URL : ".$_SERVER['QUERY_STRING'];
 
 
-// $router->add('',['controller' => 'Home','action' => 'index']);
-// $router->add('posts',['controller' => 'Posts','action' => 'index']);
+$router->add('',['controller' => 'Home','action' => 'index']);
+$router->add('home',['controller' => 'Home','action' => 'index']);
 //$router->add('home/login',['controller' => 'Home','action' => 'login']);
 //$router->add('home/dashboard',['controller' => 'Home','action' => 'dashboard']);
 // $router->add('posts/112/edit',['controller' => 'Posts','id' => 112,'action' => 'edit']);
@@ -32,6 +32,7 @@ $router = new Core\Router();
 $router->add('{controller}/{action}');
 $router->add('{controller}/{action}');
 $router->add('admin/{controller}/{action}',['namespace' => 'Admin']);
+$router->add('admin/cms/{controller}/{action}',['namespace' => 'Admin\CMS']);
 $router->add('{controller}/{id:\d+}/{action}');
 
 

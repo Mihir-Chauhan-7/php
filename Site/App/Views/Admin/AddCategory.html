@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Products{% endblock %}
+
+{% block body %}
+<div class="card text-center" style="margin-top:20px;margin-left:450px;width: 30rem">
+    <div class="card-header">
+        <h5 class="card-title">{{ title }} Category</h5>    
+    </div>
+    <div class="card-body">      
+        <form method="POST" enctype="multipart/form-data">
+        <div>
+            <input type="hidden" name="id" value="{{ data.cid }}"> 
+            <input class="form-control" type="text" name="cname" placeholder="Title" 
+                value="{{ data.cname }}">
+        </div>
+        <div>
+            <input class="form-control" type="text" name="description" placeholder="Content" 
+                value="{{ data.description }}">
+        </div>
+        <div>
+            <input class="form-control" type="text" name="url" placeholder="url" 
+                value="{{ data.url }}">
+        </div>
+        <div>    
+            <input class="form-control" type="text" name="status" placeholder="status"
+                value="{{ data.status }}">
+        </div>
+    
+        <div class="input-group">
+            <select class="form-control" name="parent_id">
+                <option value=''>No Parent</option>
+                {% for category in parentList %}
+                <option value="{{ category.cid }}" {% if data.parent_id == category.cid %}selected=""{% endif %} {% if data.cid == category.cid %}disabled=""{% endif %}>{{ category.cname }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <input style="width:300px" class="form-control" type="file" name="image"><br>
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        <div>
+            <input class="btn btn-outline-dark" type="submit" name="submit" 
+                value="{{ title }}">
+        </div>
+        <!-- <div>
+            <input class="btn btn-outline-dark" type="submit" name="update" 
+                value="Update">
+        </div> -->
+    </div>
+</form>
+</div>
+{% endblock %}

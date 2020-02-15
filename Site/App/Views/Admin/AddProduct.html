@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Products{% endblock %}
+
+{% block body %}
+<center><h1 class="display-4">{{ title }} Product</h1></center>
+<form method="POST" class="form-horizontal" enctype="multipart/form-data">
+    <fieldset style="margin-left: 0px;">
+
+    
+    <!-- Text input-->
+    <div class="form-group">
+      <input type="hidden" name="id" value="{{ data.pid }}"> 
+      <label class="col-md-4 control-label" for="name">Name</label>  
+      <div class="col-md-4">
+      <input id="name" name="name" type="text" placeholder="Name" 
+            class="form-control input-md" value="{{ data.name }}">  
+      </div>
+    </div>
+    
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="url">Url</label>  
+      <div class="col-md-4">
+      <input id="url" name="url" type="text" placeholder="" class="form-control input-md"
+        value="{{ data.url }}">
+        
+      </div>
+    </div>
+    
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="status">Status</label>  
+      <div class="col-md-4">
+      <input id="status" name="status" type="text" placeholder="" 
+            class="form-control input-md" value="{{ data.status }}">
+        
+      </div>
+    </div>
+    
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="description">Description</label>  
+      <div class="col-md-4">
+      <input id="description" name="description" type="text" placeholder="placeholder" 
+            class="form-control input-md" value="{{ data.description }}">
+        
+      </div>
+    </div>
+    
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="short_description">Short Description</label>  
+      <div class="col-md-4">
+      <input id="shortdescription" name="short_description" type="text" 
+            class="form-control input-md" value="{{ data.short_description }}">
+        
+      </div>
+    </div>
+    
+    <!-- File Button --> 
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="image">Image</label>
+      <div class="col-md-4">
+        <input id="image" name="image" class="input-file" type="file">
+      </div>
+    </div>
+    
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="price">Price</label>  
+      <div class="col-md-4">
+      <input id="price" name="price" type="text" class="form-control input-md"
+            value="{{ data.price }}">
+        
+      </div>
+    </div>
+    
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="sku">Stock Keeping Unit</label>  
+      <div class="col-md-4">
+      <input id="sku" name="sku" type="text" class="form-control input-md" 
+            value="{{ data.sku }}">
+        
+      </div>
+    </div>
+    
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="stock">Stock</label>  
+      <div class="col-md-4">
+      <input id="stock" name="stock" type="text" class="form-control input-md"
+            value="{{ data.stock }}">
+        
+      </div>
+    </div>
+    
+    <!-- Button -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="Add"></label>
+      <div class="col-md-4">
+        <button id="Add" name="Add" class="btn btn-primary">{{ title }}</button>
+      </div>
+    </div>
+    
+    </fieldset>
+    </form>
+{% endblock %}

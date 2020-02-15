@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Products{% endblock %}
+
+{% block body %}
+    <div><center><h1 class="display-4">CMS Pages</h1></center>
+    <a style="margin-right: 80px;float: right" class='btn btn-outline-dark' href="add">
+        Add Page</a>
+    {% if cmsList %}
+    <table class='table' style='text-align:center;margin:60px;width: 90%'>
+        <thead class='table-success'>
+        {% for key in cmsKeys %}
+            <th>{{ key }}</th>
+        {% endfor %}    
+        <th colspan="2">Actions</th></thead>
+    {% for cms in cmsList %}
+        <tr>
+            {% for value in cms %}
+            <td>{{ value }}</td>
+            {% endfor %}        
+            <td><a href="edit?id={{ cms.cm_id }}">Edit</a></td>
+            <td><a href="delete?id={{ cms.cm_id }}">Delete</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+    {% endif %}
+{% endblock %}

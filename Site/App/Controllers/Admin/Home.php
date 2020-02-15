@@ -15,10 +15,7 @@ class Home extends \Core\Controller {
                     header('Location: /Cybercom/php/Site/public/admin/home/dashboard');                  
             }
             else{
-                View::renderTemplate('Admin\Login.html',[
-                    'name' => 'Mihir',
-                    'productList' => ProductModel::getProductList()
-                ]);
+                View::renderTemplate('Admin\Login.html');
                 echo "Invalid Details";    
             }
         }

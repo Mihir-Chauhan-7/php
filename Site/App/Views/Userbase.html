@@ -5,11 +5,14 @@
         <title>{% block title %}{% endblock %} </title>
     </head>
 <body>
+    <h1 class="display-4">Site Title</h1>
     <div style='margin:10px' class=btn-group mr-2' role='group'>
-        <a class='btn btn-outline-dark' href="/Cybercom/php/Site/public/admin/Categories/index">Manage Categories</a>
-        <a class='btn btn-outline-dark' href="/Cybercom/php/Site/public/admin/product/index">Manage Products</a>
-        <a class='btn btn-outline-dark' href="/Cybercom/php/Site/public/admin/cms/pages/index">Manage CMS</a>
+        {% for category in categoryList %}
+            <a class='btn btn-outline-dark' href="/Cybercom/php/Site/public/admin/Categories/index">{{ category.cname }}</a>
+        {% endfor %}
+        
     </div>
+    <hr>
     {% block body %}
     {% endblock %}
     </body>
