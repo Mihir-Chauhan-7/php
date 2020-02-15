@@ -33,5 +33,6 @@
         <input type="date" name="dob" value="{{ user.dob }}"><br><br>
         <input type="submit" value={{ title }}>
     </form>
-    {{ msg }}
+    <div class="{{ session.className }}">{{ session.message }}</div>
+
 {% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+session_start();
 use App\Models\Post;
 use Core\View;
 use App\Config;
@@ -18,15 +19,19 @@ class Posts extends \Core\Controller
         ]);
     }
     private function delete(){
-        if($_SERVER['REQUEST_METHOD'] == 'GET'){
-            Post::deleteData($_GET['id']);
+        if(Post::deleteData($_GET['id']) == 00000){
+            $_SESSION['message']=[ 'className' => 'alert alert-success' ,
+                    'message' => "Delete Successful"];
+            header('Location: /Cybercom/php/10th_Feb/public/posts/index');
         }
-        header('Location: /Cybercom/php/10th_Feb/public/posts/index');
+        
     }
     private function new()
     {
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if(Post::insertData($_POST) == 00000){
+                $_SESSION['message']=[ 'className' => 'alert alert-success' ,
+                    'message' => "Insert Successful"];
                 header('Location: /Cybercom/php/10th_Feb/public/posts/index');  
             }
             else{
@@ -35,7 +40,6 @@ class Posts extends \Core\Controller
                     'title' => 'Add',
                     'user' => $_POST
                 ]);
-                echo "Invalid Details";
             }
         }
 
@@ -44,6 +48,8 @@ class Posts extends \Core\Controller
     {
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if(Post::updateData($_POST) == 00000){
+                $_SESSION['message']=[ 'className' => 'alert alert-success' ,
+                    'message' => "Update Successful"];
                 header('Location: /Cybercom/php/10th_Feb/public/posts/index');        
             }
             else{
@@ -53,7 +59,6 @@ class Posts extends \Core\Controller
                      'title' => 'Update',
                      'user' => $_POST
                  ]);
-                 echo "<br>Invalid Details";    
             }
         }
         //header('Location: /Cybercom/php/10th_Feb/public/posts/index');

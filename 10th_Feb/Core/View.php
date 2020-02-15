@@ -1,7 +1,6 @@
 <?php
 
 namespace Core;
-
 use Twig;
 // use Twig_Loader_Filesystem;
 // use Twig_Environment;
@@ -27,8 +26,9 @@ class View{
         if($twig === null){
             $loader = new \Twig\Loader\FilesystemLoader('../App/Views');
             $twig = new \Twig\Environment($loader);
+            isset($_SESSION['message']) ? $twig->addGlobal('session',$_SESSION['message']):"";
+            unset($_SESSION['message']);
         }
-
         echo $twig->render($template,$args);
     }
 } 
