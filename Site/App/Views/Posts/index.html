@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+    <h1>Posts</h1>
+    {% if posts %}
+    <table border=1>
+        {% for key, value in posts[0]|slice(1, 3) %}
+            <th>{{ key }}</th>
+        {% endfor %}
+        <th colspan="2">Actions</th>
+    {% for post in posts %}
+        <tr>
+            {% for value in post|slice(1, 3) %}
+            <td>{{ value }}</td>
+            {% endfor %}
+            <td><a href="edit?id={{ post.id }}">Edit</a></td>
+            <td><a href="delete?id={{ post.id }}">Delete</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+    {% endif %}
+
+    <form action="{{ action }}" method="POST">
+        <h4>{{ title }} User</h4>
+        <input type="hidden" name="id" value="{{ user.id }}">
+        <input type="text" name="fname" placeholder="Firstname" value="{{ user.fname }}"><br><br>
+        <input type="text" name="lname" placeholder="Lastname" value="{{ user.lname }}"><br><br>
+        <input type="text" name="email" placeholder="Email" value="{{ user.email }}"><br><br>
+        <input type="text" name="password" placeholder="Password" value="{{ user.password }}"><br><br>
+        <input type="date" name="dob" value="{{ user.dob }}"><br><br>
+        <input type="submit" value={{ title }}>
+    </form>
+    {{ msg }}
+{% endblock %}

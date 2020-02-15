@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Products{% endblock %}
+
+{% block body %}
+
+    <center>
+        <h2 class="display-4">Products</h2>
+    </center>
+    
+    {% if productList %}
+    <table class='table' style='text-align:center;margin:60px;width: 90%'>
+        <th>Id</th>
+        <th>Name</th>
+    {% for product in productList %}
+        <tr>
+            <td>{{ product }}</td>
+    {% endfor %}
+            <td><a href="edit?id={{ product.pid }}">Edit</a></td>
+            <td><a href="delete?id={{ product.pid }}">Delete</a></td>
+        </tr>
+    </table>
+    {% endif %}
+{% endblock %}
