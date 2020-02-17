@@ -71,13 +71,6 @@ abstract class Model{
     public static function getKeys(){
         return static::$keyList;
     }
-    public static function getAll()
-    {
-        $tablename = static::$table;
-        $conn = static::getDB();
-        $stmt = $conn->query("SELECT * FROM $tablename");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
     public static function updateData($data)
     {
         $conn = static::getDB();
@@ -91,6 +84,13 @@ abstract class Model{
         $conn = static::getDB();
         $conn->exec("DELETE FROM $tablename WHERE $primaryKey=$id");
         return $conn->errorCode() == 00000 ? true : false;
+    }
+    public static function getAll()
+    {
+        $tablename = static::$table;
+        $conn = static::getDB();
+        $stmt = $conn->query("SELECT * FROM $tablename");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public static function getData($id)
     {
@@ -107,6 +107,15 @@ abstract class Model{
 
         $conn = static::getDB();
         $stmt = $conn->query("SELECT * FROM $tablename WHERE $where");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public static function join($join='LEFT',$fields1=[],$fields2=[],$secondTable,$onField1,$onField2){
+        $conn = static::getDB();
+        $firstTable = static::$table;
+
+        $fieldNames1 = "A.".implode(", A.", $fields1);
+        $fieldNames2 = "B.".implode(", B.", $fields2);
+        $stmt = $conn->query("SELECT $fieldNames1,$fieldNames2 FROM $firstTable AS A $join JOIN $secondTable AS B ON A.$onField1=B.$onField2");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public static function saveImage($file){
