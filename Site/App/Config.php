@@ -11,7 +11,12 @@ class Config{
     const DB_NAME = 'ecommerce';
     const USER_NAME = 'root';
     const PASSWORD = '';
-    const SHOW_ERROR = true ;
-    
+    const SHOW_ERROR = true;
+
+    public static function checkLogin(){
+        return isset($_SESSION['loginStatus']) && $_SESSION['loginStatus']==true 
+            ? true 
+            : false; 
+    }
 }
 ?>

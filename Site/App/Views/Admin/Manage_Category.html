@@ -17,7 +17,12 @@
     {% for category in categoryList %}
         <tr>
             <td>{{ category.cid }}</td>
-            <td>{% if category.parent_name %}{{ category.parent_name }}{% else %}-{% endif %}</td>
+            <td>{% if category.parent_name %}
+                    {{ category.parent_name }}
+                {% else %}
+                    -
+                {% endif %}
+            </td>
             <td>{{ category.cname }}</td>
             <td>{{ category.url }}</td>
             <td><img class='img-fluid img-thumbnail' style='width: 180px; height: 110px'
@@ -25,7 +30,6 @@
             <td>{{ category.status }}</td>
             <td>{{ category.description }}</td>
             <td>{{ category.created_at }}</td>
-            <td>{{ category.updated_at }}</td>
             <td><a href="edit?id={{ category.cid }}">Edit</a></td>
             <td><a href="delete?id={{ category.cid }}">Delete</a></td>
         </tr>

@@ -10,7 +10,9 @@ class Categories extends \Core\Controller {
 
     public function index(){
 
-        $categoryData=Category::join('LEFT',['cid','cname','url','image','status','description','created_at','updated_at'],['cname AS parent_name'],'categories','parent_id','cid');
+        $categoryData = Category::join('LEFT',['cid','cname','url','image','status'
+            ,'description','created_at'],['cname AS parent_name'],'categories'
+            ,'parent_id','cid');
         View::renderTemplate('Admin\Manage_Category.html',[
             'categoryKey' => Category::getKeys(),
             'categoryList' => $categoryData
