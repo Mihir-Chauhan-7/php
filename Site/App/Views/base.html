@@ -5,17 +5,22 @@
         <title>{% block title %}{% endblock %} </title>
     </head>
 <body>
-    <div style='margin:10px' class=btn-group mr-2' role='group'>
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <!-- Navbar content -->
+      
+    <div style="background-color: white;" style='margin:10px' class=btn-group mr-2' role='group'>
         <a class='btn btn-outline-dark' href="/Cybercom/php/Site/public/admin/Categories/index">
             Manage Categories</a>
         <a class='btn btn-outline-dark' href="/Cybercom/php/Site/public/admin/product/index">
-            Manage Products</a>
+            Manage Products</a> 
         <a class='btn btn-outline-dark' href="/Cybercom/php/Site/public/admin/cms/pages/index">
             Manage CMS</a>
     </div>
-    <a style="margin: 10px;float: right;" class='btn btn-outline-dark' href="/Cybercom/php/Site/public/admin/home/logout">
+    <a style="background-color: white;margin: 10px;float: right;" class='btn btn-outline-dark' href="/Cybercom/php/Site/public/admin/home/logout">
             Logout</a>
+    </nav>
     {% block body %}
     {% endblock %}
     </body>
+    
 </html>

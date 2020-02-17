@@ -23,8 +23,7 @@ class Home extends \Core\Controller {
         }
         else{
             View::renderTemplate('Admin\Login.html',[
-                'name' => 'Mihir',
-                'productList' => ProductModel::getProductList()
+                'name' => 'Mihir'
             ]);
         }
         
@@ -39,8 +38,7 @@ class Home extends \Core\Controller {
     public function dashboard(){
         Config::checkLogin()
         ? View::renderTemplate('base.html',[
-                'name' => 'Mihir',
-                'productList' => ProductModel::getProductList()
+                'name' => 'Mihir'
           ])
         : die("You Are Not Logged In");
     }

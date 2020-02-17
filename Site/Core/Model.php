@@ -9,6 +9,7 @@ abstract class Model{
 
     protected static $table;
     protected static $primaryKey;
+    protected static $lastId;
     protected static $keyList;
     protected static $discardList;
     protected static $directory;
@@ -64,9 +65,13 @@ abstract class Model{
     public static function insertData($data)
     {
         $conn = static::getDB();
-        //echo static::prepareData($data);
+        echo static::prepareData($data);
         $conn->exec(static::prepareData($data));
+        static::$lastId=$conn->lastInsertId();
         return $conn->errorCode() == 00000 ? true : false;
+    }
+    public static function getLastId(){
+        return static::$lastId;
     }
     public static function getKeys(){
         return static::$keyList;
@@ -109,13 +114,14 @@ abstract class Model{
         $stmt = $conn->query("SELECT * FROM $tablename WHERE $where");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public static function join($join='LEFT',$fields1=[],$fields2=[],$secondTable,$onField1,$onField2){
+    public static function join($join='LEFT',$fields1=[],$fields2=[],$secondTable,$onField1,$onField2,$where=1){
         $conn = static::getDB();
         $firstTable = static::$table;
 
         $fieldNames1 = "A.".implode(", A.", $fields1);
         $fieldNames2 = "B.".implode(", B.", $fields2);
-        $stmt = $conn->query("SELECT $fieldNames1,$fieldNames2 FROM $firstTable AS A $join JOIN $secondTable AS B ON A.$onField1=B.$onField2");
+        //echo "SELECT $fieldNames1,$fieldNames2 FROM $firstTable AS A $join JOIN $secondTable AS B ON A.$onField1=B.$onField2 WHERE $where";
+        $stmt = $conn->query("SELECT $fieldNames1,$fieldNames2 FROM $firstTable AS A $join JOIN $secondTable AS B ON A.$onField1=B.$onField2 WHERE $where");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public static function saveImage($file){

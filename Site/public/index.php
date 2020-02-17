@@ -29,11 +29,13 @@ $router->add('home',['controller' => 'Home','action' => 'index']);
 //$router->add('home/dashboard',['controller' => 'Home','action' => 'dashboard']);
 // $router->add('posts/112/edit',['controller' => 'Posts','id' => 112,'action' => 'edit']);
 
-$router->add('{controller}/{action}');
+
+
 $router->add('admin/{controller}/{action}',['namespace' => 'Admin']);
 $router->add('admin/cms/{controller}/{action}',['namespace' => 'Admin\CMS']);
-$router->add('{controller}/{id:\d+}/{action}');
-
+//$router->add('{controller}/{id:\d+}/{action}');
+$router->add('{controller}/{action}/{url}');
+$router->add('{controller}/{action}');
 
 // echo "<pre>";
 // print_r($router->getRoutes());

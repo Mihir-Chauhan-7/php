@@ -19,7 +19,7 @@ class Router{
     public function add($route,$parameters=[])
     {
         $route = preg_replace('/\//','\\/',$route);
-        $route = preg_replace('/\{([a-z]+)\}/','(?P<\1>[a-z-]+)',$route);
+        $route = preg_replace('/\{([a-z]+)\}/','(?P<\1>[a-z-0-9]+)',$route);
         $route = preg_replace('/\{([a-z]+):([^\}]+)\}/','(?P<\1>\2)',$route);
         $route = '/^' . $route . '$/i';
         $this->routes[$route] = $parameters;
@@ -47,13 +47,12 @@ class Router{
 
     public function dispatch($url)
     {
+        
         $url = $this->removeQueryStringVariables($url);
 
-        if($this->match($url)){
-            
+        if($this->match($url)){    
             $controller = $this->parameters['controller'];
             $controller = $this->convertToStudlyCaps($controller);
-            //$controller = "App\Controllers\\$controller";
             $controller = $this->getNamespace().$controller;
 
             if(class_exists($controller)){

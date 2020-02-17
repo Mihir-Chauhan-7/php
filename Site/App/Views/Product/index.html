@@ -1,24 +1,29 @@
-{% extends "base.html" %}
+{% extends "Userbase.html" %}
 
 {% block title %}Products{% endblock %}
 
 {% block body %}
-    <a href="add">Add Product</a>
+    {% if productList %}
     <center>
         <h2 class="display-4">Products</h2>
     </center>
-    
-    {% if productList %}
-    <table class='table' style='text-align:center;margin:60px;width: 90%'>
-        <th>Id</th>
-        <th>Name</th>
+    <div style="margin-left: 30px;margin-right: 10px;">
     {% for product in productList %}
-        <tr>
-            <td>{{ product }}</td>
+    <a href="/Cybercom/php/Site/public/product/view/{{ product.url }}">
+    <div class="card mb-3" style=" margin-left:30px;margin-bottom: 40px;height: 24rem;width: 18rem;float: left;">
+        <img class='img-fluid img-thumbnail' style='width: auto; height: 280px'
+                src="/Cybercom/php/Site/Resources/uploads/products/{{ product.image }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">₹{{ product.price }}</p>
+        </div>
+      </div>
+    </a>
     {% endfor %}
-            <td><a href="edit?id={{ product.pid }}">Edit</a></td>
-            <td><a href="delete?id={{ product.pid }}">Delete</a></td>
-        </tr>
-    </table>
+    {% else %}
+        <center><h1 class="display-4">No Products</h1></center>
     {% endif %}
+    </div>
+{% endblock %}
+{% block footer %}
 {% endblock %}

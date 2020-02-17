@@ -30,8 +30,8 @@
             <td>{{ category.status }}</td>
             <td>{{ category.description }}</td>
             <td>{{ category.created_at }}</td>
-            <td><a href="edit?id={{ category.cid }}">Edit</a></td>
-            <td><a href="delete?id={{ category.cid }}">Delete</a></td>
+            <td><a class="badge badge-dark" href="edit?id={{ category.cid }}">Edit</a></td>
+            <td><a class="badge badge-dark" href="delete?id={{ category.cid }}">Delete</a></td>
         </tr>
     {% endfor %}
     </table>

@@ -1,0 +1,17 @@
+{% extends "Userbase.html" %}
+
+{% block title %}Products{% endblock %}
+{% block body %}
+<div>
+    <div style="float: left;">       
+        <img class='img-fluid img-thumbnail' style='width: 400px; height: 280px'
+                src="/Cybercom/php/Site/Resources/uploads/products/{{ singleProduct.image }}">
+    </div>
+    <div style="margin-left:50px; float: left;">
+        <h2 class="display-4">{{ singleProduct.name }}</h2>
+        <h3 class="card-text">₹{{ singleProduct.price }}</p>
+      </div>
+</div>
+{% endblock %}
+{% block footer %}
+{% endblock %}

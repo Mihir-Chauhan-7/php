@@ -95,7 +95,14 @@
         
       </div>
     </div>
-    
+    <div class="form-group">
+      <select class="col-md-4 form-control" name="cid">
+          <option value=''>No Parent</option>
+          {% for category in categoryList %}
+          <option value="{{ category.cid }}" {% if data.cid == category.cid %}selected=""{% endif %} {% if data.cid == category.cid %}disabled=""{% endif %}>{{ category.cname }}</option>
+          {% endfor %}
+      </select>
+    </div>
     <!-- Button -->
     <div class="form-group">
       <label class="col-md-4 control-label" for="Add"></label>

@@ -18,7 +18,7 @@
             <td>{{ product.pid }}</td>
             <td>{{ product.name }}</td>
             <td>{{ product.url }}</td>
-            <td><img class='img-fluid img-thumbnail' style='width: 180px; height: 110px'
+            <td><img class='img-fluid img-thumbnail' style='width: 250px; height: 110px'
                 src="/Cybercom/php/Site/Resources/uploads/products/{{ product.image }}">
             </td>        
             <td>{{ product.status }}</td>
@@ -28,8 +28,8 @@
             <td>{{ product.stock }}</td>
             <td>{{ product.sku }}</td>
             <td>{{ product.created_at }}</td>
-            <td><a href="edit?id={{ product.pid }}">Edit</a></td>
-            <td><a href="delete?id={{ product.pid }}">Delete</a></td>
+            <td><a class="badge badge-dark" href="edit?id={{ product.pid }}">Edit</a></td>
+            <td><a class="badge badge-dark" href="delete?id={{ product.pid }}">Delete</a></td>
         </tr>
     {% endfor %}
     </table>

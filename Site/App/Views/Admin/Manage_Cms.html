@@ -18,8 +18,8 @@
             {% for value in cms %}
             <td>{{ value }}</td>
             {% endfor %}        
-            <td><a href="edit?id={{ cms.cm_id }}">Edit</a></td>
-            <td><a href="delete?id={{ cms.cm_id }}">Delete</a></td>
+            <td><a class="badge badge-dark" href="edit?id={{ cms.cm_id }}">Edit</a></td>
+            <td><a class="badge badge-dark" href="delete?id={{ cms.cm_id }}">Delete</a></td>
         </tr>
     {% endfor %}
     </table>
