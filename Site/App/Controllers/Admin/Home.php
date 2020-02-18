@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Admin;
 session_start();
-use App\Models\Product as ProductModel;
+
 use Core\View;
 use App\Config;
 
@@ -17,8 +17,8 @@ class Home extends \Core\Controller {
             }
             else{
                 $_SESSION['loginStatus'] = false;
-                View::renderTemplate('Admin\Login.html');
-                echo "Invalid Details";    
+                View::renderTemplate('Admin\Login.html');                          
+                View::showMessage('Invalid Details',0);
             }
         }
         else{
@@ -26,14 +26,11 @@ class Home extends \Core\Controller {
                 'name' => 'Mihir'
             ]);
         }
-        
-        //echo 
-
-        //echo "Login Action"; 
     }
     public function logout(){
         unset($_SESSION['loginStatus']);
-        header('Location: /Cybercom/php/Site/public/admin/home/login');                  
+        header('Location: /Cybercom/php/Site/public/admin/home/login');
+        View::showMessage('Logout Successful',1);                      
     }
     public function dashboard(){
         Config::checkLogin()
