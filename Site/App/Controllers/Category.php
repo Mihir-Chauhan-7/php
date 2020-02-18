@@ -16,8 +16,9 @@ class Category extends \Core\Controller {
             
         ]);
     }
-    public function view(){
-        $category = CategoryModel::fetchData("url='".$this->route_params['url']."'");
+    public function view(){ 
+        $category = CategoryModel::fetchData("url='".
+            explode(".",$this->route_params['url'])[0]."'");
         $id = $category[0]['cid'];
         View::renderTemplate('Product/index.html',[
             'name' => 'Mihir',

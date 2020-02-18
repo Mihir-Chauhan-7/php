@@ -2,15 +2,36 @@
 
 {% block title %}Products{% endblock %}
 {% block body %}
-<div>
+<div style="margin: 100px;">
     <div style="float: left;">       
-        <img class='img-fluid img-thumbnail' style='width: 400px; height: 280px'
+        <img class='img-fluid img-thumbnail' style='width: 400px; height: 330px'
                 src="/Cybercom/php/Site/Resources/uploads/products/{{ singleProduct.image }}">
     </div>
-    <div style="margin-left:50px; float: left;">
-        <h2 class="display-4">{{ singleProduct.name }}</h2>
-        <h3 class="card-text">₹{{ singleProduct.price }}</p>
-      </div>
+    <div style="margin-left:200px; float: left;">
+        <h2 class="display-3">{{ singleProduct.name }}</h2><br>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <h4>In Stock</h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <select class="btn btn-outline-dark">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+            <button type="button" style="width: 225px;" class="btn btn-outline-dark">Add To Cart</button>    
+        </div><br><br>
+            <h3 class="display-4">₹{{ singleProduct.price }}</h3><br>
+            <h2>
+                <a style='width: 400px;' class="btn btn-outline-dark btn-lg">Buy Now</a>
+            </h2>
+            <br>
+        </div>
+
+        <div>
+            <button type="button" style="width: 400px;" 
+                class="btn btn-outline-dark btn-lg btn-block">View More Details</button>
+        </div>
+      
 </div>
 {% endblock %}
 {% block footer %}

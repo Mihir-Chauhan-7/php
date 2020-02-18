@@ -28,9 +28,10 @@ echo "URL : ".$_SERVER['QUERY_STRING'];
 // $router->add('',['controller' => 'Home','action' => 'index']);
 // $router->add('posts',['controller' => 'Posts','action' => 'index']);
 // $router->add('posts/new',['controller' => 'Posts','action' => 'new']);
-// $router->add('posts/112/edit',['controller' => 'Posts','id' => 112,'action' => 'edit']);
+//$router->add('posts/112/edit',['controller' => 'Posts','id' => 112,'action' => 'edit']);
 
 $router->add('{controller}/{action}');
+$router->add('{controller}/{action}/{url}');
 $router->add('admin/{controller}/{action}',['namespace' => 'Admin']);
 $router->add('{controller}/{id:\d+}/{action}');
 

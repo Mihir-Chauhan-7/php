@@ -15,10 +15,11 @@
                 src="/Cybercom/php/Site/Resources/uploads/products/{{ product.image }}">
         <div class="card-body">
           <h5 class="card-title">{{ product.name }}</h5>
+        </a>
           <p class="card-text">₹{{ product.price }}</p>
         </div>
       </div>
-    </a>
+    
     {% endfor %}
     {% else %}
         <center><h1 class="display-4">No Products</h1></center>

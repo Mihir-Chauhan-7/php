@@ -16,9 +16,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">   
             <li class="nav-item">
-                <div style='margin-left:40px' class="btn-group mr-2" role='group'>
+                <div style='background-color: white;margin-left:40px' class="btn-group mr-2" 
+                    role='group'>
                 {% for category in categoryList %}
-                <a class='btn btn-outline-dark' href="/Cybercom/php/Site/public/category/view/{{ category.url }}">{{ category.cname }}</a>
+                <a class='btn btn-outline-dark' href="/Cybercom/php/Site/public/category/view/{{ category.url }}.html">{{ category.cname }}</a>
                 {% endfor %}
                 </div>
             </li>

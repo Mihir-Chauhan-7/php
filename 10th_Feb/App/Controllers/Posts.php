@@ -11,6 +11,7 @@ class Posts extends \Core\Controller
 {
     private function index()
     {
+        print_r($this->route_params);
         $posts = Post::getAll();
         View::renderTemplate('Posts/index.html',[
             'action' => 'new',
