@@ -17,6 +17,12 @@ class ProductCategory extends \Core\Model
             ? true 
             : false;
     }
+    public static function updateCategory($pid,$cid){
+        static::executeSQL("DELETE FROM products_categories WHERE pid=$pid");
+            return static::insertData(['cid' => $cid , 'pid' => $pid])
+            ? true 
+            : false;
+    }
 }
 
 ?>

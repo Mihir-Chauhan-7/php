@@ -25,7 +25,17 @@ class Product extends \Core\Model
         }
         
     }
-
+    public static function updateProduct($data,$file){
+        Product::saveImage($file) ? $data['image'] = $file['image']['name'] : "";
+        isset($data['cid']) ? ProductCategory::updateCategory($data['id'],$data['cid']) : "";
+        if(Product::updateData($data)){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
+    }
     public static function getProductList(){
         return ['Product1','Product2'];
     }

@@ -23,8 +23,10 @@
                 value="{{ data.url }}">
         </div>
         <div>    
-            <input class="form-control" type="text" name="status" placeholder="status"
-                value="{{ data.status }}">
+            <select class="form-control" name="status">
+                <option value="1" {% if data.status == 1 %}selected=""{% endif %}>On</option>
+                <option value="0" {% if data.status == 0 %}selected=""{% endif %}>Off</option>
+            </select>
         </div>
     
         <div class="input-group">

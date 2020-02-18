@@ -24,6 +24,11 @@ abstract class Model{
         }
         return $conn;
     }
+    public static function executeSQL($query){
+        $conn = static::getDB();
+        $stmt = $conn->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     public static function prepareData($data)
     {
         $tablename = static::$table;
@@ -122,6 +127,17 @@ abstract class Model{
         $fieldNames2 = "B.".implode(", B.", $fields2);
         //echo "SELECT $fieldNames1,$fieldNames2 FROM $firstTable AS A $join JOIN $secondTable AS B ON A.$onField1=B.$onField2 WHERE $where";
         $stmt = $conn->query("SELECT $fieldNames1,$fieldNames2 FROM $firstTable AS A $join JOIN $secondTable AS B ON A.$onField1=B.$onField2 WHERE $where");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public static function joinThree($join='LEFT',$fields1=[],$fields2=[],$fields3=[],$secondTable,$thirdTable,$onFields1=[],$onFields2=[],$where=1){
+        $conn = static::getDB();
+        $firstTable = static::$table;
+
+        $fieldNames1 = sizeof($fields1)>0 ? "A.".implode(", A.", $fields1)."," : "";
+        $fieldNames2 = sizeof($fields2)>0 ? "B.".implode(", B.", $fields2)."," : "";
+        $fieldNames3 = sizeof($fields3)>0 ?"C.".implode(", C.", $fields3) : "";
+        $query = "SELECT $fieldNames1 $fieldNames2 $fieldNames3 FROM $firstTable AS A $join JOIN $secondTable AS B ON A.$onFields1[0]=B.$onFields1[1] $join JOIN $thirdTable AS C ON B.$onFields2[0]=C.$onFields2[1] WHERE $where";
+        $stmt = $conn->query($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public static function saveImage($file){

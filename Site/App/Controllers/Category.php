@@ -16,7 +16,10 @@ class Category extends \Core\Controller {
             
         ]);
     }
-    public function view(){ 
+    public function view(){
+        print_r(CategoryModel::executeSQL("SELECT DISTINCT(parent_id),cid,GROUP_CONCAT(cid) as child_id,GROUP_CONCAT(cname) as child_name 
+        FROM categories
+        GROUP BY parent_id"));
         $category = CategoryModel::fetchData("url='".
             explode(".",$this->route_params['url'])[0]."'");
         $id = $category[0]['cid'];
