@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Login</title>
 </head>
 <body>
-    <form method="POST" action="login"> 
-        <input type="text" name="txtemail">
-        <input type="text" name="txtpassword">
-        <input type="submit">
-    </form>
+    <center>
+    <div style="margin-top: 150px;height:300px;width: 400px;" class="card border-dark mb-3" style="max-width: 18rem;">
+        <div class="card-header"><h5>Login</h5></div>
+        <div class="card-body text-dark">
+          
+            <form class="form-group" method="POST" action="login"> 
+                <input class="form-control" type="text" name="txtemail" placeholder="Email"><br>
+                <input class="form-control" type="password" name="txtpassword" placeholder="Password"><br>
+                <input class="btn btn-outline-dark" type="submit" value="Login">
+            </form>
+        </div>
+      </div>
+    </center>
 </body>
 </html>
 

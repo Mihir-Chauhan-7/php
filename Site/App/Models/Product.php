@@ -11,10 +11,10 @@ class Product extends \Core\Model
 {
     protected static $table="products";
     protected static $primaryKey = "pid";
+    protected static $urlField = "name";
     protected static $keyList=['Id','Name','URL','Image','Status','Description',
         'Short_Description','Price','Stock','SKU','Created At'];
     protected static $discardList = ['id','Add','cid'];
-    
     public static function insertProduct($data,$file){
         Product::saveImage($file) ? $data['image'] = $file['image']['name'] : "";
         if(Product::insertData($data) && ProductCategory::addProduct($data['cid'])){

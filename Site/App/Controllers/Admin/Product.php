@@ -46,7 +46,9 @@ class Product extends \Core\Controller {
     public function edit(){
         $categoryList=ProductModel::getCategoryList();
         if(isset($_GET['id']) && $_SERVER['REQUEST_METHOD'] == 'GET'){
-            print_r($productData=ProductModel::joinThree('LEFT',['*'],[],['cid','cname'],'products_categories','categories',['pid','pid'],['cid','cid'],"A.pid=".$_GET['id']));
+            $productData=ProductModel::joinThree('LEFT',['*'],[],['cid','cname']
+            ,'products_categories','categories',['pid','pid'],['cid','cid']
+            ,"A.pid=".$_GET['id']);
             View::renderTemplate('Admin\AddProduct.html',[
                 'title' => 'Update',
                 'categoryList' => $categoryList,
@@ -56,7 +58,6 @@ class Product extends \Core\Controller {
         }
         else if($_SERVER['REQUEST_METHOD'] == 'POST'){
             ProductModel::saveImage($_FILES) ? $_POST['image'] = $_FILES['image']['name'] : "";
-            print_r($_POST);
             ProductModel::updateProduct($_POST,$_FILES) 
             ?   header("Location: " . Config::HOME . "admin/product/index")
             :   View::renderTemplate('Admin\AddProduct.html',[

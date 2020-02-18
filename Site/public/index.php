@@ -37,6 +37,7 @@ $router->add('admin/cms/{controller}/{action}',['namespace' => 'Admin\CMS']);
 $router->add('{controller}/{action}/{url}');
 $router->add('{controller}/{action}');
 
+
 // echo "<pre>";
 // print_r($router->getRoutes());
 // echo "</pre>";

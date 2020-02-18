@@ -9,6 +9,7 @@ abstract class Model{
 
     protected static $table;
     protected static $primaryKey;
+    protected static $urlField;
     protected static $lastId;
     protected static $keyList;
     protected static $discardList;
@@ -49,7 +50,7 @@ abstract class Model{
         $id=$data['id'];
         $tablename = static::$table;
         $primaryKey = static::$primaryKey;
-        
+        $data['url'] = static::generateUrl($data[static::$urlField]);
         $i = 0;
         $pre = '';
         $fields = '';
@@ -154,6 +155,10 @@ abstract class Model{
             }
         }
         return false;
+    }
+    public static function generateUrl($name){
+        return strtolower(preg_replace(['/\s+/','/\W/'],'_',$name));
+
     }
 }
 ?>
