@@ -21,14 +21,15 @@ public function add(){
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         Category::saveImage($_FILES) ? $_POST['image'] = $_FILES['image']['name'] : "";
         if(Category::insertData($_POST)){
-            header('Location: /Cybercom/php/Site/public/admin/categories/index');                  
+            header('Location: /Cybercom/php/Site/public/admin/categories/index');
+            View::showMessage('Category Inserted..',1);                  
         }
         else{
             View::renderTemplate('Admin\AddCategory.html',[
                 'title' => 'Add',
                 'data' => $_POST
             ]);
-            echo "Category Not Inserted";
+            View::showMessage('Category Not Inserted...',0);
         }  
 
     }
@@ -54,20 +55,25 @@ public function edit(){
     }
     else if($_SERVER['REQUEST_METHOD'] == 'POST'){
         Category::saveImage($_FILES) ? $_POST['image'] = $_FILES['image']['name'] : "";
-        Category::updateData($_POST) 
-        ?   header("Location: " . Config::HOME . "admin/categories/index")
-        :   View::renderTemplate('Admin\AddCategory.html',[
+        if(Category::updateData($_POST) ){
+            header("Location: " . Config::HOME . "admin/categories/index");
+            View::showMessage('Category Updated...',1);
+        }
+        else{
+            View::renderTemplate('Admin\AddCategory.html',[
                 'title' => 'Update',
                 'data' => $_POST,
                 'parentList' => $parentList
             ]);
+            View::showMessage('Category Not Updated...',0);
+        }    
     }
 } 
 public function delete(){
-    if(Category::deleteData($_GET['id'])){
-        $_SESSION['message']=[ 'className' => 'alert alert-success' ,
-            'message' => "Delete Successful"];
+        if(Category::deleteData($_GET['id'])){
+            View::showMessage('Category Deleted...',1);
             header('Location: /Cybercom/php/Site/public/Admin/Categories/index');
+                                  
         }   
     }
 }

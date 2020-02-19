@@ -10,9 +10,6 @@ use App\Config;
 class Product extends \Core\Controller {
 
     public function index(){
-        //echo "<pre>";
-        //print_r(ProductModel::getAll());
-        //print_r(ProductModel::getKeys());
         View::renderTemplate('Admin\Manage_Product.html',[
             'name' => 'Mihir',
             'productKey' => ProductModel::getKeys(),
@@ -23,7 +20,8 @@ class Product extends \Core\Controller {
         $categoryList=ProductModel::getCategoryList();
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if(ProductModel::insertProduct($_POST,$_FILES)){
-                header('Location: /Cybercom/php/Site/public/admin/product/index');                  
+                header('Location: /Cybercom/php/Site/public/admin/product/index');
+                View::showMessage('Product Inserted...',1);                                    
             }
             else{
                 View::renderTemplate('Admin\AddProduct.html',[
@@ -31,7 +29,7 @@ class Product extends \Core\Controller {
                     'data' => $_POST,
                     'categoryList' => $categoryList
                 ]);
-                echo "Product Not Inserted";
+                View::showMessage('Product Not Inserted..',0);                  
             }  
 
         }
@@ -58,13 +56,18 @@ class Product extends \Core\Controller {
         }
         else if($_SERVER['REQUEST_METHOD'] == 'POST'){
             ProductModel::saveImage($_FILES) ? $_POST['image'] = $_FILES['image']['name'] : "";
-            ProductModel::updateProduct($_POST,$_FILES) 
-            ?   header("Location: " . Config::HOME . "admin/product/index")
-            :   View::renderTemplate('Admin\AddProduct.html',[
+            if(ProductModel::updateProduct($_POST,$_FILES)){
+                header("Location: " . Config::HOME . "admin/product/index");
+                View::showMessage('Product Updated..',1);                  
+            }
+            else{
+                View::renderTemplate('Admin\AddProduct.html',[
                     'title' => 'Update',
                     'categoryList' => $categoryList,
                     'data' => $_POST
                 ]);
+                View::showMessage('Product Not Updated..',0);                  
+            }   
         }
     }
     public function delete(){
@@ -72,6 +75,7 @@ class Product extends \Core\Controller {
             $_SESSION['message']=[ 'className' => 'alert alert-success' ,
                 'message' => "Delete Successful"];
             header('Location: /Cybercom/php/Site/public/Admin/Product/index');
+            View::showMessage('Product Deleted...',0);                  
         }   
     }
 }

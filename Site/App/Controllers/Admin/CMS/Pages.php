@@ -10,16 +10,16 @@ class Pages extends \Core\Controller {
 
     public function add(){
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            print_r($_POST);
             if(Cms::insertData($_POST)){
-                header('Location: /Cybercom/php/Site/public/admin/cms/pages/index');                  
+                header('Location: /Cybercom/php/Site/public/admin/cms/pages/index'); 
+                View::showMessage('Page Inserted...',1);                                   
             }
             else{
                 View::renderTemplate('Admin\AddCMS.html',[
                     'title' => 'Add',
                     'data' => $_POST
                 ]);
-                echo "Page Not Inserted";
+                View::showMessage('Page Not Inserted...',0);                  
             }  
 
         }
@@ -45,19 +45,23 @@ class Pages extends \Core\Controller {
            ]);
         }
         else if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            Cms::updateData($_POST) 
-            ?   header("Location: " . Config::HOME . "admin/cms/pages/index")
-            :   View::renderTemplate('Admin\AddCMS.html',[
+            if(Cms::updateData($_POST)){
+                header("Location: " . Config::HOME . "admin/cms/pages/index");
+                View::showMessage('Page Updated...',1);                  
+            } 
+            else{
+                View::renderTemplate('Admin\AddCMS.html',[
                     'title' => 'Update',
                     'data' => $_POST
                 ]);
+                View::showMessage('Page Not Updated...',0);                  
+            }
         }
     }
     public function delete(){
         if(Cms::deleteData($_GET['id'])){
-            $_SESSION['message']=[ 'className' => 'alert alert-success' ,
-                'message' => "Delete Successful"];
             header('Location: /Cybercom/php/Site/public/Admin/Cms/pages/index');
+            View::showMessage('Page Deleted...',0);                  
         }   
     }
 }

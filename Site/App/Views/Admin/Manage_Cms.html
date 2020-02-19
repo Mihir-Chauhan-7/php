@@ -2,7 +2,10 @@
 
 {% block title %}Products{% endblock %}
 
-{% block body %}
+{% block body %}    
+    <div class="{{ session.className }} role="alert">
+        {{ session.errorMessage }}    
+    </div>
     <div><center><h1 class="display-4">CMS Pages</h1></center>
     <a style="margin-right: 80px;float: right" class='btn btn-outline-dark' href="add">
         Add Page</a>

@@ -3,7 +3,11 @@
 {% block title %}Products{% endblock %}
 
 {% block body %}
+    <div class="{{ session.className }} role="alert">
+        {{ session.errorMessage }}    
+    </div>
     <div><center><h1 class="display-4">Products</h1></center>
+    
     <a style="margin-right: 80px;float: right" class='btn btn-outline-dark' href="add">
         Add Product</a>
     {% if productList %}

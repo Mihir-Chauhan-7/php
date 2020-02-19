@@ -1,7 +1,7 @@
 <?php
 
 namespace Core;
-
+session_start();
 use Twig;
 use App\Models\Category;
 // use Twig_Loader_Filesystem;
@@ -33,6 +33,7 @@ class View
         if($twig === null){
             $loader = new \Twig\Loader\FilesystemLoader('../App/Views');
             $twig = new \Twig\Environment($loader);
+            
             if(isset($_SESSION['message'])){
                 $twig->addGlobal('session',$_SESSION['message']);
                 unset($_SESSION['message']);
