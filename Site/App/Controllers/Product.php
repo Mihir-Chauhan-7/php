@@ -17,7 +17,8 @@ class Product extends \Core\Controller {
         ]);
     }
     public function view(){
-        $product = ProductModel::fetchData("url='".$this->route_params['url']."'");
+
+        print_r($product = ProductModel::fetchData("url='".$this->route_params['url']."'"));
         $id = $product[0]['pid'];
         View::renderTemplate('Product/product.html',[
             'name' => 'Mihir',

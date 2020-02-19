@@ -38,10 +38,9 @@ class Pages extends \Core\Controller {
 
     public function edit(){
         if(isset($_GET['id']) && $_SERVER['REQUEST_METHOD'] == 'GET'){
-            $pageData=Cms::getData($_GET['id']);
             View::renderTemplate('Admin\AddCMS.html',[
                 'title' => 'Update',
-                'data' => $pageData[0]
+                'data' => Cms::getData($_GET['id'])[0]
            ]);
         }
         else if($_SERVER['REQUEST_METHOD'] == 'POST'){

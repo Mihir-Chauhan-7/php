@@ -17,19 +17,9 @@
     </div>
     
     <!-- Text input-->
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="url">Url</label>  
-      <div class="col-md-5">
-      <input id="url" name="url" type="text" placeholder="" class="form-control input-md"
-        value="{{ data.url }}">
-        
-      </div>
-    </div>
-    
-    <!-- Text input-->
-    <div class="form-group">    
-      <label class="col-md-4 control-label" for="status">Status</label>
-      <select class="col-md-4 form-control" name="status">
+    <div>    
+      <label class="col" for="status">Status</label>
+      <select class="form-control col-md-1" name="status">
           <option value="1" {% if data.status == 1 %}selected=""{% endif %}>On</option>
           <option value="0" {% if data.status == 0 %}selected=""{% endif %}>Off</option>
       </select>
