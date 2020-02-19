@@ -7,7 +7,7 @@
     <center>
         <h2 class="display-4">Products</h2>
     </center>
-    <div style="margin-left: 30px;margin-right: 10px;">
+    <div style="margin-top: 40px;margin-left: 30px;margin-right: 10px;">
     {% for product in productList %}
     <a href="/Cybercom/php/Site/public/product/view/{{ product.url }}">
     <div class="card mb-3" style=" margin-left:30px;margin-bottom: 40px;height: 24rem;width: 18rem;float: left;">
@@ -16,7 +16,8 @@
         <div class="card-body">
           <h5 class="card-title">{{ product.name }}</h5>
         </a>
-          <p class="card-text">₹{{ product.price }}</p>
+          <h3 class="card-text">₹{{ product.price }}
+          <a style="float: right;" class="btn btn-outline-dark">Add To Cart</a></h3>
         </div>
       </div>
     

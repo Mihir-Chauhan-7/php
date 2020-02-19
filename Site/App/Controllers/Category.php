@@ -27,6 +27,7 @@ class Category extends \Core\Controller {
             $parentList[$i]['childs']=getChild($parentList[$i]['parent_id']);
         }
         for($i = 0; $i<sizeof($parentList); $i++){
+            $parentList[$i]['pname']=CategoryModel::executeSQL("SELECT cname as pname FROM categories WHERE cid=".$parentList[$i]['parent_id'])[0]['pname'];
             $parentList[$i]['purl']=CategoryModel::executeSQL("SELECT url as purl FROM categories WHERE cid=".$parentList[$i]['parent_id'])[0]['purl'];
         }
         $category = CategoryModel::fetchData("url='".

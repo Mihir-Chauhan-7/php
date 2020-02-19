@@ -2,16 +2,18 @@
 
 {% block title %}Products{% endblock %}
 {% block body %}
+
 <div style="margin: 100px;">
     <div style="float: left;">       
         <img class='img-fluid img-thumbnail' style='width: 400px; height: 330px'
                 src="/Cybercom/php/Site/Resources/uploads/products/{{ singleProduct.image }}">
     </div>
     <div style="margin-left:200px; float: left;">
+        <input id="pid" type="hidden" value="{{ singleProduct.pid }}">
         <h2 class="display-3">{{ singleProduct.name }}</h2><br>
         <div class="btn-group" role="group" aria-label="Basic example">
             <h4>In Stock</h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <select class="btn btn-outline-dark">
+            <select id="count" class="btn btn-outline-dark">
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -23,6 +25,7 @@
             <h3 class="display-4">₹{{ singleProduct.price }}</h3><br>
             <h2>
                 <a style='width: 400px;' class="btn btn-outline-dark btn-lg">Buy Now</a>
+                
             </h2>
             <br>
         </div>
@@ -31,17 +34,25 @@
             <button type="button" style="width: 400px;" 
                 class="btn btn-outline-dark btn-lg btn-block">View More Details</button>
         </div>
-        <div class="grid-container">
-            <div class="grid-item">1</div>
-            <div class="grid-item">2</div>
-            <div class="grid-item">3</div>  
-            <div class="grid-item">4</div>
-            <div class="grid-item">5</div>
-            <div class="grid-item">6</div>  
-            <div class="grid-item">7</div>
-            <div class="grid-item">8</div>
-            <div class="grid-item">9</div>  
-          </div>
+        <div id="div1">Div</div>
+        <script>
+            var count=0;
+            $(document).ready(function(){
+              $("button").click(function(){
+                $("#div1").text("Selected Qty : "+$("#count option:selected").text());
+                var cartObj = {'pid' : $("#pid").val(),
+                    'qty' : $("#count option:selected").text()}
+                $.ajax({
+                        url: "/Cybercom/php/Site/public/cart/index", 
+                        method : 'POST',
+                        data : { 'cartObj' : JSON.stringify(cartObj)},
+                        success: function(result){
+                            $("#div1").html(result);
+                        }
+                    });
+              });
+            });
+        </script>
 </div>
 {% endblock %}
 {% block footer %}
