@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 //require '../App/Controllers/Posts.php';
 //require '../Core/Router.php';
 use App\Controllers\Posts;

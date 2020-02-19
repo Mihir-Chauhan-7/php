@@ -1,7 +1,7 @@
 <?php
 
 namespace Core;
-session_start();
+use App\Config;
 use Twig;
 use App\Models\Category;
 // use Twig_Loader_Filesystem;

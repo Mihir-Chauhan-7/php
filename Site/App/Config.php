@@ -1,7 +1,6 @@
 <?php
 
 namespace App;
-
 class Config{
 
     const ADMIN_EMAIL = 'chauhanmihir51@gmail.com';

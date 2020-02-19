@@ -12,9 +12,11 @@ class Product extends \Core\Model
     protected static $table="products";
     protected static $primaryKey = "pid";
     protected static $urlField = "name";
+    protected static $mainUrl ="admin/product/";
     protected static $keyList=['Id','Name','URL','Image','Status','Description',
         'Short_Description','Price','Stock','SKU','Created At'];
     protected static $discardList = ['id','Add','cid'];
+
     public static function insertProduct($data,$file){
         Product::saveImage($file) ? $data['image'] = $file['image']['name'] : "";
         if(Product::insertData($data) && ProductCategory::addProduct($data['cid'])){
@@ -36,8 +38,10 @@ class Product extends \Core\Model
         }
         
     }
-    public static function getProductList(){
-        return ['Product1','Product2'];
+    public static function getProductData($id){
+        return $productData=static::joinThree('LEFT',['*'],[],['cid','cname']
+                ,'products_categories','categories',['pid','pid'],['cid','cid']
+                ,"A.pid=".$id)[0];
     }
     public static function getCategoryList(){
         return Category::getAll();

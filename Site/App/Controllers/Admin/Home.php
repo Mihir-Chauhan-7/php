@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Controllers\Admin;
-session_start();
-
 use Core\View;
 use App\Config;
 
@@ -10,8 +8,9 @@ class Home extends \Core\Controller {
 
     public function login(){
         if(isset($_POST['txtemail']) && isset($_POST['txtpassword'])){
-            if(Config::ADMIN_EMAIL==$_POST['txtemail'] &&
-                Config::ADMIN_PASSWORD==$_POST['txtpassword']){
+            if(Config::ADMIN_EMAIL == $_POST['txtemail'] && 
+                Config::ADMIN_PASSWORD == $_POST['txtpassword'])
+            {
                     $_SESSION['loginStatus'] = true;
                     header('Location: /Cybercom/php/Site/public/admin/home/dashboard');                  
             }

@@ -14,6 +14,7 @@ abstract class Model{
     protected static $keyList;
     protected static $discardList;
     protected static $directory;
+    protected static $mainUrl;
     public static function getDB()
     {
         static $db = null;
@@ -159,6 +160,10 @@ abstract class Model{
     public static function generateUrl($name){
         return strtolower(preg_replace(['/\s+/','/\W/'],'_',$name));
 
+    }
+    public static function redirect($url){
+        echo "Location: " . Config::HOME . static::$mainUrl . $url;
+        header("Location: " . Config::HOME . static::$mainUrl . $url);   
     }
 }
 ?>
