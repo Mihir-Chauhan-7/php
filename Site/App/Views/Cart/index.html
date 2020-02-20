@@ -1,0 +1,25 @@
+{% extends "Userbase.html" %}
+
+{% block title %}Cart{% endblock %}
+
+{% block body %}
+
+{% if cartData %}
+    {% for item in cartData %}
+    <div>
+    Product Id {{ item.product_id }}
+    Quantity {{ item.quantity }}</div>
+    {% endfor %}
+    <a href="/Cybercom/php/Site/public/cart/clear">Empty Cart</a>
+{% else %}
+    <h1>
+        Cart Empty
+    </h1>
+
+{% endif %}
+
+{% endblock %}
+
+
+{% block footer %}
+{% endblock %}

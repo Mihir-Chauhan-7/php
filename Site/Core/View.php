@@ -33,7 +33,7 @@ class View
         if($twig === null){
             $loader = new \Twig\Loader\FilesystemLoader('../App/Views');
             $twig = new \Twig\Environment($loader);
-            
+            $twig->addGlobal('globalUrl',Config::HOME);
             if(isset($_SESSION['message'])){
                 $twig->addGlobal('session',$_SESSION['message']);
                 unset($_SESSION['message']);

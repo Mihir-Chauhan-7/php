@@ -15,6 +15,8 @@ class Home extends \Core\Controller {
                     header('Location: /Cybercom/php/Site/public/admin/home/dashboard');                  
             }
             else{
+                $_SESSION['userId'] = 1;
+                header('Location:'.Config::HOME);                  
                 $_SESSION['loginStatus'] = false;
                 View::renderTemplate('Admin\Login.html');                          
                 View::showMessage('Invalid Details',0);
@@ -28,11 +30,12 @@ class Home extends \Core\Controller {
     }
     public function logout(){
         unset($_SESSION['loginStatus']);
+        session_destroy();
         header('Location: /Cybercom/php/Site/public/admin/home/login');
         View::showMessage('Logout Successful',1);                      
     }
     public function dashboard(){
-        Config::checkLogin()
+        Config::checkLogin(1)
         ? View::renderTemplate('base.html',[
                 'name' => 'Mihir'
           ])

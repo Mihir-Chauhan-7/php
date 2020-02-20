@@ -9,6 +9,7 @@ class ProductCategory extends \Core\Model
     protected static $table = "products_categories";
     protected static $primaryKey = "cid";
     protected static $discardList = ['id','submit'];
+
     public static function getProductList($cid){
         return static::join('INNER',['cid'],['pid','url','image','name','price'],'products','pid','pid',"A.cid=$cid");
     }

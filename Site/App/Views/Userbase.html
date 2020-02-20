@@ -18,17 +18,24 @@
         {% for category in categoryList %}
             <h2>
               <a style="margin-left: 10px;" class="btn btn-outline-dark btn-lg" 
-                    href="{{ category.purl }}">{{ category.pname }}
+                    href="{{ globalUrl}}{{ controller_action }}{{ category.purl }}.html">
+                    {{ category.pname }}
               </a>
             </h2> 
             {% for childsList in category.childs %}
               <a style="margin-left:10px ;" class="btn btn-outline-dark btn-sm" 
-                  href="{{ childsList.url }}">{{ childsList.child_name }}</a>
+                  href="{{ globalUrl}}{{ controller_action }}{{ childsList.url }}.html">
+                  {{ childsList.child_name }}</a>
             {% endfor %}
         {% endfor %}
+        <a style="margin-inline-start: 400px;margin-right: 10px;" class="btn btn-outline-dark"
+            href="/Cybercom/php/Site/public/cart/index">View Cart</a>
+        {% if loginStatus %}
+            <a class="btn btn-outline-dark" href="">Logout</a>
+        {% endif %}
       </nav>
     </header>
-    <div id="body" style="height: 525px;">{% block body %}{% endblock %}</div>
+    <div id="body" style="height: 600px;">{% block body %}{% endblock %}</div>
     <div style="clear: both;"></div>
     <footer>
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">

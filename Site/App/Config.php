@@ -12,10 +12,16 @@ class Config{
     const PASSWORD = '';
     const SHOW_ERROR = true;
 
-    public static function checkLogin(){
-        return isset($_SESSION['loginStatus']) && $_SESSION['loginStatus']==true 
+    public static function checkLogin($user){
+        if($user){
+            return isset($_SESSION['loginStatus']) && $_SESSION['loginStatus']==true 
             ? true 
-            : false; 
+            : false;
+        } 
+        else{
+            return isset($_SESSION['userId']) ? true : false;
+        }
+         
     }
 }
 ?>

@@ -72,7 +72,7 @@ abstract class Model{
     public static function insertData($data)
     {
         $conn = static::getDB();
-        echo static::prepareData($data);
+        //echo static::prepareData($data);
         $conn->exec(static::prepareData($data));
         static::$lastId=$conn->lastInsertId();
         return $conn->errorCode() == 00000 ? true : false;

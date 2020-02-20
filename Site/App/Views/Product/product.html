@@ -3,7 +3,11 @@
 {% block title %}Products{% endblock %}
 {% block body %}
 
-<div style="margin: 100px;">
+{% if singleProduct %}
+<div id="div1">
+
+</div>
+<div id="mainDiv" style="margin: 100px;">
     <div style="float: left;">       
         <img class='img-fluid img-thumbnail' style='width: 400px; height: 330px'
                 src="/Cybercom/php/Site/Resources/uploads/products/{{ singleProduct.image }}">
@@ -20,12 +24,11 @@
                 <option>4</option>
                 <option>5</option>
             </select>
-            <button type="button" style="width: 225px;" class="btn btn-outline-dark">Add To Cart</button>    
+            <button id="add" type="button" style="width: 225px;" class="btn btn-outline-dark">Add To Cart</button>    
         </div><br><br>
             <h3 class="display-4">₹{{ singleProduct.price }}</h3><br>
             <h2>
                 <a style='width: 400px;' class="btn btn-outline-dark btn-lg">Buy Now</a>
-                
             </h2>
             <br>
         </div>
@@ -34,25 +37,35 @@
             <button type="button" style="width: 400px;" 
                 class="btn btn-outline-dark btn-lg btn-block">View More Details</button>
         </div>
-        <div id="div1">Div</div>
+
         <script>
             var count=0;
             $(document).ready(function(){
-              $("button").click(function(){
-                $("#div1").text("Selected Qty : "+$("#count option:selected").text());
-                var cartObj = {'pid' : $("#pid").val(),
-                    'qty' : $("#count option:selected").text()}
+                
+              $("#add").click(function(){
+                var cartObj = {'product_id' : $("#pid").val(),
+                    'quantity' : $("#count option:selected").text()}
                 $.ajax({
-                        url: "/Cybercom/php/Site/public/cart/index", 
+                        url: "/Cybercom/php/Site/public/cart/generate", 
                         method : 'POST',
                         data : { 'cartObj' : JSON.stringify(cartObj)},
+                        
                         success: function(result){
-                            $("#div1").html(result);
+                            $("#div1").text(result);
+                            $("#mainDiv").before("<div class='alert alert-info' role='alert'>Item Added into Cart ..</div>");
                         }
                     });
               });
             });
         </script>
+        {% else %}
+        
+            <center>
+                <h1 style="margin-top: 200px;" class="display-4">Product Not Found</h1>
+            </center>
+        
+        {% endif %}
+        
 </div>
 {% endblock %}
 {% block footer %}

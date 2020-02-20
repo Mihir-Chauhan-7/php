@@ -12,21 +12,21 @@ class Product extends \Core\Controller {
 
     public function index(){
         
-        View::renderTemplate('Product/index.html',[
-            'name' => 'Mihir'
-        ]);
+        View::renderTemplate('Product/index.html');
     }
     public function view(){
-        $product = ProductModel::fetchData("url='".$this->route_params['url']."'");
+        $product = ProductModel::fetchData("url='".explode('.',$this->route_params['url'])[0]
+            ."'");
         if(sizeof($product)>0){
             $id = $product[0]['pid'];
             View::renderTemplate('Product/product.html',[
-                'categoryList' => Category::getAll(),
+                'controller_action' => 'category/view/',
+                'categoryList' => Category::getParentChild(),
                 'singleProduct' => ProductModel::getData($id)[0]
             ]);
         }
         else{
-            die("Product Not Found");
+            View::renderTemplate('Product/product.html',['controller_action' => 'category/view/']);
             
         }
     }
