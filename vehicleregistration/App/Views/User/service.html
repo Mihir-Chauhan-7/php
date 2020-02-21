@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Products{% endblock %}
+
+{% block body %}
+<div class="card text-center" style="margin-top:20px;margin-left:450px;width: 30rem">
+    <div class="card-header">
+        <h5 class="card-title">Add Service</h5>    
+    </div>
+    
+    <div class="card-body">      
+        <form method="POST">
+            <div>
+                <input class="form-control" type="text" name="title" placeholder="Title" 
+                    value="{{ serviceData.title }}">
+            </div>
+        <div>
+            <input class="form-control" type="text" name="vehicle_no" placeholder="vehicle_no" 
+                value="{{ serviceData.vehicle_no }}">
+        </div>
+        <div>
+            <input class="form-control" type="text" name="licence_no" placeholder="licence_no" 
+                value="{{ serviceData.licence_no }}">
+        </div>
+        <div>
+            <input class="form-control" type="date" id="date" name="date" 
+                value="{{ serviceData.date }}">
+        </div>
+        
+        <div>    
+            <select class="form-control" name="time_slot">
+                <option value="1" {% if serviceData == 1 %}selected=""{% endif %}>9 to 10
+
+                </option>
+                <option value="2" {% if serviceData == 2 %}selected=""{% endif %}>10 to 11
+
+                </option>
+                <option value="3" {% if serviceData == 3 %}selected=""{% endif %}>11 to 12
+
+                </option>
+                <option value="4" {% if serviceData == 4 %}selected=""{% endif %}>1 to 2
+
+                </option>
+                <option value="5" {% if serviceData == 5 %}selected=""{% endif %}>2 to 3
+
+                </option>
+                <option value="6" {% if serviceData == 6 %}selected=""{% endif %}>5 to 6
+
+                </option>
+            </select>
+        </div>
+        <div>
+            <input class="form-control" type="text" name="issue" placeholder="issue">
+        </div>
+        <select class="form-control" name="service_center">
+            <option value="1" {% if serviceData.service_center == 1 %}selected=""{% endif %}>
+                Center 1</option>
+            <option value="2" {% if serviceData.service_center == 1 %}selected=""{% endif %}>
+                Center 2</option>
+            <option value="3" {% if serviceData.service_center == 1 %}selected=""{% endif %}>
+                Center 3</option>
+        </select>
+    </div>
+    <div class="card-footer text-muted">
+        <div>
+            <input class="btn btn-outline-dark" type="submit" name="submit">
+        </div>
+        <script>
+            var count=0;
+            $(document).ready(function(){
+
+                var now = new Date();
+                var month = now.getMonth()+1; 
+                if(month<=9){
+                    month = "0" + month;
+                }
+                var today = now.getFullYear() + "-" + month + "-" + (now.getDate()+1);
+                alert(today);   
+                $('#date').attr('min',today);
+            });
+        </script>
+        
+    </div>
+</form>
+</div>
+{% endblock %}

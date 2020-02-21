@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Login</title>
+</head>
+<body>
+    <center>
+    <div style="margin-top: 150px;height:300px;width: 400px;" class="card border-dark mb-3" style="max-width: 18rem;">
+        <div class="card-header"><h5>Login</h5></div>
+        <div class="card-body text-dark">
+          
+            <form class="form-group" method="POST"> 
+                <input class="form-control" type="text" name="txtemail" placeholder="Email"><br>
+                <input class="form-control" type="password" name="txtpassword" placeholder="Password"><br>
+                <input class="btn btn-outline-dark" type="submit" value="Login">
+                <a class="btn btn-outline-dark" href="/Cybercom/php/vehicleregistration/public/user/register">Register</a>
+            </form>
+        </div>
+        
+      </div>
+      <div class="{{ session.className }} role="alert">
+        {{ session.errorMessage }}    
+      </div>
+    </center>
+</body>
+</html>
+

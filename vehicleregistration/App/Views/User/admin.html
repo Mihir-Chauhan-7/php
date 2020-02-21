@@ -1,0 +1,37 @@
+{% extends "Userbase.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <a href="/Cybercom/php/vehicleregistration/public/service/register">Register Service</a>
+    <table class="table">
+        <tr>
+            <th>Mark</th>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Date</th>
+            <th>TimeSlot</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    {% for service in serviceData %}
+        <tr>
+            <td><input type="checkbox" name="check{{ service.service_id }}"></td>
+            <td>{{ service.service_id }}</td>
+            <td>{{ service.title }}</td>
+            <td>{{ service.date }}</td>
+            <td>
+                    {% if service.time_slot==1 %}9 to 10
+                    {% elseif service.time_slot==2 %}10 to 11
+                    {% elseif service.time_slot==3 %}11 to 12
+                    {% elseif service.time_slot==4 %}12 to 1
+                    {% elseif service.time_slot==5 %}1 to 2
+                    {% elseif service.time_slot==6 %}5 to 6
+                    {% endif %}
+            </td>
+            <td>{{ service.status }}</td>
+            <td><a href="/Cybercom/php/vehicleregistration/public/admin/home/edit?id={{ service.service_id }}">Edit</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

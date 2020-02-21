@@ -1,0 +1,124 @@
+[21-Feb-2020 14:14:10 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('user/')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php On Line 76
+_______________________________________________________________________________________________________________________________________
+
+[21-Feb-2020 14:15:46 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('Cybercom/php/ve...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php On Line 76
+_______________________________________________________________________________________________________________________________________
+
+[21-Feb-2020 14:15:55 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('Cybercom/php/ve...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php On Line 76
+_______________________________________________________________________________________________________________________________________
+
+[21-Feb-2020 14:15:55 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('Cybercom/php/ve...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php On Line 76
+_______________________________________________________________________________________________________________________________________
+
+[21-Feb-2020 14:15:55 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('Cybercom/php/ve...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php On Line 76
+_______________________________________________________________________________________________________________________________________
+
+[21-Feb-2020 14:16:08 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('Cybercom/php/ve...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php On Line 76
+_______________________________________________________________________________________________________________________________________
+
+[21-Feb-2020 14:22:35 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('admin/home/logo...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php On Line 76
+_______________________________________________________________________________________________________________________________________
+
+[21-Feb-2020 14:22:38 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('admin/home/logo...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php On Line 76
+_______________________________________________________________________________________________________________________________________
+
+[21-Feb-2020 14:22:38 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('admin/home/logo...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php On Line 76
+_______________________________________________________________________________________________________________________________________
+
+[21-Feb-2020 14:22:39 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('admin/home/logo...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php On Line 76
+_______________________________________________________________________________________________________________________________________
+
+[21-Feb-2020 14:22:39 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('admin/home/logo...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php On Line 76
+_______________________________________________________________________________________________________________________________________
+
+[21-Feb-2020 14:22:39 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('admin/home/logo...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php On Line 76
+_______________________________________________________________________________________________________________________________________
+
+[21-Feb-2020 14:22:40 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('admin/home/logo...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php On Line 76
+_______________________________________________________________________________________________________________________________________
+
+[21-Feb-2020 14:22:41 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('admin/home/logo...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php On Line 76
+_______________________________________________________________________________________________________________________________________
+
+[21-Feb-2020 14:22:42 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('admin/home/logo...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php On Line 76
+_______________________________________________________________________________________________________________________________________
+
+[21-Feb-2020 14:22:42 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('admin/home/logo...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php On Line 76
+_______________________________________________________________________________________________________________________________________
+
+[21-Feb-2020 14:22:43 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('admin/home/logo...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php On Line 76
+_______________________________________________________________________________________________________________________________________
+
+[21-Feb-2020 14:22:43 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('admin/home/logo...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php On Line 76
+_______________________________________________________________________________________________________________________________________
+
+[21-Feb-2020 14:22:53 Asia/Kolkata] Uncaught Exception : 'Exception'Message : 'No Route Matched.'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('admin/home/logo...')
+#1 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php On Line 76
+_______________________________________________________________________________________________________________________________________
+
+[21-Feb-2020 14:33:59 Asia/Kolkata] Uncaught Exception : 'ErrorException'Message : 'Invalid argument supplied for foreach()'
+Stack Trace : #0 C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Model.php(38): Core\Error::errorHandler(2, 'Invalid argumen...', 'C:\\xampp\\htdocs...', 38, Array)
+#1 C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Model.php(76): Core\Model::prepareData(Array)
+#2 C:\xampp\htdocs\Cybercom\php\vehicleregistration\App\Controllers\User.php(32): Core\Model::insertData(Array)
+#3 C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Router.php(65): App\Controllers\user->register()
+#4 C:\xampp\htdocs\Cybercom\php\vehicleregistration\public\index.php(56): Core\Router->dispatch('user/register')
+#5 {main}
+Thrown in : C:\xampp\htdocs\Cybercom\php\vehicleregistration\Core\Model.php On Line 38
+_______________________________________________________________________________________________________________________________________
+
