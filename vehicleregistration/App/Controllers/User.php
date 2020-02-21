@@ -30,7 +30,7 @@ class user extends \Core\Controller {
         }
         else{
             View::renderTemplate('User\Login.html',[
-                'name' => 'Mihir'
+                
             ]);
         }
     }

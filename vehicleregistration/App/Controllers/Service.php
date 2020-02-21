@@ -16,7 +16,7 @@ class Service extends \Core\Controller {
             $_POST['user_id'] = $_SESSION['userId'];
             if(ModelsService::checkAvailablity($_POST['date'],$_POST['time_slot'])){
                 View::renderTemplate('User\service.html',[
-                    'title' => 'Add',
+                    'title' => 'register',
                     'data' => $_POST
                 ]);    
                 echo "Time Slot Already Full";
@@ -35,11 +35,14 @@ class Service extends \Core\Controller {
         }
         else{
             View::renderTemplate('User\service.html',[
+                'title' => 'register',
                 'data' => $_POST
             ]);
         }
     }
-    
+    public static function update(){
+        print_r($_POST);
+    }
 }
 
 ?>

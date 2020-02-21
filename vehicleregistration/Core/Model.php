@@ -49,10 +49,8 @@ abstract class Model{
     }
     public static function prepareUpdateData($data)
     {
-        $id=$data['id'];
         $tablename = static::$table;
         $primaryKey = static::$primaryKey;
-        $data['url'] = static::generateUrl($data[static::$urlField]);
         $i = 0;
         $pre = '';
         $fields = '';
@@ -67,7 +65,8 @@ abstract class Model{
             $i++;
         }
 
-        $query = "Update $tablename SET $fields Where $primaryKey=$id";
+        $query = "Update $tablename SET $fields Where $primaryKey=".$_SESSION['update_id'];
+        echo $query;
         return $query;
     }
     public static function insertData($data)

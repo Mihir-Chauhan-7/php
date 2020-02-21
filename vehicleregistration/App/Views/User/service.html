@@ -5,11 +5,11 @@
 {% block body %}
 <div class="card text-center" style="margin-top:20px;margin-left:450px;width: 30rem">
     <div class="card-header">
-        <h5 class="card-title">Add Service</h5>    
+        <h5 class="card-title">{{ title }} Service</h5>    
     </div>
     
     <div class="card-body">      
-        <form method="POST">
+        <form action="{{ title }}" method="POST">
             <div>
                 <input class="form-control" type="text" name="title" placeholder="Title" 
                     value="{{ serviceData.title }}">
@@ -50,7 +50,8 @@
             </select>
         </div>
         <div>
-            <input class="form-control" type="text" name="issue" placeholder="issue">
+            <input class="form-control" type="text" name="issue" placeholder="issue"
+                value="{{ serviceData.issue }}">
         </div>
         <select class="form-control" name="service_center">
             <option value="1" {% if serviceData.service_center == 1 %}selected=""{% endif %}>
@@ -63,7 +64,7 @@
     </div>
     <div class="card-footer text-muted">
         <div>
-            <input class="btn btn-outline-dark" type="submit" name="submit">
+            <input class="btn btn-outline-dark" type="submit" name="submit" value="{{title}}">
         </div>
         <script>
             var count=0;
