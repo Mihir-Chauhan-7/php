@@ -26,7 +26,7 @@
                     {% elseif service.time_slot==6 %}5 to 6
                     {% endif %}
             </td>
-            <td>{{ service.status }}</td>
+            <td>{% if service.status==0 %}Pending{% else %}Approved{% endif %}</td>
         </tr>
     {% endfor %}
     </table>

@@ -56,7 +56,10 @@ abstract class Model{
         $fields = '';
 
         foreach(static::$discardList as $key){
-            unset($data[$key]);
+            if($key!='status'){
+                unset($data[$key]);
+            }
+            
         }
 
         foreach($data as $key => $value){
