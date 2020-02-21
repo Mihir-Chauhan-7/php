@@ -17,6 +17,14 @@ class Service extends \Core\Model
             return false;
         }
     }
+    public static function checkNo($vehicle,$licence){
+        if(sizeof(static::fetchData("vehicle_no='".$vehicle."' AND licence_no='".$licence."'")) >0 ){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
 
 ?>

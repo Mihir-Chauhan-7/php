@@ -23,13 +23,23 @@ class Service extends \Core\Controller {
 
             }
             else{
-                if(ModelsService::insertData($_POST)){
-                    echo "true";
-                    header('Location: /Cybercom/php/vehicleregistration/public/service/index');
+                if(ModelsService::checkNo($_POST['vehicle_no'],$_POST['licence_no'])){
+                    View::renderTemplate('User\service.html',[
+                        'title' => 'register',
+                        'data' => $_POST
+                    ]);
+                    echo "Licence And Vehicle No Already Registered";
                 }
                 else{
-                    echo "false";
+                    if(ModelsService::insertData($_POST)){
+                        //echo "true";
+                        header('Location: /Cybercom/php/vehicleregistration/public/service/index');
+                    }
+                    else{
+                        //echo "false";
+                    }
                 }
+                
             }
             
         }
@@ -40,9 +50,7 @@ class Service extends \Core\Controller {
             ]);
         }
     }
-    public static function update(){
-        print_r($_POST);
-    }
+    
 }
 
 ?>
