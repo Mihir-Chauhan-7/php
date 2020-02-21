@@ -3,46 +3,64 @@
 namespace App\Controllers;
 
 use App\Models\Cart as cartModel;
+use App\Models\Category;
+use App\Models\ProductCart;
 use Core\View;
 
 class Cart extends \Core\Controller {
 
     public function index(){
-        if(isset($_SESSION['cart'])){
-            View::renderTemplate('\Cart\index.html',[
-                'cartData' => $_SESSION['cart']
+        if(isset($_SESSION['cartId']))
+        {
+            $cartData = ProductCart::join('LEFT',['cart_id','product_id','quantity'],
+            ['name','url','image','price'],'products','product_id','pid','A.cart_id='.
+            $_SESSION['cartId']);
+        
+             View::renderTemplate('\Cart\index.html',[
+                'categories' => Category ::getParentChild(),
+                'controller_action' => 'category/view/',
+                'cartData' => $cartData
             ]);
         }
-        else{
+        else
+        {
             View::renderTemplate('\Cart\index.html');
         }
     }
     public function clear(){
-        unset($_SESSION['cart']);
+        ProductCart::deleteData($_SESSION['cartId']);
         header('Location:/Cybercom/php/Site/public/cart/index');
     }
     public function generate(){
-        $flag=0;
-        $cart = [];
-        if(array_key_exists('cart', $_SESSION) && $_SESSION['cart'] != null){
-            $cart = $_SESSION['cart'];
-        }
         $cartObj = (array) json_decode($_POST['cartObj']);
-        cartModel::createCart($cartObj);
-        if(count($cart) > 0){
-            foreach($cart as $cartKey=>$cartItem){
-                foreach($cartItem as $key=>$value){
-                    if($key == 'product_id' &&  $value == $cartObj['product_id']){
-                        $flag=1;
-                        $cart[$cartKey]['quantity'] = $cartObj['quantity'];
-                    }
-                }     
-            }
+        if(isset($_SESSION['userId'])){
+            $_SESSION['cartId'] = cartModel::createCart($cartObj,$_SESSION['userId']);
         }
-        if($flag==0){
-            $cart[] = ['product_id' => $cartObj['product_id'] , 'quantity' => $cartObj['quantity']]; 
+        else{
+            $_SESSION['cartId'] = cartModel::createCart($cartObj,0);
+            echo "False";
         }
-        $_SESSION['cart'] = $cart;
+        // $flag=0;
+        // $cart = [];
+        // if(array_key_exists('cart', $_SESSION) && $_SESSION['cart'] != null){
+        //     $cart = $_SESSION['cart'];
+        // }
+        
+        
+        // if(count($cart) > 0){
+        //     foreach($cart as $cartKey=>$cartItem){
+        //         foreach($cartItem as $key=>$value){
+        //             if($key == 'product_id' &&  $value == $cartObj['product_id']){
+        //                 $flag=1;
+        //                 $cart[$cartKey]['quantity'] = $cartObj['quantity'];
+        //             }
+        //         }     
+        //     }
+        // }
+        // if($flag==0){
+        //     $cart[] = ['product_id' => $cartObj['product_id'] , 'quantity' => $cartObj['quantity']]; 
+        // }
+        // $_SESSION['cart'] = $cart;
     }
     
 }

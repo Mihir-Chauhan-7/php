@@ -4,16 +4,54 @@
 
 {% block body %}
 
+
 {% if cartData %}
+    <a class="btn btn-outline-dark" style="margin:10px; float: right;" 
+        href="/Cybercom/php/Site/public/cart/clear">Empty Cart
+    </a>
+    <table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Product Id </th>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Action</th>
+    </tr>
     {% for item in cartData %}
-    <div>
-    Product Id {{ item.product_id }}
-    Quantity {{ item.quantity }}</div>
+        <tr>
+            <td>{{ item.product_id }}</td>
+            <td>
+                <img class='img-fluid img-thumbnail' style='width: 100px; height: 80px'
+                src="/Cybercom/php/Site/Resources/uploads/products/{{ item.image }}">
+            </td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price }}</td>
+            <td><a class="badge badge-dark" href="">Remove</a></td>
+        </tr>
     {% endfor %}
-    <a href="/Cybercom/php/Site/public/cart/clear">Empty Cart</a>
+    </table>
+    
 {% else %}
-    <h1>
-        Cart Empty
+    <h1 class="display-4">
+        <center>Cart is Empty</center>
+        {% for category in categories %}
+            <h2>
+              <a style="margin-left: 10px;" class="btn btn-outline-dark btn-lg" 
+                    href="{{ globalUrl}}{{ controller_action }}{{ category.purl }}.html">
+                    {{ category.pname }}
+              </a>
+            </h2> 
+            {% for childsList in category.childs %}
+              <a style="margin-left:10px ;" class="btn btn-outline-dark btn-sm" 
+                  href="{{ globalUrl}}{{ controller_action }}{{ childsList.url }}.html">
+                  {{ childsList.child_name }}</a>
+            {% endfor %}<br>
+        {% endfor %}
+        {% if loginStatus %}
+            <a class="btn btn-outline-dark" href="">Logout</a>
+        {% endif %}
     </h1>
 
 {% endif %}

@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 use Core\View;
 use App\Config;
+use App\Models\Cart;
 
 class Home extends \Core\Controller {
 
@@ -16,6 +17,7 @@ class Home extends \Core\Controller {
             }
             else{
                 $_SESSION['userId'] = 1;
+                echo isset($_SESSION['cartId']) ? Cart::saveCart() : "false";
                 header('Location:'.Config::HOME);                  
                 $_SESSION['loginStatus'] = false;
                 View::renderTemplate('Admin\Login.html');                          
