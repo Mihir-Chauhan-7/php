@@ -85,7 +85,7 @@ class Adapter{
 
     public function fetchRow($query){
         $result = $this->query($query);
-        return $result->fetch_row();
+        return $result->fetch_assoc();
     }
     
     public function fetchOne($query){
@@ -112,16 +112,15 @@ $config = [
     'password' => ''
 ];
 
-$adapter = new Adapter();
-$adapter->setConfig($config)->connect();
-//$adapter->insert("INSERT INTO `users` (`fname`,`lname`,`email`
-//    ,`password`,`contact`) VALUES('Abc','abcd','abc@gmail.com','abc',123)");
-//$adapter->update("UPDATE `users` SET `fname`='abc1',`lname`='abcd1' WHERE `user_id`=1");
-//var_dump($adapter->delete("DELETE FROM `users` WHERE `user_id`=30"));
-echo "<pre>";
-print_r($adapter->getConnect());
-print_r($adapter->fetchPairs("SELECT `user_id`,`fname` FROM `users`"));
-echo "Count : ".$adapter->fetchOne("SELECT count(`user_id`) FROM `users`");
+// $adapter = new Adapter();
+// $adapter->setConfig($config)->connect();
+// //$adapter->insert("INSERT INTO `users` (`fname`,`lname`,`email`
+// //    ,`password`,`contact`) VALUES('Abc','abcd','abc@gmail.com','abc',123)");
+// //$adapter->update("UPDATE `users` SET `fname`='abc1',`lname`='abcd1' WHERE `user_id`=1");
+// //var_dump($adapter->delete("DELETE FROM `users` WHERE `user_id`=30"));
+// echo "<pre>";
+// print_r($adapter->fetchPairs("SELECT `user_id`,`fname` FROM `users`"));
+// echo "Count : ".$adapter->fetchOne("SELECT count(`user_id`) FROM `users`");
 
 
 ?>
