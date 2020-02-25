@@ -4,7 +4,7 @@ class Adapter{
     protected $connect;
     protected $config = [
         'host' => 'localhost',
-        'dbName' => 'vehicle',
+        'dbName' => 'project',
         'user' => 'root',
         'password' => ''
     ];
@@ -120,7 +120,7 @@ class Adapter{
 
 $config = [
     'host' => 'localhost',
-    'dbName' => 'vehicle',
+    'dbName' => 'project',
     'user' => 'root',
     'password' => ''
 ];

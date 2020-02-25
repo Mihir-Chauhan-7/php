@@ -7,7 +7,7 @@ function getValue($key){
 }
 function add($data){
     $adapter = new Adapter();
-    $adapter->connect()->insert("INSERT INTO `users` (`fname`, `lname`, `email`, `password`,
+    $adapter->insert("INSERT INTO `users` (`fname`, `lname`, `email`, `password`,
     `contact`) VALUES ("."'".$data['fname']."','".$data['lname']."','".$data['email']."','"
         .$data['password']."','".$data['contact']."')");
     header('Location:Users.php');
@@ -15,7 +15,7 @@ function add($data){
 }
 function edit($id){
     $adapter = new Adapter();
-    $_SESSION['userData'] = $adapter->connect()->fetchRow(
+    $_SESSION['userData'] = $adapter->fetchRow(
         "SELECT * FROM `users` WHERE `user_id`=".$id);
     header('Location:editUser.php');
 }
@@ -34,16 +34,16 @@ function update($data){
         $fields .= $pre.$key."='".$value."'";
         $i++;
     }
-    $adapter->connect()->update("UPDATE `users` SET $fields Where `user_id`='".$id."'");
+    $adapter->update("UPDATE `users` SET $fields Where `user_id`='".$id."'");
     header('Location:Users.php');
 }
 function delete($id){
     $adapter = new Adapter();
-    $adapter->connect()->delete("DELETE FROM `users` WHERE `user_id`=".$id);
+    $adapter->delete("DELETE FROM `users` WHERE `user_id`=".$id);
 }
 function getUserList(){
     $adapter = new Adapter();
-    return $adapter->connect()->fetchAll("SELECT * FROM `users`");
+    return $adapter->fetchAll("SELECT * FROM `users`");
 }
 
 ?>
