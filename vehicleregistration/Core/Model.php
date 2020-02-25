@@ -43,9 +43,8 @@ abstract class Model{
         $values = array_values($data);
         
         $query = "INSERT INTO $tablename (" . implode(', ', $keys) . ") "
-            . "VALUES ('" . implode("', '", $values) . "')";
-            echo $query;
-            return $query;
+            . "VALUES ('" . implode("', '", $values) . "')";    
+        return $query;
     }
     public static function prepareUpdateData($data)
     {
