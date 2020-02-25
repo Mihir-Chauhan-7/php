@@ -14,9 +14,22 @@
             <th>Status</th>
             <th>Action</th>
         </tr>
+        <div style="margin:10px;">
+        <div style="float: left;">
+            <input onclick="selectAll(this)" style="margin-top: 20px;margin-right: 5px;float: left;" type="checkbox">
+            <label class="col-form-label-lg">Select All</label>
+        </div>
+        <div style="margin-left: 500px;">
+            <form id="selectForm" action="updateAll" method="POST">
+            <select name="status" style="float: left;" class="form-control col-md-3">
+                <option value="0">Pending</option>
+                <option value="1">Approved</option>
+            </select>
+            <input style="margin-left: 5px;" class="btn btn-outline-dark" type="submit" value="Change"></div>
+        </div>
     {% for service in serviceData %}
         <tr>
-            <td><input type="checkbox" name="check{{ service.service_id }}"></td>
+            <td><input type="checkbox" name="check[]" value="{{ service.service_id }}"></td>
             <td>{{ service.service_id }}</td>
             <td>{{ service.title }}</td>
             <td>{{ service.date }}</td>
@@ -33,5 +46,20 @@
             <td><a href="/Cybercom/php/vehicleregistration/public/admin/home/edit?id={{ service.service_id }}">Edit</a></td>
         </tr>
     {% endfor %}
-    </table>
+    </table></form>
+    <script>
+        function selectAll(el){
+            var boxes = document.getElementsByName('check[]');
+            if(el.checked){
+                for(i=0;i<boxes.length;i++){
+                    boxes[i].checked=true;
+                }
+            }
+            else{
+                for(i=0;i<boxes.length;i++){
+                    boxes[i].checked=false;
+                }
+            }
+        }
+    </script>
 {% endblock %}

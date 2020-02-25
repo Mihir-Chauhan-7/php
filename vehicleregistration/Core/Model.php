@@ -69,7 +69,7 @@ abstract class Model{
         }
 
         $query = "Update $tablename SET $fields Where $primaryKey=".$_SESSION['update_id'];
-        echo $query;
+
         return $query;
     }
     public static function insertData($data)
@@ -120,7 +120,6 @@ abstract class Model{
     {
         $tablename = static::$table;
         $conn = static::getDB();
-        //echo "SELECT * FROM $tablename WHERE $where";
         $stmt = $conn->query("SELECT * FROM $tablename WHERE $where");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
