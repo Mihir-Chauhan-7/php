@@ -16,8 +16,18 @@ class Request{
         return true;
     }
 
-    public function getPOST(){
-        return $this->isPOST() ? $_POST : NULL;
+    public function getPOST($key = NULL, $value = NULL){
+        if($this->isPOST()){
+            if($key != NULL){
+                return key_exists($key,$_POST) ? $_POST[$key] : NULL;
+            }
+            else if($value != NULL){
+                return in_array($value,$_POST) ? $value : NULL;
+            }
+            else{
+                return $_POST;
+            }
+        }
     }
 
     public function getGET(){
@@ -27,7 +37,9 @@ class Request{
 }
 $request = new Request();
 var_dump($request->getGET());
-var_dump($request->getPOST());
+var_dump($request->getPOST(
+
+));
 ?>
 <form method="POST">
     <input type="text" name="name" >
