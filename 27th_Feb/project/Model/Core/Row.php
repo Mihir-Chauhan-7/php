@@ -45,6 +45,7 @@ class Row{
             throw new Exception("Data Must Be Array.");
         }
         $this->data = $data;
+        $this->setRowChanged(true);
         return $this;
     }
 
@@ -98,7 +99,7 @@ class Row{
 
     public function insertData(){
 
-        if(!$this->getRowChange()){
+        if(!$this->getRowChanged()){
             throw new Exception("Please Insert Atleast One Value");
         }
 
@@ -110,11 +111,16 @@ class Row{
             return $this->getAdapter()->getConnect()->real_escape_string($value);
         },array_values($data)));
 
-        $this->load($this->getAdapter()->insert("INSERT 
-        INTO `".$this->getTable()."` 
-        (".implode(',',$keys).") 
-        VALUES('".implode("','",$values)."')"));
+        try{
+            $this->load($this->getAdapter()->insert("INSERT INTO `".$this->getTable()."` 
+            (".implode(',',$keys).") VALUES('".implode("','",$values)."')"));
+        }
+        catch(Exception $e){
+            return false;
+        }
         $this->setRowChanged(false);
+
+        return true;
     }
 
     public function updateData(){
@@ -148,7 +154,7 @@ class Row{
     }
 
     public function deleteData(){
-        if(!$this->getRowChange()){
+        if(!$this->getRowChanged()){
             throw new Exception("Please Provide Id to Delete");
         }
         $id = $this->id;
@@ -165,7 +171,13 @@ class Row{
     }
 
     public function fetchAll(){
+        $rows = $this->getAdapter()->query("SELECT * FROM {$this->getTable()}")
+            ->fetch_All(MYSQLI_ASSOC);
 
+        $rows = array_map(function ($value){
+            return $value = (new Row())->setData($value);
+        },$rows);
+        return $rows;
     }
 
     public function fetchRow($query){
@@ -177,20 +189,4 @@ class Row{
     }
 
 }
-echo "<pre>";
-$row =new Row();
-$row->setTable('products');
-$row->setPrimaryKey('id');
-//$row->setRowChanged();
-$row->id = 1;
-$row->name = "Product 1";
-$row->price = 1000;
-$row->stock = 100;
-$row->sku = 10;
-
-//$row->insertData();
-//$row->updateData();
-print_r($row->fetchRow("SELECT * FROM products WHERE id=55"));
-//$row->deleteData();
-print_r($row);
 ?>
