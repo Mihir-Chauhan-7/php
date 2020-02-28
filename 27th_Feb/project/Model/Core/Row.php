@@ -41,6 +41,7 @@ class Row{
     }
 
     public function setData($data){
+        echo "true";
         // if(!is_array($data)){
         //     throw new Exception("Data Must Be Array.");
         // }

@@ -20,7 +20,6 @@ $tree = [];
 
 foreach($data as $value){
     $tree[$value['a']][$value['c']][$value['o']] = $value['o'];
-    //$tree[$data[$i]['a']][$data[$i]['c']][$data[$i]['o']] = $data[$i]['o'];
 }
 echo "<pre>";
 print_r($tree);

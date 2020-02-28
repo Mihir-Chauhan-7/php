@@ -28,6 +28,7 @@ class Product{
 
     public function updateAction(){
         $this->productModel->setData($this->request->getPOST());
+        $this->productModel->setData($this->productModel->getData());
         if($this->productModel->updateData()){
            $this->indexAction();
         }
