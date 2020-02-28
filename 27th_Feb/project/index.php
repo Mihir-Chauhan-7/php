@@ -3,7 +3,7 @@ require_once 'Controller/Core/Front.php';
 require_once 'Model/Core/Request.php';
 
 class Ccc{
-
+    
     public function getBaseDirectory($path = NULL){
         if($path == NULL){
             return getcwd();

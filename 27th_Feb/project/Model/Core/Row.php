@@ -41,9 +41,9 @@ class Row{
     }
 
     public function setData($data){
-        if(!is_array($data)){
-            throw new Exception("Data Must Be Array.");
-        }
+        // if(!is_array($data)){
+        //     throw new Exception("Data Must Be Array.");
+        // }
         $this->data = $data;
         $this->setRowChanged(true);
         return $this;
@@ -95,8 +95,6 @@ class Row{
         return $this->adapter;
     }
 
-    
-
     public function insertData(){
 
         if(!$this->getRowChanged()){
@@ -125,7 +123,6 @@ class Row{
 
     public function updateData(){
         $this->getAdapter()->connect();
-
         if(!$this->getRowChanged()){
             throw new Exception("Please Change Atleast One Value");
         }
@@ -164,15 +161,16 @@ class Row{
     }
 
     public function load($id){
-        $this->setData($this->getAdapter()->fetchRow("SELECT * 
+        $this->setData($this->setData($this->getAdapter()->fetchRow("SELECT * 
             FROM {$this->getTable()} 
-            WHERE {$this->getPrimaryKey()} = $id"));
+            WHERE {$this->getPrimaryKey()} = $id")));
         $this->setRowChanged(false);
     }
 
     public function fetchAll(){
         $rows = $this->getAdapter()->query("SELECT * FROM {$this->getTable()}")
-            ->fetch_All(MYSQLI_ASSOC);
+            ->fetch_All
+            (MYSQLI_ASSOC);
 
         $rows = array_map(function ($value){
             return $value = (new Row())->setData($value);
@@ -185,7 +183,7 @@ class Row{
             return null;    
         }
         $this->setData($result);
-        return $this;
+        return $result;
     }
 
 }

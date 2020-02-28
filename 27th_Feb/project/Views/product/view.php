@@ -11,13 +11,13 @@
                 <th>Stock</th>
                 <th>SKU</th>
                 <th colspan="2">Actions</th>
-                <?php foreach($productList as $product): ?>
+                <?php foreach($this->productModel->displayProduct() as $product): ?>
                     <tr>
                     <?php foreach($product as $value): ?>
                         <td><?php echo $value ?></td>
                     <?php endforeach; ?>
-                        <td><a href="?c=product&a=edit">Edit</a></td>
-                        <td><a href="?c=product&a=delete&id">Delete</a></td>
+                        <td><a href=<?php echo '?c=product&a=edit&id='.$product['id'] ?>>Edit</a></td>
+                        <td><a href=<?php echo '?c=product&a=delete&id='.$product['id'] ?>>Delete</a></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

@@ -7,7 +7,7 @@ class Front {
         $request = new Request();
 
         $controllerName = ucfirst($request->getRequest('c'));
-        $action = $request->getRequest('a');
+        $action = $request->getRequest('a').'Action';
 
         if(!class_exists($controllerName)){
             throw new Exception('Class Does Not Exist.');

@@ -1,19 +1,44 @@
 <?php
 
 require_once 'Model/ProductModel.php';
-class Product extends ProductModel{
-    public function index(){
-        $productList = $this->displayProduct();
+class Product{
+    public function __construct()
+    {
+        $this->request = new Request();
+        $this->productModel =new ProductModel();
+    }
+    public function indexAction(){
         require_once 'Views/product/view.php';
     }
-    public function add(){
+
+    public function addAction(){
         require_once 'Views/product/add.php';
     }
 
-    public function save(){
-        if($this->insertProduct()){
-            $this->index();
+    public function saveAction(){
+        $this->productModel->setData($this->request->getPOST());
+        if($this->productModel->insertData()){
+            $this->indexAction();
         }
     }
-    
+
+    public function editAction(){
+        require_once 'Views/product/edit.php';
+    }
+
+    public function updateAction(){
+        $this->productModel->setData($this->request->getPOST());
+        if($this->productModel->updateData()){
+           $this->indexAction();
+        }
+    }
+
+    public function deleteAction(){
+        $this->productModel->id = ($this->request->getRequest('id'));
+        if($this->productModel->deleteData()){
+            $this->indexAction();
+        }
+    }
+
+
 }

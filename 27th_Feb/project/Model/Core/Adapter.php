@@ -117,15 +117,6 @@ class Adapter{
         return array_combine($keys,$values);
     }
 }
-
-$config = [
-    'host' => 'localhost',
-    'dbName' => 'project',
-    'user' => 'root',
-    'password' => ''
-];
-
- $adapter = new Adapter();
 // $adapter->setConfig($config)->connect();
 // $adapter->insert("INSERT INTO `users` (`fname`,`lname`,`email`
 //    ,`password`,`contact`) VALUES('Abc','abcd','abc@gmail.com','abc',123)");
