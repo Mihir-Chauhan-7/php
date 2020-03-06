@@ -2,8 +2,6 @@
 
 namespace Model;
 
-use Exception;
-use Model\Core\Request;
 use Model\Core\Row;
 use Model\Product\Image;
 
@@ -25,7 +23,6 @@ class Product extends Row{
         self::STATUS_DISABLE => self::STATUS_DISABLE_LABEL
     ];
 
-    protected $request = NULL;
     protected $directory = 'media\catalog\product\\';
     protected $tableName = 'products';
     protected $primaryKey = 'id';
@@ -33,7 +30,6 @@ class Product extends Row{
     public function __construct()
     {
         parent::__construct();
-        $this->request = new Request();
         $this->setTable($this->tableName)->setPrimaryKey($this->primaryKey);        
     }    
 

@@ -13,6 +13,9 @@
                 <th>Stock</th>
                 <th>Status</th>
                 <th>SKU</th>
+                <th>Base Image</th>
+                <th>Thumbnail Image</th>
+                <th>Small Image</th>
                 <th>Media</th>
                 <th colspan="2">Actions</th>
                 <form action="<?php echo $this->getUrl('delete')?>" method="POST">
@@ -22,9 +25,9 @@
                         <td><input type="checkbox" name="check[]" 
                                 value="<?php echo $product['id']; ?>">
                         </td>
-                    <?php foreach($product as $value): ?>
-                        <td><?php echo $value ?></td>
-                    <?php endforeach; ?>
+                        <?php foreach($product as $value): ?>
+                            <td><?php echo $value ?></td>
+                        <?php endforeach; ?>
                         <td>
                             <a href="<?php echo $this->getUrl('viewGallery',null,['id' => $product['id']])?>">View Gallery</a>
                         </td>

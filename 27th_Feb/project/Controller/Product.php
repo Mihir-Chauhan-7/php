@@ -42,15 +42,25 @@ class Product extends Base{
     public function editAction(){
 
         $this->action = 'Update';
-        
-        $id = (int) $this->request->getRequest('id');
-        
-        if(!$id){
-            throw new Exception("Invalid Operation");
-        }
+        try{
+            
+            $id = (int) $this->request->getRequest('id');
 
-        $this->setProduct($this->productModel->load($id));
-        require_once 'Views/product/form.php';
+            if(!$id){
+                throw new Exception("Invalid Operation");
+            }
+
+            if($this->productModel->load($id) == NULL){
+                throw new Exception("Product Not Found");
+            }
+
+            $this->setProduct($this->productModel->load($id));
+            require_once 'Views/product/form.php';
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
+        
     }
 
     public function deleteAction(){
@@ -73,19 +83,25 @@ class Product extends Base{
     }
 
     public function saveAction(){
-        if(!$this->request->getPOST()){
-            throw new Exception('Invalid Data');
+        try{
+            if(!$this->request->getPOST()){
+                throw new Exception('Invalid Data');
+            }
+    
+            if($id = (int)$this->request->getRequest('id')){
+                $this->productModel->load($id);
+            }        
+    
+            $this->productModel->setData($this->request->getPOST());        
+            if(!$this->productModel->saveData()){
+                throw new Exception("Error Operation Failed");
+            }
+            $this->redirect('product','index');
         }
-
-        if($id = (int)$this->request->getRequest('id')){
-            $this->productModel->load($id);
-        }        
-
-        $this->productModel->setData($this->request->getPOST());        
-        if(!$this->productModel->saveData()){
-            throw new Exception("Error Operation Failed");
+        catch(Exception $e){
+            echo $e->getMessage();
         }
-        $this->redirect('product','index');
+        
     }
 
     public function viewGalleryAction(){
@@ -166,6 +182,7 @@ class Product extends Base{
                 $this->imageModel->saveData();
             }
         }
+        header('Location:'.$this->getUrl('viewGallery',null,['id' => $productId]));
     }
 }
 

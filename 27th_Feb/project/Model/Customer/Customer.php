@@ -2,7 +2,6 @@
 
 namespace Model\Customer;
 
-use Model\Core\Request;
 use Model\Core\Row;
 
 
@@ -14,19 +13,20 @@ class Customer extends Row{
     public function __construct()
     {
         parent::__construct();
-        $this->request = new Request();
         $this->setTable($this->tableName)->setPrimaryKey($this->primaryKey);
     }
 
     public function displayCustomers(){
         $this->setTable('customers');
-        
-        $result = $this->getAdapter()->fetchAll("SELECT 
+        $result = $this->fetchAll("SELECT 
             C.`id`,C.`name`,C.`email`,A.`line1`,A.`line2`,
             A.`city`,A.`state`,A.`country`,A.`code`
-            FROM `{$this->tableName}` AS C INNER JOIN `address` AS A 
+            FROM `{$this->tableName}` AS C INNER JOIN `customer_address` AS A 
             ON C.`{$this->primaryKey}` = A.`cid`;");
         
+        foreach($result as &$row){
+            $row = $row->getData();
+        }
         return $result;
     }
 

@@ -5,7 +5,7 @@ namespace Controller;
 use Model\Core\Request;
 use Model\Customer\Customer as CustomerModel;
 
-class Customer extends Base{
+class Customer extends Base {
 
     protected $customerModel = NULL;
     protected $action;
@@ -36,15 +36,23 @@ class Customer extends Base{
     }
     
     public function editAction(){
-        $this->action = 'Update';
-        $id = (int)$this->request->getRequest('id');
-
-        if(!$id){
-            throw new Exception("Invalid Operation");
+        try{
+            $id = (int)$this->request->getRequest('id');
+            if(!$id){
+                throw new Exception("Invalid Operation");
+            }
+            if($this->customerModel->load($id) == NULL){
+                throw new Exception("Customer Not Found");
+            }
+            $this->setCustomer($this->customerModel->load($id));
+            $this->action = 'Update';
+            require_once 'Views/customer/form.php';
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
         }
 
-        $this->setCustomer($this->customerModel->load($id));
-        require_once 'Views/customer/form.php';
+        
     }
 
     public function saveAction(){

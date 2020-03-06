@@ -178,8 +178,7 @@ class Row{
 
     public function fetchAll($query=null){
         $query = $query == null ? "SELECT * FROM {$this->getTable()}" : $query;
-        $rows = $this->getAdapter()->query($query)
-            ->fetch_All(MYSQLI_ASSOC);
+        $rows = $this->getAdapter()->query($query)->fetch_All(MYSQLI_ASSOC);
 
         $rows = array_map(function ($value){
             return $value = (new Row())->setData($value);

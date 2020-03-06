@@ -3,7 +3,6 @@
 namespace Controller;
 
 use Exception;
-use Model\Core\Request;
 use Model\Category as CategoryModel;
 
 class Category extends Base{
@@ -12,7 +11,7 @@ class Category extends Base{
 
     public function __construct()
     {
-        $this->request = new Request();
+        $this->setRequest();
         $this->categoryModel =new CategoryModel();
     }
 
@@ -36,26 +35,37 @@ class Category extends Base{
     }
     
     public function editAction(){
-        $id = (Int)$this->request->getRequest('id');
-        
-        if(!$id){
-            throw new Exception('Invalid Operation');
-        }
+        try{
 
-        $this->setCategory($this->categoryModel->load($id));
-        $this->action = 'Update';
-        require_once 'Views/category/form.php';
+            $id = (int)$this->getRequest()->getRequest('id');
+            if(!$id){
+                throw new Exception('Invalid Operation');
+            }
+
+            if($this->categoryModel->load($id) == NULL){
+                throw new Exception('Category Not Found');
+            }
+
+            $this->setCategory($this->categoryModel->load($id));
+            $this->action = 'Update';
+            require_once 'Views/category/form.php';
+        
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
+        
     }
 
     public function deleteAction(){
-        if($id = (int)$this->request->getRequest('id')){
+        if($id = (int)$this->getRequest()->getRequest('id')){
             $this->categoryModel->id = ($id);
             if($this->categoryModel->deleteData()){
                 $this->redirect('category','index');
             }
         }
         
-        if($idList = $this->request->getRequest('check')){
+        if($idList = $this->getRequest()->getRequest('check')){
             foreach($idList as $id){
                 $this->categoryModel->id = ($id);
                 $this->categoryModel->deleteData();
@@ -66,11 +76,11 @@ class Category extends Base{
 
     public function saveAction(){
         
-        if(!$this->request->getPOST()){
+        if(!$this->getRequest()->getPOST()){
             throw new Exception('Invalid Data');
         }
 
-        if($id = (int)$this->request->getRequest('id')){
+        if($id = (int)$this->getRequest()->getRequest('id')){
             $this->categoryModel->load($id);
         }
         
