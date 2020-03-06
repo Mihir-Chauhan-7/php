@@ -58,20 +58,34 @@ class Category extends Base{
     }
 
     public function deleteAction(){
-        if($id = (int)$this->getRequest()->getRequest('id')){
-            $this->categoryModel->id = ($id);
-            if($this->categoryModel->deleteData()){
-                $this->redirect('category','index');
+        try{
+            if($id = (int)$this->getRequest()->getRequest('id')){
+                
+                if($id){
+                    $this->categoryModel->id = ($id);
+                    if($this->categoryModel->deleteData()){
+                        $this->redirect('category','index');
+                    } 
+                }
             }
+            else if($idList = $this->getRequest()->getRequest('check')){
+
+                if($idList){
+                    foreach($idList as $id){
+                        $this->categoryModel->id = ($id);
+                        $this->categoryModel->deleteData();
+                        $this->redirect('category','index');
+                    }
+                }
+            }
+            else{
+                throw new Exception('Invalid Operation');
+            }
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
         }
         
-        if($idList = $this->getRequest()->getRequest('check')){
-            foreach($idList as $id){
-                $this->categoryModel->id = ($id);
-                $this->categoryModel->deleteData();
-            }
-            $this->redirect('category','index');
-        }
     }
 
     public function saveAction(){

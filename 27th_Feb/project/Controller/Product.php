@@ -3,7 +3,6 @@
 namespace Controller;
 
 
-use Model\Core\Request;
 use Model\Product as ProductModel;
 use Model\Product\Image;
 
@@ -14,7 +13,7 @@ class Product extends Base{
 
     public function __construct()
     {
-        $this->request = new Request();
+        $this->setRequest();
         $this->imageModel = new Image();
         $this->productModel = new ProductModel();
 
@@ -44,7 +43,7 @@ class Product extends Base{
         $this->action = 'Update';
         try{
             
-            $id = (int) $this->request->getRequest('id');
+            $id = (int) $this->getRequest()->getRequest('id');
 
             if(!$id){
                 throw new Exception("Invalid Operation");
@@ -65,34 +64,46 @@ class Product extends Base{
 
     public function deleteAction(){
         
-        if($id = (int)$this->request->getRequest('id')){
-            $this->productModel->id = $id;
-            if($this->productModel->deleteData()){
-                $this->redirect('product','index');
+        try{
+            if($id = (int)$this->getRequest()->getRequest('id')){
+                
+                if($id){
+                    $this->productModel->id = $id;
+                    if($this->productModel->deleteData()){
+                        $this->redirect('product','index');
+                    } 
+                }
             }
-        }
+            else if($idList = $this->getRequest()->getRequest('check')){
 
-        if($idList = $this->request->getRequest('check')){
-            foreach($idList as $id){
-                $this->productModel->id = $id;
-                $this->productModel->deleteData();
+                if($idList){
+                    foreach($idList as $id){
+                        $this->productModel->id = $id;
+                        $this->productModel->deleteData();
+                    }
+                    $this->redirect('product','index');
+                }
             }
-            $this->redirect('product','index');
+            else{
+                throw new Exception('Invalid Operation');
+            }
         }
-        
+        catch(Exception $e){
+            echo $e->getMessage();
+        }    
     }
 
     public function saveAction(){
         try{
-            if(!$this->request->getPOST()){
+            if(!$this->getRequest()->getPOST()){
                 throw new Exception('Invalid Data');
             }
     
-            if($id = (int)$this->request->getRequest('id')){
+            if($id = (int)$this->getRequest()->getRequest('id')){
                 $this->productModel->load($id);
             }        
     
-            $this->productModel->setData($this->request->getPOST());        
+            $this->productModel->setData($this->getRequest()->getPOST());        
             if(!$this->productModel->saveData()){
                 throw new Exception("Error Operation Failed");
             }
@@ -107,7 +118,7 @@ class Product extends Base{
     public function viewGalleryAction(){
         
         try{
-            $id = (int)$this->request->getRequest('id');
+            $id = (int)$this->getRequest()->getRequest('id');
             if(!$id){
                 throw new Exception("Invalid Request");
             }
@@ -124,7 +135,7 @@ class Product extends Base{
 
     public function saveImageAction(){
         try{
-            $id = (int)$this->request->getRequest('id');
+            $id = (int)$this->getRequest()->getRequest('id');
             if(!$id){
                 throw new Exception("Invalid Request");
             }
@@ -147,42 +158,65 @@ class Product extends Base{
     }
     
     public function deleteImageAction(){
-        if($id = (int)$this->request->getRequest('id')){
+        try{
+
+            $id = (int)$this->getRequest()->getRequest('id');
+            if(!$id){
+                throw new Exception("Invalid Request");
+            }
+
             $this->imageModel->id = $id;
             if($this->imageModel->deleteData()){
-                $this->redirect('product','index');
+                header('Location:'.$this->getUrl('viewGallery',Null,['id' => $id]));
             }
         }
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
+        
     }
 
     public function updateGalleryAction(){
-        $productId = $this->request->getRequest('id');
-        $image = $this->request->getPOST('product');
-        $this->productModel->setData($image);
-        $this->productModel->id = $productId;
-        $this->productModel->saveData();
-
-        if(($excludeList = $this->request->getPOST('exclude')) == null){
-            $excludeList = [];
-        }
-        
-        $imageList = $this->imageModel->displayImages();
-
-        foreach($imageList as $image){
-            if(in_array($image['imageId'],$excludeList)){
-                $this->imageModel->unsetData();
-                $this->imageModel->id = $image['imageId'];
-                $this->imageModel->exclude = 1;
-                $this->imageModel->saveData();
+        try{
+            $productId = $this->getRequest()->getRequest('id');
+            if(!$productId){
+                throw new Exception("Invalid Request");
             }
-            else{
-                $this->imageModel->unsetData();
-                $this->imageModel->id = $image['imageId'];
-                $this->imageModel->exclude = 0;
-                $this->imageModel->saveData();
+
+            if($this->getRequest()->isPOST()){
+                throw new Exception("Invalid Data");
             }
+
+            $image = $this->getRequest()->getPOST('product');
+            $this->productModel->setData($image);
+            $this->productModel->id = $productId;
+            $this->productModel->saveData();
+            
+            if(($excludeList = $this->getRequest()->getPOST('exclude')) == null){
+                $excludeList = [];
+            }
+
+            $imageList = $this->imageModel->displayImages();
+
+            foreach($imageList as $image){
+                if(in_array($image['imageId'],$excludeList)){
+                    $this->imageModel->unsetData();
+                    $this->imageModel->id = $image['imageId'];
+                    $this->imageModel->exclude = 1;
+                    $this->imageModel->saveData();
+                }
+                else{
+                    $this->imageModel->unsetData();
+                    $this->imageModel->id = $image['imageId'];
+                    $this->imageModel->exclude = 0;
+                    $this->imageModel->saveData();
+                }
+            }
+            header('Location:'.$this->getUrl('viewGallery',null,['id' => $productId]));
         }
-        header('Location:'.$this->getUrl('viewGallery',null,['id' => $productId]));
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
     }
 }
 

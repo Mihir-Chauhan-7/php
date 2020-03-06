@@ -6,7 +6,8 @@ abstract class Base{
 
     protected $request = NULL;
 
-    public function redirect($controller,$action){ 
+    public function redirect($controller = null ,$action = null ,$params = null){ 
+        header('Location:'.$this->getUrl('viewGallery',Null,['id' => $id]));
         header('Location:'.$_SERVER['PHP_SELF'].'?c='.$controller.'&a='.$action);
     }
 
