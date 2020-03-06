@@ -1,23 +1,29 @@
 <?php
+
 require_once 'Controller/Core/Front.php';
 require_once 'Model/Core/Request.php';
 
+spl_autoload_register(function($className){
+    //echo "<br>".Ccc::getBaseDirectory($className).'.php';
+    require_once Ccc::getBaseDirectory($className).'.php';
+});
 class Ccc{
-
     public function init(){
-        Front::init();
+        \Controller\Core\Front::init();
     }
 
-    public function getBaseDirectory($path = NULL){
+    public static function getBaseDirectory($path = NULL){
+    
         if($path == NULL){
             return getcwd();
         }
         return getcwd().DIRECTORY_SEPARATOR.$path;
     }
 
-    public function getBaseUrl(){
-        return $_SERVER['PHP_SELF'];
+    public static function getBaseUrl($url){
+        return $_SERVER['PHP_SELF'].$url;
     }
+
 }
 
 //echo Ccc::getBaseDirectory('media');

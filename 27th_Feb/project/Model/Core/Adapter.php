@@ -1,6 +1,9 @@
 <?php
+namespace Model\Core;
 
 class Adapter{
+
+
     protected $connect;
     protected $config = [
         'host' => 'localhost',
@@ -11,7 +14,7 @@ class Adapter{
    
     public function setConfig($config){
         if(!is_array($config)){
-            throw new Exception("Config Must be An Array.");
+            throw new \Exception("Config Must be An Array.");
         }
         $this->config = array_merge($this->config,$config);
         return $this;
@@ -52,6 +55,7 @@ class Adapter{
     public function getQuery(){
         return $this->query;
     }
+
 
     public function insert($query){
         $result = $this->query($query);

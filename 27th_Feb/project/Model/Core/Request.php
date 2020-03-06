@@ -1,5 +1,7 @@
 <?php
 
+namespace Model\Core;
+
 class Request{
 
     public function isPOST(){
@@ -43,5 +45,13 @@ class Request{
         
     }
 
+    public function getActionName(){
+        return $this->getRequest('a','index');
+    }
+
+    public function getControllerName(){
+        return $this->getRequest('c','index');
+    }
+    
 }
 ?>

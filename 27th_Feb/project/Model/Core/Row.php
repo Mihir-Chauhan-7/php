@@ -1,8 +1,10 @@
 <?php
 
-    require_once 'Adapter.php';
+namespace Model\Core;
+
 
 class Row{
+
     protected $tableName = NULL;
     protected $primaryKey = NULL;
     protected $rowChanged = false;
@@ -13,6 +15,7 @@ class Row{
     {   
         $this->setAdapter();
     }
+
     public function setTable($tableName){
         $this->tableName = $tableName;
         return $this;
@@ -41,10 +44,10 @@ class Row{
     }
 
     public function setData($data){
-        echo "true";
         // if(!is_array($data)){
         //     throw new Exception("Data Must Be Array.");
         // }
+
         $this->data = $data;
         $this->setRowChanged(true);
         return $this;
@@ -81,7 +84,7 @@ class Row{
         $data = $this->getData();
         return key_exists($key,$data) ? $data[$key] : NULL;
     }
-    
+
     public function setAdapter($adapter = NULL){
         if($adapter == NULL){
             $this->adapter = new Adapter();
@@ -97,35 +100,35 @@ class Row{
     }
 
     public function insertData(){
-
         if(!$this->getRowChanged()){
-            throw new Exception("Please Insert Atleast One Value");
+            throw new \Exception("Please Insert Atleast One Value");
         }
 
         $this->unsetData('id');
         $data = $this->getData();
+
         $keys = array_keys($data);
         $values = (array_map(function ($value){
             $this->getAdapter()->connect();
             return $this->getAdapter()->getConnect()->real_escape_string($value);
         },array_values($data)));
-
         try{
-            $this->load($this->getAdapter()->insert("INSERT INTO `".$this->getTable()."` 
-            (".implode(',',$keys).") VALUES('".implode("','",$values)."')"));
+           $id = $this->getAdapter()->insert("INSERT INTO `".$this->getTable()."` 
+            (".implode(',',$keys).") VALUES('".implode("','",$values)."')");
+            $this->load($id);
+            $this->setRowChanged(false);
+            return $id;
         }
-        catch(Exception $e){
+        catch(\Exception $e){
             return false;
         }
-        $this->setRowChanged(false);
-
-        return true;
+        return false;
     }
 
     public function updateData(){
         $this->getAdapter()->connect();
         if(!$this->getRowChanged()){
-            throw new Exception("Please Change Atleast One Value");
+            throw new \Exception("Please Change Atleast One Value");
         }
 
         $i = 0;
@@ -140,7 +143,6 @@ class Row{
                 $this->getAdapter()->getConnect()->real_escape_string($value) ."'";
             $i++;
         }
-
         $result = $this->getAdapter()->update("UPDATE
         {$this->getTable()} SET
         {$fields}
@@ -151,9 +153,16 @@ class Row{
         
     }
 
+    public function saveData(){
+        if($this->id != NULL){
+            return $this->updateData();
+        }
+        return $this->insertData();
+    }
+
     public function deleteData(){
         if(!$this->getRowChanged()){
-            throw new Exception("Please Provide Id to Delete");
+            throw new \Exception("Please Provide Id to Delete");
         }
         $id = $this->id;
         return $this->getAdapter()->delete("DELETE 
@@ -162,20 +171,20 @@ class Row{
     }
 
     public function load($id){
-        $this->setData($this->setData($this->getAdapter()->fetchRow("SELECT * 
+        return $this->fetchRow("SELECT * 
             FROM {$this->getTable()} 
-            WHERE {$this->getPrimaryKey()} = $id")));
-        $this->setRowChanged(false);
+            WHERE {$this->getPrimaryKey()} = $id");
     }
 
-    public function fetchAll(){
-        $rows = $this->getAdapter()->query("SELECT * FROM {$this->getTable()}")
-            ->fetch_All
-            (MYSQLI_ASSOC);
+    public function fetchAll($query=null){
+        $query = $query == null ? "SELECT * FROM {$this->getTable()}" : $query;
+        $rows = $this->getAdapter()->query($query)
+            ->fetch_All(MYSQLI_ASSOC);
 
         $rows = array_map(function ($value){
             return $value = (new Row())->setData($value);
         },$rows);
+        
         return $rows;
     }
 
@@ -184,8 +193,9 @@ class Row{
             return null;    
         }
         $this->setData($result);
-        return $result;
+        $this->setRowChanged(false);
+        return $this;
     }
-
 }
+
 ?>
