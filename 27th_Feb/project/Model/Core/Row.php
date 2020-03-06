@@ -44,9 +44,9 @@ class Row{
     }
 
     public function setData($data){
-        // if(!is_array($data)){
-        //     throw new Exception("Data Must Be Array.");
-        // }
+        if(!is_array($data)){
+            throw new \Exception("Data Must Be Array.");
+        }
 
         $this->data = $data;
         $this->setRowChanged(true);
@@ -113,8 +113,9 @@ class Row{
             return $this->getAdapter()->getConnect()->real_escape_string($value);
         },array_values($data)));
         try{
-           $id = $this->getAdapter()->insert("INSERT INTO `".$this->getTable()."` 
-            (".implode(',',$keys).") VALUES('".implode("','",$values)."')");
+           $id = $this->getAdapter()->insert("
+                INSERT INTO `".$this->getTable()."` 
+                (".implode(',',$keys).") VALUES('".implode("','",$values)."')");
             $this->load($id);
             $this->setRowChanged(false);
             return $id;
@@ -143,10 +144,11 @@ class Row{
                 $this->getAdapter()->getConnect()->real_escape_string($value) ."'";
             $i++;
         }
-        $result = $this->getAdapter()->update("UPDATE
-        {$this->getTable()} SET
-        {$fields}
-        WHERE {$this->getPrimaryKey()} = $id");
+        $result = $this->getAdapter()->update("
+            UPDATE
+            {$this->getTable()} SET
+            {$fields}
+            WHERE {$this->getPrimaryKey()} = $id");
         $this->setRowChanged(false);
         $this->load($id);
         return $result;
@@ -165,13 +167,15 @@ class Row{
             throw new \Exception("Please Provide Id to Delete");
         }
         $id = $this->id;
-        return $this->getAdapter()->delete("DELETE 
-        FROM {$this->getTable()} 
-        WHERE {$this->getPrimaryKey()} = $id");
+        return $this->getAdapter()->delete("
+            DELETE 
+            FROM {$this->getTable()} 
+            WHERE {$this->getPrimaryKey()} = $id");
     }
 
     public function load($id){
-        return $this->fetchRow("SELECT * 
+        return $this->fetchRow("
+            SELECT * 
             FROM {$this->getTable()} 
             WHERE {$this->getPrimaryKey()} = $id");
     }
@@ -193,6 +197,7 @@ class Row{
         }
         $this->setData($result);
         $this->setRowChanged(false);
+
         return $this;
     }
 }

@@ -112,7 +112,6 @@ class Product extends Base{
         catch(Exception $e){
             echo $e->getMessage();
         }
-        
     }
 
     public function viewGalleryAction(){
@@ -154,26 +153,28 @@ class Product extends Base{
         catch(Exception $e){
             echo $e->getMessage();
         }
-        
     }
     
     public function deleteImageAction(){
         try{
 
+            $productId = (int)$this->getRequest()->getRequest('pid');
             $id = (int)$this->getRequest()->getRequest('id');
+            
             if(!$id){
                 throw new Exception("Invalid Request");
             }
 
             $this->imageModel->id = $id;
+            
             if($this->imageModel->deleteData()){
-                header('Location:'.$this->getUrl('viewGallery',Null,['id' => $id]));
+                header('Location:'.$this->
+                    getUrl('viewGallery',Null,['id' => $productId]));
             }
         }
         catch(Exception $e){
             echo $e->getMessage();
-        }
-        
+        }   
     }
 
     public function updateGalleryAction(){
@@ -181,10 +182,6 @@ class Product extends Base{
             $productId = $this->getRequest()->getRequest('id');
             if(!$productId){
                 throw new Exception("Invalid Request");
-            }
-
-            if($this->getRequest()->isPOST()){
-                throw new Exception("Invalid Data");
             }
 
             $image = $this->getRequest()->getPOST('product');

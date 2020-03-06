@@ -54,7 +54,6 @@ class Category extends Base{
         catch(Exception $e){
             echo $e->getMessage();
         }
-        
     }
 
     public function deleteAction(){
@@ -84,8 +83,7 @@ class Category extends Base{
         }
         catch(Exception $e){
             echo $e->getMessage();
-        }
-        
+        }   
     }
 
     public function saveAction(){
@@ -103,12 +101,9 @@ class Category extends Base{
         if(!$this->categoryModel->saveData()){
             throw new Exception('Error Operation Failed');
         }
-        
+
         $this->redirect('category','index');
-    
     }
-
-
 }
 
 ?>

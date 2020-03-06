@@ -64,8 +64,7 @@ class Adapter{
         }
         else{
             return null;
-        }
-        
+        }  
     }
 
     public function update($query){

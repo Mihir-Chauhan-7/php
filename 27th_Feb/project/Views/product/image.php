@@ -48,8 +48,8 @@
                         getDirectory().$image['name']; ?>">
                 </td>
                 <td><a href="<?php echo $this->
-                        getUrl('deleteImage',NULL,['id' => $image['imageId']]); ?>"
-                        >Delete</a>
+                        getUrl('deleteImage',NULL,['id' => $image['imageId'],
+                        'pid' => $product->id]); ?>">Delete</a>
                 </td>
             </tr>
             <?php endforeach; ?>

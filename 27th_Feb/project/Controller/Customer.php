@@ -49,9 +49,7 @@ class Customer extends Base {
         }
         catch(Exception $e){
             echo $e->getMessage();
-        }
-
-        
+        }   
     }
 
     public function saveAction(){

@@ -42,7 +42,6 @@ class Request{
         }
 
         return $_REQUEST[$key];
-        
     }
 
     public function getActionName(){
