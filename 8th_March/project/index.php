@@ -11,8 +11,6 @@ spl_autoload_register(function($className){
 });
 class Ccc{
     public function init(){
-        $layout =new Layout();
-        echo $layout->toHTML();
         \Controller\Core\Front::init();
     }
 

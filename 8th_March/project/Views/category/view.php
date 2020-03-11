@@ -1,10 +1,17 @@
+<?php
+
+use Block\Core\Message;
+
+echo (new Message())->toHTML(); 
+
+?>
 <!DOCTYPE html>
 <head>
     <title>Categories</title>
     <body>
         <table border="1" width=100% cellspacing="4">
             <tr><td><h2>Category List<h2></td></tr>
-            <a href="<?php echo $this->getController()->getUrl('add')?>">Add Category</a>
+            <a href="<?php echo $this->getUrl('add')?>">Add Category</a>
             <table border="1" width=100% cellspacing="5" cellpadding="5">
                 <th><input onclick="selectAll(this)" type="checkbox"></th>
                 <th>ID</th>
@@ -12,9 +19,10 @@
                 <th>Description</th>
                 <th>Parent ID</th>
                 <th colspan="2">Actions</th>
-                <form action="<?php echo $this->getController()->getUrl('delete')?>" method="POST">
+                <form action="<?php echo $this->getUrl('delete')?>" 
+                    method="POST">
                 <input type="submit" value="Delete">
-                <?php foreach($this->getController()->getCategories() as $row) :?>
+                <?php foreach($this->getCategories() as $row) :?>
                     <tr>
                     <td>
                         <input type="checkbox" name="check[]" 
@@ -24,9 +32,9 @@
                         <td><?php echo $row->name ?></td>
                         <td><?php echo $row->description ?></td>
                         <td><?php echo $row->parent_id ?></td>
-                        <td><a href=<?php echo $this->getController()->
+                        <td><a href=<?php echo $this->
                             getUrl('edit',NULL,['id' => $row->id]) ?>>Edit</a></td>
-                        <td><a href=<?php echo $this->getController()->
+                        <td><a href=<?php echo $this->
                             getUrl('delete',NULL,['id' => $row->id]) ?>>Delete</a></td>
                     </tr>
                 <?php endforeach ?>

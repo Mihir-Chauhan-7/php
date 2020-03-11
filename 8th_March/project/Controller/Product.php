@@ -2,7 +2,8 @@
 
 namespace Controller;
 
-
+use Block\Product\Add;
+use Block\Product\Gallery;
 use Model\Product as ProductModel;
 use Model\Product\Image;
 
@@ -29,13 +30,18 @@ class Product extends Base{
     }
 
     public function indexAction(){
-        require_once 'Views/product/view.php';
+        $grid = new \Block\Product\Grid();
+        $grid->setController($this);
+        $grid->setProducts($this->productModel->fetchAll());
+        echo $grid->toHTML();
     }
 
     public function addAction(){
         $this->action = 'Add';
-        $this->setProduct($this->productModel);
-        require_once 'Views/product/form.php';
+        $add = new Add(); 
+        $add->setController($this);
+        $add->setProduct($this->productModel);
+        echo $add->toHTML();
     }
 
     public function editAction(){
@@ -53,8 +59,11 @@ class Product extends Base{
                 throw new Exception("Product Not Found");
             }
 
-            $this->setProduct($this->productModel->load($id));
-            require_once 'Views/product/form.php';
+            $add = new Add(); 
+            $add->setController($this);
+            $add->setProduct($this->productModel->load($id));
+            echo $add->toHTML();
+
         }
         catch(Exception $e){
             echo $e->getMessage();
@@ -124,8 +133,12 @@ class Product extends Base{
             if(!($product = $this->productModel->load($id))){
                 throw new Exception("Product Not Loaded");
             }
-            $this->setProduct($product);
-            require_once 'Views/product/image.php';
+
+            $gallery = new Gallery();
+            $gallery->setImages($this->imageModel);
+            $gallery->setProduct($product);
+            $gallery->setController($this);
+            echo $gallery->toHTML();
         }
         catch(Exception $e){
             echo $e->getMessage();

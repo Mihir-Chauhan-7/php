@@ -2,9 +2,11 @@
 
 namespace Controller;
 
-use Block\Core\Layout;
+use Block\Category\Add;
 use Exception;
 use Model\Category as CategoryModel;
+use Model\Core\Message;
+use Model\Core\Session;
 
 class Category extends Base{
 
@@ -16,37 +18,26 @@ class Category extends Base{
         $this->categoryModel =new CategoryModel();
     }
 
-    public function setCategories($categories){
-        $this->categories = $categories;
-        return $this;
-    }
+    public function indexAction(){    
+        //$mess age->setMessage('Insert Success',1);
+        //$message->setMessage('Notice For Insert',2);
+        //$message->setMessage('Insert Success',1);
+        //$message->clearMessage();
+        //print_r($_SESSION);
 
-    public function getCategories(){
-        return $this->categories;
-    }
 
-    public function setCategory($singleCategory){
-        $this->categoryModel = $singleCategory;
-        return $this;
-    }
-
-    public function getCategory(){
-        return $this->categoryModel;
-    }
-
-    public function indexAction(){
-        
-        $this->setCategories($this->categoryModel->fetchAll());
-        $layout = new Layout();
-        $layout->setTemplate('/category/view.php');
-        $layout->setController($this);
-        //echo $layout->toHTML();
+        $grid = new \Block\Category\Grid();
+        $grid->setCategories($this->categoryModel->fetchAll());
+        $grid->setController($this);
+        echo $grid->toHTML();
     }
 
     public function addAction(){
         $this->action = 'Add';
-        $this->setCategory($this->categoryModel);
-        require_once 'Views/category/form.php';
+        $add = new Add();
+        $add->setCategory($this->categoryModel);
+        $add->setController($this);
+        echo $add->toHTML();
     }
     
     public function editAction(){
@@ -61,10 +52,10 @@ class Category extends Base{
                 throw new Exception('Category Not Found');
             }
 
-            $this->setCategory($this->categoryModel->load($id));
-            $this->action = 'Update';
-            require_once 'Views/category/form.php';
-        
+            $add = new Add();
+            $add->setCategory($this->categoryModel->load($id));
+            $add->setController($this);
+            echo $add->toHTML();
         }
         catch(Exception $e){
             echo $e->getMessage();
@@ -103,11 +94,15 @@ class Category extends Base{
 
     public function saveAction(){
         
+        $message = new Message();
+        $message->getSession()->setNameSpace('admin');
+        $message->setMessage('Inserted',1);
         if(!$this->getRequest()->getPOST()){
             throw new Exception('Invalid Data');
         }
 
         if($id = (int)$this->getRequest()->getRequest('id')){
+            $message->setMessage('Updated',1);
             $this->categoryModel->load($id);
         }
         

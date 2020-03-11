@@ -1,14 +1,14 @@
 <?php
 
-namespace Controller;
+namespace Model\Core;
 
-abstract class Base{
+class Url{
 
     protected $request = NULL;
 
-    public function redirect($controller = null ,$action = null ,$params = null){ 
-        
-        header('Location:'.$_SERVER['PHP_SELF'].'?c='.$controller.'&a='.$action);
+    public function __construct()
+    {
+        $this->setRequest();
     }
 
     public function setRequest(){
@@ -50,5 +50,6 @@ abstract class Base{
 
         return $this->getBaseurl('?'.http_build_query($parameters));
     }
-
 }
+
+?>
