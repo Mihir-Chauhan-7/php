@@ -8,22 +8,28 @@ class Front {
     
     public static function init(){
         $request = new Request();
-        
-        $controllerName = '\Controller\\'.ucfirst($request->getRequest('c'));
+    
+        $controllerClassName = self::getControllerName();
         $action = $request->getRequest('a').'Action';
-
-        if(!class_exists($controllerName)){
+        if(!class_exists($controllerClassName)){
             throw new \Exception('Class Does Not Exist.');
         }
                 
-        $controller = new $controllerName();
+        $controller = new $controllerClassName();
         
         if(!method_exists($controller,$action)){
             throw new \Exception('Action Does Not Exist.');
         }
         
         $controller->$action();
-    } 
+    }
+    
+    public static function getControllerName(){
+        $request = new Request();
+        $controllerClassName = str_replace(' ','\\',
+            ucwords(str_replace('_',' ',$request->getRequest('c'))));
+        return '\Controller\\'.$controllerClassName;
+    }
 }
 
 ?>
