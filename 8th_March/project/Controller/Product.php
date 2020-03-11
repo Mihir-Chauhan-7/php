@@ -142,6 +142,7 @@ class Product extends Base{
 
     public function saveImageAction(){
         try{
+            
             $id = (int)$this->getRequest()->getRequest('id');
             if(!$id){
                 throw new Exception("Invalid Request");

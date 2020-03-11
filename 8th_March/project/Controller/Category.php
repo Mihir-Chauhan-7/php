@@ -19,13 +19,6 @@ class Category extends Base{
     }
 
     public function indexAction(){    
-        //$mess age->setMessage('Insert Success',1);
-        //$message->setMessage('Notice For Insert',2);
-        //$message->setMessage('Insert Success',1);
-        //$message->clearMessage();
-        //print_r($_SESSION);
-
-
         $grid = new \Block\Category\Grid();
         echo $grid->toHTML();
     }

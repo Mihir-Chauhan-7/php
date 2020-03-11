@@ -7,6 +7,7 @@ use Model\Core\Row;
 
 class Image extends Row{
 
+    protected $request = NULL;
     protected $tableName = 'product_images';
     protected $primaryKey = 'imageId';
 

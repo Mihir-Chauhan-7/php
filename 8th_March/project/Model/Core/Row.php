@@ -47,8 +47,8 @@ class Row{
         if(!is_array($data)){
             throw new \Exception("Data Must Be Array.");
         }
-
-        $this->data = $data;
+        
+        $this->data = array_merge($this->data,$data);
         $this->setRowChanged(true);
         return $this;
     }

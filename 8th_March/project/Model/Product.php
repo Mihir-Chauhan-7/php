@@ -62,9 +62,9 @@ class Product extends Row{
             }
 
             $imageModel = new Image();
-
             $imageModel->setData(['productId' => $this->id,
                 'name' => $file['image']['name']]);
+            
             $imageModel->saveData();
 
             return $imageModel;
