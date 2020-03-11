@@ -11,22 +11,9 @@ class Grid extends \Block\Core\Template{
         $this->setTemplate('customer/view.php');
     }
 
-    public function setCustomers($customers){
-        $this->customers = $customers;
-    }
-
     public function getCustomers(){
-        
-        return $this->customers;
-    }
-
-    public function setAddresses($addresses){
-        $this->addresses = $addresses;
-        return $this;
-    }
-
-    public function getAddresses(){
-        return $this->addresses;
+        $this->customerModel = new \Model\Customer\Customer();
+        return $this->customerModel->fetchAll();
     }
 
 }

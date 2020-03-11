@@ -31,7 +31,6 @@ class Product extends Base{
 
     public function indexAction(){
         $grid = new \Block\Product\Grid();
-        $grid->setProducts($this->productModel->fetchAll());
         echo $grid->toHTML();
     }
 

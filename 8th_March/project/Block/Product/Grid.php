@@ -12,13 +12,9 @@ class Grid extends \Block\Core\Template{
         $this->setTemplate('product/view.php');
     }
 
-    public function setProducts($products){
-        $this->products = $products;
-    }
-
     public function getProducts(){
-        
-        return $this->products;
+        $this->productModel = new \Model\Product();
+        return $this->productModel->fetchAll();
     }
 
 

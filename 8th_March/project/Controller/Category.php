@@ -27,7 +27,6 @@ class Category extends Base{
 
 
         $grid = new \Block\Category\Grid();
-        $grid->setCategories($this->categoryModel->fetchAll());
         echo $grid->toHTML();
     }
 

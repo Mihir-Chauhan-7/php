@@ -24,8 +24,6 @@ class Customer extends Base {
     public function indexAction(){   
         $grid = new \Block\Customer\Grid();
         $grid->setTemplate('/customer/view.php');
-        $grid->setCustomers($this->customerModel->fetchAll());
-        $grid->setAddresses($this->addressModel->fetchAll());
         echo $grid->toHTML();
     }
 

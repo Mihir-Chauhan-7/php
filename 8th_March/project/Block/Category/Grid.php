@@ -11,13 +11,9 @@ class Grid extends \Block\Core\Template{
         $this->setTemplate('category/view.php');
     }
 
-    public function setCategories($categories){
-        $this->categories = $categories;
-    }
-
     public function getCategories(){
-        
-        return $this->categories;
+        $this->categoryModel = new \Model\Category();
+        return $this->categoryModel->fetchAll();
     }
 
 
