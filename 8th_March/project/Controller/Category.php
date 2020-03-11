@@ -28,7 +28,6 @@ class Category extends Base{
 
         $grid = new \Block\Category\Grid();
         $grid->setCategories($this->categoryModel->fetchAll());
-        $grid->setController($this);
         echo $grid->toHTML();
     }
 
@@ -36,7 +35,6 @@ class Category extends Base{
         $this->action = 'Add';
         $add = new Add();
         $add->setCategory($this->categoryModel);
-        $add->setController($this);
         echo $add->toHTML();
     }
     
@@ -54,7 +52,6 @@ class Category extends Base{
 
             $add = new Add();
             $add->setCategory($this->categoryModel->load($id));
-            $add->setController($this);
             echo $add->toHTML();
         }
         catch(Exception $e){
@@ -69,7 +66,7 @@ class Category extends Base{
                 if($id){
                     $this->categoryModel->id = ($id);
                     if($this->categoryModel->deleteData()){
-                        $this->redirect('category','index');
+                        $this->redirect('index');
                     } 
                 }
             }
@@ -79,7 +76,7 @@ class Category extends Base{
                     foreach($idList as $id){
                         $this->categoryModel->id = ($id);
                         $this->categoryModel->deleteData();
-                        $this->redirect('category','index');
+                        $this->redirect('index');
                     }
                 }
             }
@@ -112,7 +109,7 @@ class Category extends Base{
             throw new Exception('Error Operation Failed');
         }
 
-        $this->redirect('category','index');
+        $this->redirect('index');
     }
 }
 

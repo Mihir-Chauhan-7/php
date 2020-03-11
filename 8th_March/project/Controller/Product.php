@@ -31,7 +31,6 @@ class Product extends Base{
 
     public function indexAction(){
         $grid = new \Block\Product\Grid();
-        $grid->setController($this);
         $grid->setProducts($this->productModel->fetchAll());
         echo $grid->toHTML();
     }
@@ -39,7 +38,6 @@ class Product extends Base{
     public function addAction(){
         $this->action = 'Add';
         $add = new Add(); 
-        $add->setController($this);
         $add->setProduct($this->productModel);
         echo $add->toHTML();
     }
@@ -60,7 +58,6 @@ class Product extends Base{
             }
 
             $add = new Add(); 
-            $add->setController($this);
             $add->setProduct($this->productModel->load($id));
             echo $add->toHTML();
 
@@ -79,7 +76,7 @@ class Product extends Base{
                 if($id){
                     $this->productModel->id = $id;
                     if($this->productModel->deleteData()){
-                        $this->redirect('product','index');
+                        $this->redirect('index');
                     } 
                 }
             }
@@ -90,7 +87,7 @@ class Product extends Base{
                         $this->productModel->id = $id;
                         $this->productModel->deleteData();
                     }
-                    $this->redirect('product','index');
+                    $this->redirect('index');
                 }
             }
             else{
@@ -116,7 +113,7 @@ class Product extends Base{
             if(!$this->productModel->saveData()){
                 throw new Exception("Error Operation Failed");
             }
-            $this->redirect('product','index');
+            $this->redirect('index');
         }
         catch(Exception $e){
             echo $e->getMessage();
@@ -137,7 +134,6 @@ class Product extends Base{
             $gallery = new Gallery();
             $gallery->setImages($this->imageModel);
             $gallery->setProduct($product);
-            $gallery->setController($this);
             echo $gallery->toHTML();
         }
         catch(Exception $e){

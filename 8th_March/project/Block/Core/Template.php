@@ -29,14 +29,6 @@ class Template{
         return $urlModel->getUrl($action,$controller,$params);
     }
 
-    public function setController($controller){
-        $this->controller = $controller;
-    }
-
-    public function getController(){
-        return $this->controller;
-    }
-
 }
 
 ?>

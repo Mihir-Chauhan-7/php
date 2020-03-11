@@ -26,7 +26,6 @@ class Customer extends Base {
         $grid->setTemplate('/customer/view.php');
         $grid->setCustomers($this->customerModel->fetchAll());
         $grid->setAddresses($this->addressModel->fetchAll());
-        $grid->setController($this);
         echo $grid->toHTML();
     }
 
@@ -34,7 +33,6 @@ class Customer extends Base {
         $add = new Add();
         $add->setCustomer($this->customerModel);
         $add->setAddress($this->addressModel);
-        $add->setController($this);
         echo $add->toHTML();
     }
     
@@ -51,7 +49,6 @@ class Customer extends Base {
             $add = new Add();
             $add->setCustomer($this->customerModel->load($id));
             $add->setAddress($this->addressModel->getAddress($id));
-            $add->setController($this);
             echo $add->toHTML();
         }
         catch(Exception $e){
@@ -80,7 +77,7 @@ class Customer extends Base {
             throw new Exception("Error Operation Failed");
         }
 
-        $this->redirect('customer','index');
+        $this->redirect('index');
     }
 
     public function deleteAction(){
@@ -91,7 +88,7 @@ class Customer extends Base {
                 if($id){
                     $this->customerModel->id = $id;
                     if($this->customerModel->deleteData()){
-                        $this->redirect('customer','index');
+                        $this->redirect('index');
                     } 
                 }
             }
@@ -102,7 +99,7 @@ class Customer extends Base {
                         $this->customerModel->id = $id;
                         $this->customerModel->deleteData();
                     }
-                    $this->redirect('customer','index');
+                    $this->redirect('index');
                 }
             }
             else{
