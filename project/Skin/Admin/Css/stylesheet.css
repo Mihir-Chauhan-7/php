@@ -1,0 +1,41 @@
+.Success{
+    background-color: lightgreen;
+    color: green;
+}
+
+.Failed{
+    background-color: lightpink;
+    color: red;
+}
+
+.Notice{
+    background-color: lightyellow;
+    color: yellow;
+}
+.btn.header-btn{
+    background-color: #536DFE;
+    color: white;
+    font-weight: bold;
+}
+.badge.badge-primary.badge-pill.count{
+    float: right;
+}
+.heading{
+    padding-top: 5px;
+    text-align: center;
+    color: #283593;
+}
+
+.path{
+    padding-top: 5px;
+    color: #283593;
+}
+.header{
+    background-color: #283593;
+}
+
+.footer-text{
+    margin-top: 20px; 
+    text-align: center;
+    color: whitesmoke;
+}
