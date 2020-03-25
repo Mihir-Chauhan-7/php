@@ -1,4 +1,5 @@
-<?php $selected = $this->getSelectedProducts() ;?>
+<?php $selected = $this->getSelectedProducts();?>
+
 <div>
     <div class="path">
         <h4><?php echo $this->categoryModel->getName(); ?></h4>
@@ -21,10 +22,13 @@
                     <div style="font-size: larger">&#8377;<?php echo $product->price; ?>
                         <input type="hidden" name="productId" value="<?php echo $product->id ?>">
                         <div>
-                        <?php if(in_array($product->id,$selected)): ?>
-                            <input id="product_<?php echo $product->id ?>" type="button" value="Added" class="btn btn-danger" disabled="disabled">
+                        <?php if(in_array($product->id,$selected)): ?>    
+                            <?php $item = $this->getItemId($product->id); ?>
+                            <input type="button" class="btn btn-danger" value="+" onclick="ajax.setUrl('<?php echo $this->getUrl('updateQuantity','category_index',['id' => $item->itemId,'flag' => 0 ]);?>').load()">
+                            <input id="product_<?php echo $product->id ?>" type="button" value="<?php echo $item->quantity; ?>" class="btn btn-danger" disabled>
+                            <input type="button" class="btn btn-danger" value="+" onclick="ajax.setUrl('<?php echo $this->getUrl('updateQuantity','category_index',['id' => $item->itemId,'flag' => 1 ]);?>').load()">
                         <?php else : ?>
-                            <input id="product_<?php echo $product->id ?>" type="button" value="Add To Cart" onclick="ajax.setForm('product<?php echo $product->id; ?>').load();">
+                            <input id="product_<?php echo $product->id ?>" type="button" value="Add To Cart" class="btn btn-info" onclick="ajax.setForm('product<?php echo $product->id; ?>').load();">
                         <?php endif; ?> 
                         </div>
                     </div> 

@@ -63,9 +63,8 @@ class Index extends \Controller\Base{
                 if($this->cartItemModel->saveData()){
                     $this->cartModel->reCalculateTotal();
                     
+                    $this->addElementBlock('productList','Block\Category\Index\Index\Product');                
                     $this->addElementBlock('cart','Block\Category\Index\Index\Cart');                
-                    $this->addIdentifier('#product_'.$id,'add','btn btn-danger');
-                    $this->addIdentifier('#product_'.$id,'html','Added');
                 }
             }
         }
@@ -120,6 +119,7 @@ class Index extends \Controller\Base{
             $this->cartItemModel->saveData();
             $this->cartModel->recalculateTotal();
     
+            $this->addElementBlock('productList','Block\Category\Index\Index\Product');                
             $this->addElementBlock('cart','Block\Category\Index\Index\Cart');
             
         }
