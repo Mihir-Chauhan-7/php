@@ -6,7 +6,7 @@
         <div class="col-lg-6" id="productList">
             <?php echo $this->getChild('product')->toHtml(); ?>
         </div>
-        <div class="col-lg-3" id="cart">
+        <div class="col-lg-3.5" id="cart">
             <?php echo $this->getChild('cart')->toHtml(); ?>
         </div>
     </div>

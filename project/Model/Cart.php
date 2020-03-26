@@ -2,12 +2,15 @@
 
 namespace Model;
 
+use Ccc;
 use Exception;
 
 class Cart extends \Model\Core\Row{
+
     protected $tableName = "cart";
     protected $secondaryTable = "cart_items";
     protected $primaryKey = "cartId";
+
     public function __construct()
     {
         parent::__construct();
@@ -50,6 +53,33 @@ class Cart extends \Model\Core\Row{
         }
 
         $this->updateCart('total',$price);
+    }
+
+
+    public function getAddress($type){
+        $cartAddress = \Ccc::objectManager('Model\Cart\Address',false)
+            ->fetchRow("SELECT * 
+                        FROM cart_address 
+                        WHERE cartId = $this->cartId 
+                        AND type = $type");
+                        
+        if($cartAddress == NULL){
+            $customerAddress = \Ccc::objectManager('Model\Customer\Address',true)
+                ->fetchRow("SELECT * 
+                            FROM customer_address 
+                            WHERE customerId = $this->customerId 
+                            AND type = $type");
+
+            if($customerAddress == NULL){
+                return \Ccc::objectManager('Model\Cart\Address');
+            }
+            $this->setData($customerAddress->getData());
+            $this->unsetData('id');
+                $this->cartId = $this->cartId;
+                $this->saveData();
+                return $customerAddress;
+        }
+        return $cartAddress;
     }
 }
 

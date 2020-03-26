@@ -140,7 +140,7 @@ abstract class Base{
     }
 
     public function getCustomer(){
-        if(!$customerId = (int)$this->getRequest()->getRequest('id')){
+        if(!$customerId = (int)$this->getRequest()->getRequest('cid')){
             $customerId = key_exists('customerId',$_SESSION) 
             ? $_SESSION['customerId'] 
             : 1;

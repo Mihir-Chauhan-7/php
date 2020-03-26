@@ -15,19 +15,22 @@
 .btn.header-btn{
     background-color: #536DFE;
     color: white;
-    font-weight: bold;
 }
 .badge.badge-primary.badge-pill.count{
     float: right;
 }
 .heading{
-    padding-top: 5px;
+    padding-top: 10px;
     text-align: center;
     color: #283593;
 }
 
+h4{
+    font-weight: bold;
+}
+
 .path{
-    padding-top: 5px;
+    padding-top: 10px;
     color: #283593;
 }
 .header{

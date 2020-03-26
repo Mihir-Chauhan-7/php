@@ -6,8 +6,8 @@
     </div>
     <hr>
     <div>
-        <table border="1" width="100%">
-            <tr>
+        <table style="text-align: center;box-shadow: 1px 1px 10px 1px #888888" class="table table-sm table-striped">
+            <tr class="table-info">
                 <th>Name</th>
                 <th>Price</th>
                 <th>Qty</th>
@@ -21,23 +21,23 @@
                     <td><?php echo $product->name ?></td>
                     <td><?php echo $product->price ?></td>
                     <td>
-                        <input type="button" value="-" onclick="ajax.setUrl('<?php echo $this->getUrl('updateQuantity','category_index',['id' => $item->itemId,'flag' => 0 ]);?>').load()">
+                        <input type="button" class="btn btn-outline-primary btn-sm" value="-" onclick="ajax.setUrl('<?php echo $this->getUrl('updateQuantity','category_index',['id' => $item->itemId,'flag' => 0 ]);?>').load()">
                             <?php echo $item->quantity ?>
-                        <input type="button" value="+" onclick="ajax.setUrl('<?php echo $this->getUrl('updateQuantity','category_index',['id' => $item->itemId,'flag' => 1 ]);?>').load()">    
+                        <input type="button" class="btn btn-outline-primary btn-sm" value="+" onclick="ajax.setUrl('<?php echo $this->getUrl('updateQuantity','category_index',['id' => $item->itemId,'flag' => 1 ]);?>').load()">    
                     </td>
                     <td><?php echo $product->price*$item->quantity; ?></td>
-                    <td><input type="button" value="x" onclick="ajax.setUrl('<?php echo $this->getUrl('remove','category_index',[ 'id' => $item->itemId ]) ?>').load()"></td>
+                    <td><input class="btn btn-outline-danger btn-sm" type="button" value="x" onclick="ajax.setUrl('<?php echo $this->getUrl('remove','category_index',[ 'id' => $item->itemId ]) ?>').load()"></td>
                 </tr>
             <?php endforeach; ?>
-            <tr>
+            <tr class="table-info">
                 <th colspan="100%">Grand Total <?php echo $cart->total; ?></th>
             </tr>
         </table>
     <div>
-    <button style="float: right" type="button">Checkout</button>
+    <button style="float: right" type="button" onclick="ajax.setUrl('<?php echo $this->getUrl('index','checkout'); ?>').load()">Checkout</button>
     </div>
         <?php else: ?>
-            <tr>
+            <tr class="table-warning">
                 <td align="center" colspan="100%"><h5>Empty Cart</h5></td>
             </tr>
         <?php endif; ?>

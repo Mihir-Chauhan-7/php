@@ -2,8 +2,9 @@
 <html>
 
 <head>
+<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Skin\Admin\Css\bootstrap.min.css">
     <link rel="stylesheet" href="Skin\Admin\Css\stylesheet.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="Skin\Admin\Js\Core\jquery-3.4.1.min.js"></script>
     <script src="Skin\Admin\Js\ajax.js"></script>
     <title></title>
@@ -16,9 +17,9 @@
         </tr>
         <tr>
             <td><div id="message"></div></td>
-        </tr>
+         </tr>
         <tr height="474px" colspan="100%">
-            <td><?php echo $this->getChild('content')->toHTML(); ?></td>
+            <td id="content"><?php echo $this->getChild('content')->toHTML(); ?></td>
         </tr>
         <tr class="header" colspan="100%">
             <td><?php echo $this->getChild('footer')->toHTML(); ?></td>

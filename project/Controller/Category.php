@@ -104,26 +104,6 @@ class Category extends Base{
             $this->sendResponse();
         }    
     }
-
-    public function viewAction(){
-        if(!$id = (int)$this->getRequest()->getRequest('id')){
-            if(!key_exists('currentCategory',$_SESSION)){
-                $id = 1;
-            }
-            else{
-                $id = $_SESSION['currentCategory'];
-            }
-        }
-
-        \Ccc::objectManager('\Model\Category',true)->load($id);
-        $_SESSION['currentCategory'] = $id;
-        
-        $this->addElementBlock('productList','Block\Category\Index\Index\Product');
-        $this->addIdentifier('#categories','remove','active');
-        $this->addIdentifier('#category_'.$id,'add','active');
-        $this->sendResponse();
-
-    }
 }
 
 ?>

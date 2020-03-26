@@ -8,7 +8,8 @@ class Index extends \Controller\Base{
     
     public function __construct()
     {
-        $this->cartModel = \Ccc::objectManager('\Model\Cart',true)->getCart($_SESSION['customerId']);
+        $this->cartModel = \Ccc::objectManager('\Model\Cart',true)
+            ->getCart($this->getCustomer());
         $this->cartItemModel = \Ccc::objectManager('\Model\Item',true);
         $this->categoryModel = \Ccc::objectManager('\Model\Category',true);
         $this->productModel = \Ccc::objectManager('\Model\Product',true);
@@ -17,36 +18,39 @@ class Index extends \Controller\Base{
     public function indexAction(){
         $this->getCustomer();
 
-        $indexBlock = $this
-                        ->getLayout()
+        $indexBlock = $this->getLayout()
                         ->createBlock('Block\Category\Index\Index');
-        
+    
+        $indexBlock->addChild('Block\Category\Index\Index\Category','category');
+        $indexBlock->addChild('Block\Category\Index\Index\Product','product');      
+        $indexBlock->addChild('Block\Category\Index\Index\Cart','cart');              
         $this->_addContent($indexBlock,'index');
 
-        $this
-            ->getLayout()
-            ->getChild('content')
-            ->getChild('index')
-            ->addChild('Block\Category\Index\Index\Category','category');
-
-        $this
-            ->getLayout()
-            ->getChild('content')
-            ->getChild('index')
-            ->addChild('Block\Category\Index\Index\Product','product');      
-        
-        $this
-            ->getLayout()
-            ->getChild('content')
-            ->getChild('index')
-            ->addChild('Block\Category\Index\Index\Cart','cart');      
-        
-                
         $this->addElement('content',$indexBlock->toHtml());
         $this->addElementBlock('cart','Block\Category\Index\Index\Cart');
         $this->addIdentifier('#categories','remove','active');
         $this->addIdentifier('#category_'.$this->getCurrentCategory(),'add','active');
         $this->sendResponse();
+    }
+
+    public function viewAction(){
+        if(!$id = (int)$this->getRequest()->getRequest('id')){
+            if(!key_exists('currentCategory',$_SESSION)){
+                $id = 1;
+            }
+            else{
+                $id = $_SESSION['currentCategory'];
+            }
+        }
+
+        \Ccc::objectManager('\Model\Category',true)->load($id);
+        $_SESSION['currentCategory'] = $id;
+        
+        $this->addElementBlock('productList','Block\Category\Index\Index\Product');
+        $this->addIdentifier('#categories','remove','active');
+        $this->addIdentifier('#category_'.$id,'add','active');
+        $this->sendResponse();
+
     }
 
     public function addAction(){

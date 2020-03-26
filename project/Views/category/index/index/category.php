@@ -7,7 +7,7 @@
             <?php if($category->getProductCount() == 0):
                     continue; 
                   endif; ?>
-            <li id="category_<?php echo $category->id?>" class="list-group-item" onclick="ajax.setUrl('<?php echo $this->getUrl('view','category',['id' => $category->id]) ?>'); ajax.load();"z>
+            <li id="category_<?php echo $category->id?>" class="list-group-item" onclick="ajax.setUrl('<?php echo $this->getUrl('view','category_index',['id' => $category->id]) ?>'); ajax.load();"z>
                 <?php echo $category->path; ?>
                 <span class="badge badge-primary badge-pill count">
                     <?php echo $category->getProductCount(); ?>

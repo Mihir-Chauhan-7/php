@@ -112,5 +112,5 @@ function selectAll(el){
 }
 
 function changeCustomer(el,url){
-    ajax.setUrl(url+"&id="+el.value).load();
+    ajax.setUrl(url+"&cid="+el.value).load();
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace Block\Category\Index;
+namespace Block\Checkout;
 
 class Index extends \Block\Core\Template{
     public function __construct()
     {
-        $this->setTemplate('Category/index/index.php');    
+        $this->setTemplate('checkout\index.php');
     }
 }
 
