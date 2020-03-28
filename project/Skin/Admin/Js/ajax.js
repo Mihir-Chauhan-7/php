@@ -114,3 +114,9 @@ function selectAll(el){
 function changeCustomer(el,url){
     ajax.setUrl(url+"&cid="+el.value).load();
 }
+
+function call(el,url){
+
+    ajax.setUrl(url+"&amount="+($('#'+el).val()));
+    ajax.load();
+}

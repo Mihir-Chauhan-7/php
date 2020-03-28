@@ -7,7 +7,7 @@ class Product extends \Block\Core\Template{
     {
         $currentCategory = key_exists('currentCategory',$_SESSION) 
             ? $_SESSION['currentCategory'] 
-            : 1; 
+            : $_SESSION['currentCategory'] = 1; 
         $this->categoryModel = \Ccc::objectManager('\Model\Category',true)
             ->load($currentCategory);
         $this->cartItemModel = \Ccc::objectManager('\Model\Item',true);

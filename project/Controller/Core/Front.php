@@ -16,7 +16,6 @@ class Front {
         }
                 
         $controller = new $controllerClassName();
-        
         if(!method_exists($controller,$action)){
             throw new \Exception('Action Does Not Exist.');
         }

@@ -13,5 +13,9 @@ class PaymentMethod extends \Block\Core\Template{
         return \Ccc::objectManager('\Model\Payment\Method',false)
             ->fetchAll() ?? [];
     }
+
+    public function getSelected(){
+        return \Ccc::objectManager('\Model\Cart',true)->paymentId;
+    }
 }
 ?>

@@ -10,9 +10,13 @@ class ShipmentMethod extends \Block\Core\Template{
     }
 
     public function getShipmentMethods(){
-        return \Ccc::objectManager('Model\Shipment\Method',false)
+        return \Ccc::objectManager('\Model\Shipment\Method',false)
             ->fetchAll() ?? [];
-   }
+    }
+
+    public function getSelected(){
+        return \Ccc::objectManager('\Model\Cart',true)->shippingId;
+    }
 
 }
 

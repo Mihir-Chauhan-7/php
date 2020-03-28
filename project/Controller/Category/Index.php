@@ -55,10 +55,8 @@ class Index extends \Controller\Base{
 
     public function addAction(){
         try{
-            if($this->getRequest()->isPOST()){
-                $this
-                    ->productModel
-                    ->load($id = $this->getRequest()->getPOST('productId'));
+            if($id = (int)$this->getRequest()->getRequest('productId')){
+                $this->productModel->load($id);
                 
                 $this->cartItemModel->cartId = $this->cartModel->cartId;
                 $this->cartItemModel->productId = $this->productModel->id;

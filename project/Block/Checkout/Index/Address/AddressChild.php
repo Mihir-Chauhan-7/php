@@ -11,7 +11,7 @@ class AddressChild extends \Block\Core\Template{
     }
 
     public function getAddress($type){
-        return \Ccc::objectManager('Model\Cart',true)
+        return \Ccc::objectManager('\Model\Cart',true)
             ->getAddress($type);
     }
     

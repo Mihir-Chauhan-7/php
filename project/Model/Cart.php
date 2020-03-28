@@ -2,7 +2,6 @@
 
 namespace Model;
 
-use Ccc;
 use Exception;
 
 class Cart extends \Model\Core\Row{
@@ -57,7 +56,8 @@ class Cart extends \Model\Core\Row{
 
 
     public function getAddress($type){
-        $cartAddress = \Ccc::objectManager('Model\Cart\Address',false)
+        $cartAddressModel = \Ccc::objectManager('Model\Cart\Address',false);
+        $cartAddress = $cartAddressModel
             ->fetchRow("SELECT * 
                         FROM cart_address 
                         WHERE cartId = $this->cartId 
@@ -71,15 +71,51 @@ class Cart extends \Model\Core\Row{
                             AND type = $type");
 
             if($customerAddress == NULL){
-                return \Ccc::objectManager('Model\Cart\Address');
+                return $cartAddressModel;
             }
-            $this->setData($customerAddress->getData());
-            $this->unsetData('id');
-                $this->cartId = $this->cartId;
-                $this->saveData();
-                return $customerAddress;
+            $cartAddressModel->setData($customerAddress->getData());
+            $cartAddressModel->unsetData('id');
+                $cartAddressModel->cartId = $this->cartId;
+                $cartAddressModel->saveData();
+                return  $cartAddressModel;
         }
         return $cartAddress;
+    }
+
+    public function addItem($productId){
+        $cartItemModel = \Ccc::objectManager('\Model\Item',false);
+        $productModel =\Ccc::objectManager('\Model\Product',true)
+        ->load($productId);
+
+        $product = $cartItemModel
+            ->fetchRow("SELECT * FROM ".$cartItemModel
+            ->getTable()." WHERE cartId = ".$this->cartId." AND productId = ".$productId);
+        
+        if($product != NULL){
+            $product->quantity += 1;
+            $product->saveData();
+            $this->reCalculateTotal();
+            return true;
+        }
+
+        $cartItemModel->cartId = $this->cartId;
+        $cartItemModel->productId = $productModel->id;
+        $cartItemModel->sku = $productModel->sku;
+
+        if($cartItemModel->saveData()){
+            $this->reCalculateTotal();
+            return true;   
+        }
+        return false;
+    }
+
+    public function removeItem($itemId){
+
+    }
+
+    public function getShipmentMethod(){
+        return \Ccc::objectManager('Model\Shipment\Method')
+            ->load($this->shippingId) ?? \Ccc::objectManager('Model\Shipment\Method');
     }
 }
 
