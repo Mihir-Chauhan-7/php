@@ -11,6 +11,20 @@ class Customer extends \Model\Core\Row{
         $this->setTable($this->tableName)->setPrimaryKey($this->primaryKey);
     }
 
+    public function getCart(){    
+        $cartModel = \Ccc::objectManager('\Model\Cart',true);
+        $cart = $cartModel->fetchRow("SELECT * FROM ".$cartModel->getTable().
+            " WHERE customerId = ".$this->getData($this->primaryKey));
+
+        if(!$cart){
+            $cartModel->customerId = $this->getData($this->primaryKey);
+            $cartModel->email = $this->email;
+            $cartModel->saveData();
+            return $cartModel;
+        }
+        return $cart;
+    }
+
     public function getAddreses(){
         return $this->fetchAll("SELECT * FROM customer_address WHERE cid = $this->id");       
     }

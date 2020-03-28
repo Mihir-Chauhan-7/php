@@ -17,7 +17,14 @@ class Cart extends \Model\Core\Row{
     }
 
     public function getCart($customerId){    
-        return $this->fetchRow("SELECT * FROM $this->tableName WHERE customerId = $customerId");
+        $cart = $this->fetchRow("SELECT * FROM $this->tableName WHERE customerId = $customerId");
+        if(!$cart){
+            $cart = \Ccc::objectManager('\Model\Cart',false);
+            $cart->customerId = $customerId;
+            $cart->saveData();
+            return $cart;
+        }
+        return $cart;
     }
 
     public function getCartItems(){
@@ -109,8 +116,43 @@ class Cart extends \Model\Core\Row{
         return false;
     }
 
-    public function removeItem($itemId){
+    public function removeItem($productId,$all = 0){
+        $cartItemModel = \Ccc::objectManager('\Model\Item',false);
+        $product = $cartItemModel
+            ->fetchRow("SELECT * FROM ".$cartItemModel
+            ->getTable()." WHERE cartId = ".$this->cartId." AND productId = ".$productId);
+        
+        if($product != NULL){
+            if($all){
+                $product->id = $product->itemId; 
+                $product->deleteData();
+                return true;
+            }
 
+            if($product->quantity > 1){
+                $product->quantity -= 1;
+                $product->saveData();
+            }
+
+            $this->reCalculateTotal();
+            return true;
+        }
+        
+        return false;
+    }
+
+    public function deleteCart(){
+        $cartItemModel = \Ccc::objectManager('\Model\Item',false);
+
+        foreach($this->getCartItems() as $item){
+            $ids[] = $item->itemId;
+        }
+        
+        if($cartItemModel->deleteData($ids)){
+            return true;
+        }
+
+        return false;
     }
 
     public function getShipmentMethod(){

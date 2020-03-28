@@ -21,12 +21,12 @@
                     <td><?php echo $product->name ?></td>
                     <td><?php echo $product->price ?></td>
                     <td>
-                        <input type="button" class="btn btn-outline-primary btn-sm" value="-" onclick="ajax.setUrl('<?php echo $this->getUrl('updateQuantity','category_index',['id' => $item->itemId,'flag' => 0 ]);?>').load()">
+                        <input type="button" class="btn btn-outline-primary btn-sm" value="-" onclick="ajax.setUrl('<?php echo $this->getUrl('updateQuantity','category_index',['productId' => $product->id,'flag' => 0 ]);?>').load()">
                             <?php echo $item->quantity ?>
-                        <input type="button" class="btn btn-outline-primary btn-sm" value="+" onclick="ajax.setUrl('<?php echo $this->getUrl('updateQuantity','category_index',['id' => $item->itemId,'flag' => 1 ]);?>').load()">    
+                        <input type="button" class="btn btn-outline-primary btn-sm" value="+" onclick="ajax.setUrl('<?php echo $this->getUrl('updateQuantity','category_index',['productId' => $product->id,'flag' => 1 ]);?>').load()">    
                     </td>
                     <td><?php echo $product->price*$item->quantity; ?></td>
-                    <td><input class="btn btn-outline-danger btn-sm" type="button" value="x" onclick="ajax.setUrl('<?php echo $this->getUrl('remove','category_index',[ 'id' => $item->itemId ]) ?>').load()"></td>
+                    <td><input class="btn btn-outline-danger btn-sm" type="button" value="x" onclick="ajax.setUrl('<?php echo $this->getUrl('remove','category_index',[ 'productId' => $product->id ]) ?>').load()"></td>
                 </tr>
             <?php endforeach; ?>
             <tr class="table-info">

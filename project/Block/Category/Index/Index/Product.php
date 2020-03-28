@@ -22,6 +22,7 @@ class Product extends \Block\Core\Template{
     public function getItems(){
         $cartId = \Ccc::objectManager('Model\Cart',true)
             ->getCart($_SESSION['customerId'])->cartId;
+
         $cartItem = \Ccc::objectManager('Model\Item',true);
 
         return $cartItem->fetchAll("SELECT * 

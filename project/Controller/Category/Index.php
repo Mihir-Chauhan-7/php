@@ -8,8 +8,7 @@ class Index extends \Controller\Base{
     
     public function __construct()
     {
-        $this->cartModel = \Ccc::objectManager('\Model\Cart',true)
-            ->getCart($this->getCustomer());
+        $this->cartModel = $this->getCustomer()->getCart();
         $this->cartItemModel = \Ccc::objectManager('\Model\Item',true);
         $this->categoryModel = \Ccc::objectManager('\Model\Category',true);
         $this->productModel = \Ccc::objectManager('\Model\Product',true);
@@ -55,19 +54,15 @@ class Index extends \Controller\Base{
 
     public function addAction(){
         try{
-            if($id = (int)$this->getRequest()->getRequest('productId')){
-                $this->productModel->load($id);
+            if(!$id = (int)$this->getRequest()->getRequest('productId')){
+                throw new Exception("Invalid Request.");   
+            }
+
+            if($this->cartModel->addItem($id)){
+                $this->cartModel->reCalculateTotal();
                 
-                $this->cartItemModel->cartId = $this->cartModel->cartId;
-                $this->cartItemModel->productId = $this->productModel->id;
-                $this->cartItemModel->sku = $this->productModel->sku;
-                
-                if($this->cartItemModel->saveData()){
-                    $this->cartModel->reCalculateTotal();
-                    
-                    $this->addElementBlock('productList','Block\Category\Index\Index\Product');                
-                    $this->addElementBlock('cart','Block\Category\Index\Index\Cart');                
-                }
+                $this->addElementBlock('productList','Block\Category\Index\Index\Product');                
+                $this->addElementBlock('cart','Block\Category\Index\Index\Cart');                
             }
         }
         catch(Exception $e){
@@ -79,17 +74,15 @@ class Index extends \Controller\Base{
     
     public function removeAction(){
         try{
-            if(!$id = $this->getRequest()->getRequest('id')){
+            if(!$id = $this->getRequest()->getRequest('productId')){
                 throw new Exception("Invalid Request");
             }
             
-            $this->cartItemModel->id = $id;
-            $this->cartItemModel->deleteData();
-            $this->cartModel->recalculateTotal();
-
-
-            $this->addElementBlock('productList','Block\Category\Index\Index\Product');
-            $this->addElementBlock('cart','Block\Category\Index\Index\Cart');
+            if($this->cartModel->removeItem($id,1)){
+                $this->cartModel->recalculateTotal();
+                $this->addElementBlock('productList','Block\Category\Index\Index\Product');
+                $this->addElementBlock('cart','Block\Category\Index\Index\Cart');
+            }
         }
         catch(Exception $e){
             $this->displayMessage($e->getMessage(),0);
@@ -99,31 +92,23 @@ class Index extends \Controller\Base{
     
     public function updateQuantityAction(){
         try{
-            if(!$id = $this->getRequest()->getRequest('id')){
+            if(!$id = $this->getRequest()->getRequest('productId')){
                 throw new Exception("Invalid Request");
             }
             
             $flag = $this->getRequest()->getRequest('flag');
-            
-            $this->cartItemModel->load($id);
-            $qty = $this->cartItemModel->quantity;
-    
-            if($flag){
-                $qty++;
+
+            if(!$flag){
+                $this->cartModel->removeItem($id);      
             }
             else{
-                if($qty != 1){
-                    $qty--;
-                }
+                if($this->cartModel->addItem($id)){
+                }    
             }
-        
-            $this->cartItemModel->quantity = $qty;
-            $this->cartItemModel->saveData();
+            
             $this->cartModel->recalculateTotal();
-    
             $this->addElementBlock('productList','Block\Category\Index\Index\Product');                
             $this->addElementBlock('cart','Block\Category\Index\Index\Cart');
-            
         }
         catch(Exception $e){
             $this->displayMessage($e->getMessage(),0);
@@ -133,16 +118,12 @@ class Index extends \Controller\Base{
     
     public function removeCartAction(){
         try{
-            foreach($this->cartModel->getCartItems() as $item){
-                $item->id = $item->itemId;
-                $item->deleteData();
+            if($this->cartModel->deleteCart()){
+                $this->displayMessage("Cart Empty");
+                
+                $this->addElementBlock('cart','Block\Category\Index\Index\Cart');
+                $this->addElementBlock('productList','Block\Category\Index\Index\Product');
             }
-
-            $this->cartModel->updateCart('total',0);
-            $this->displayMessage("Cart Empty");
-            
-            $this->addElementBlock('cart','Block\Category\Index\Index\Cart');
-            $this->addElementBlock('productList','Block\Category\Index\Index\Product');
         }
         catch(Exception $e){
             $this->displayMessage($e->getMessage(),0);

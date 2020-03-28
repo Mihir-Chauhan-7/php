@@ -25,9 +25,9 @@
                 <div>
                         <?php if(in_array($product->id,$selected)): ?>    
                             <?php $item = $this->getItemId($product->id); ?>
-                            <input type="button" class="btn btn-outline-primary btn-sm" value="-" onclick="ajax.setUrl('<?php echo $this->getUrl('updateQuantity','category_index',['id' => $item->itemId,'flag' => 0 ]);?>').load()">
+                            <input type="button" class="btn btn-outline-primary btn-sm" value="-" onclick="ajax.setUrl('<?php echo $this->getUrl('updateQuantity','category_index',['productId' => $product->id,'flag' => 0 ]);?>').load()">
                             <input id="product_<?php echo $product->id ?>" class="btn btn-outline-secondary btn-sm" type="button" value="<?php echo $item->quantity; ?>" disabled>
-                            <input type="button" class="btn btn-outline-primary btn-sm" value="+" onclick="ajax.setUrl('<?php echo $this->getUrl('updateQuantity','category_index',['id' => $item->itemId,'flag' => 1 ]);?>').load()">
+                            <input type="button" class="btn btn-outline-primary btn-sm" value="+" onclick="ajax.setUrl('<?php echo $this->getUrl('updateQuantity','category_index',['productId' => $product->id,'flag' => 1 ]);?>').load()">
                         <?php else : ?>
                             <button type="button" class="btn btn-outline-info btn-sm" onclick="ajax.setUrl('<?php echo $this->getUrl('add','category_index',['productId' => $product->id ]);?>'); ajax.load()">Add To Cart</button>
                         <?php endif; ?> 

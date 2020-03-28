@@ -145,8 +145,13 @@ abstract class Base{
             ? $_SESSION['customerId'] 
             : 1;
         }
+
         $_SESSION['customerId'] = $customerId;
-        return $customerId;
+        $customerModel = \Ccc::objectManager('\Model\Customer\Customer',false)->load($customerId);
+        if(!$customerModel){
+            throw new Exception("Customer Not Found");
+        }
+        return $customerModel;
     }
 
     public function getCurrentCategory(){
