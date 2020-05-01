@@ -116,6 +116,7 @@ class Row{
            $id = $this->getAdapter()->insert("
                 INSERT INTO `".$this->getTable()."` 
                 (".implode(',',$keys).") VALUES('".implode("','",$values)."')");
+            
             if(!$id){
                 return false;
             }
@@ -147,7 +148,7 @@ class Row{
                 $this->getAdapter()->getConnect()->real_escape_string($value) ."'";
             $i++;
         }
-        
+
         $result = $this->getAdapter()->update("
             UPDATE
             {$this->getTable()} SET

@@ -23,8 +23,10 @@ class Method extends \Model\Core\Row{
         $this->setTable($this->tableName)->setPrimaryKey($this->primaryKey);
     }
 
-    public function getStatusLabel($status){
-        return key_exists($status,$this->statusOptions) ? $this->statusOptions[$status] : NULL;
+    public function getStatusLabel(){
+        return key_exists($this->status,$this->statusOptions) 
+            ? $this->statusOptions[$this->status] 
+            : NULL;
     }
 
     public function getStatusOptions(){

@@ -3,27 +3,27 @@
 namespace Controller;
 class Customer extends Base {
 
-    protected $customers = NULL;
-    protected $customerModel = NULL;
-
     public function __construct()
     {
-        $this->customerModel = \Ccc::objectManager('\Model\Customer\Customer',true);
+        $this->customerModel = \Ccc::objectManager('\Model\Customer',true);
     }
 
     public function addAction(){
-        $addData = $this->getLayout()->createBlock('Block\Customer\Add')->toHtml();
+        $addData = $this->getLayout()->createBlock('Block\Customer\Add')
+            ->toHtml();
         $this->sendResponse('content',$addData);
     }
-
+    
     public function gridAction(){   
-        $gridData = $this->getLayout()->createBlock('Block\Customer\Grid')->toHtml();
+        $gridData = $this->getLayout()->createBlock('Block\Customer\Grid')
+            ->toHtml();
         $this->sendResponse('content',$gridData); 
     }
     
     public function editAction(){
         try{
-            $id = (int)$this->getRequest()->getRequest('id');
+            $id = (int)$this->getRequest()->getRequest($this->customerModel
+                ->getPrimaryKey());
             if(!$id){
                 throw new Exception("Invalid Operation.");
             }
@@ -47,7 +47,8 @@ class Customer extends Base {
                 throw new Exception("Invalid Request.");
             }
 
-            if($id = (int)$this->getRequest()->getRequest('id')){
+            if($id = (int)$this->getRequest()->getRequest($this
+                ->customerModel->getPrimaryKey())){
                 $this->displayMessage('Updated Successfully..',1);
                 $this->customerModel->load($id);
             }
@@ -56,7 +57,8 @@ class Customer extends Base {
             if(!($this->customerModel->saveData())){
                 throw new Exception("Error Operation Failed.");
             }
-            $gridData = $this->getLayout()->createBlock('Block\Customer\Grid')->toHtml();
+            $gridData = $this->getLayout()
+                ->createBlock('Block\Customer\Grid')->toHtml();
             $this->sendResponse('content',$gridData); 
         }
         catch(Exception $e){
@@ -68,10 +70,11 @@ class Customer extends Base {
     public function deleteAction(){
         
         try{
-            if($id = (int)$this->getRequest()->getRequest('id')){
+            if($customerId = (int)$this->getRequest()
+                ->getRequest($this->customerModel->getPrimaryKey())){
                 
-                if($id){
-                    $this->customerModel->id = $id;
+                if($customerId){
+                    $this->customerModel->id = $customerId;
                     if($this->customerModel->deleteData()){
                         $this->displayMessage('Deleted Successfully..',1);
                     } 
@@ -87,15 +90,13 @@ class Customer extends Base {
             else{
                 throw new Exception('Invalid Operation.');
             }
-            $gridData = $this->getLayout()->createBlock('Block\Customer\Grid')->toHtml();
-            $this->sendResponse('content',$gridData);
+            
         }
         catch(Exception $e){
             $this->displayMessage($e->getMessage(),0);
-            $gridData = $this->getLayout()->createBlock('Block\Customer\Grid')->toHtml();
-            $this->sendResponse('content',$gridData);
         }
+        $gridData = $this->getLayout()->createBlock('Block\Customer\Grid')
+            ->toHtml();
+        $this->sendResponse('content',$gridData);
     }
 }
-
-?>

@@ -1,0 +1,14 @@
+a:5:{i:0;s:509:"Error in file: "C:\xampp\htdocs\Cybercom\php\magento\app\code\core\Mage\Core\sql\core_setup\install-1.6.0.0.php" - SQLSTATE[42000]: Syntax error or access violation: 1049 Unknown database 'magento', query was: CREATE TABLE `core_resource` (
+  `code` varchar(50) NOT NULL COMMENT 'Resource Code' ,
+  `version` varchar(50) NULL COMMENT 'Resource Version' ,
+  `data_version` varchar(50) NULL COMMENT 'Data Version' ,
+  PRIMARY KEY (`code`)
+) COMMENT='Resources' ENGINE=INNODB charset=utf8 COLLATE=utf8_general_ci";i:1;s:1050:"#0 C:\xampp\htdocs\Cybercom\php\magento\app\code\core\Mage\Core\Model\Resource\Setup.php(644): Mage::exception('Mage_Core', 'Error in file: ...')
+#1 C:\xampp\htdocs\Cybercom\php\magento\app\code\core\Mage\Core\Model\Resource\Setup.php(421): Mage_Core_Model_Resource_Setup->_modifyResourceDb('install', '', '1.6.0.10')
+#2 C:\xampp\htdocs\Cybercom\php\magento\app\code\core\Mage\Core\Model\Resource\Setup.php(327): Mage_Core_Model_Resource_Setup->_installResourceDb('1.6.0.10')
+#3 C:\xampp\htdocs\Cybercom\php\magento\app\code\core\Mage\Core\Model\Resource\Setup.php(235): Mage_Core_Model_Resource_Setup->applyUpdates()
+#4 C:\xampp\htdocs\Cybercom\php\magento\app\code\core\Mage\Core\Model\App.php(444): Mage_Core_Model_Resource_Setup::applyAllUpdates()
+#5 C:\xampp\htdocs\Cybercom\php\magento\app\code\core\Mage\Core\Model\App.php(370): Mage_Core_Model_App->_initModules()
+#6 C:\xampp\htdocs\Cybercom\php\magento\app\Mage.php(686): Mage_Core_Model_App->run(Array)
+#7 C:\xampp\htdocs\Cybercom\php\magento\index.php(83): Mage::run('', 'store')
+#8 {main}";s:3:"url";s:57:"/Cybercom/php/magento/index.php/install/wizard/installDb/";s:11:"script_name";s:31:"/Cybercom/php/magento/index.php";s:4:"skin";s:7:"default";}

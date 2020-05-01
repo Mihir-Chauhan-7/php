@@ -9,56 +9,52 @@ class Index extends \Controller\Base{
     public function __construct()
     {
         $this->cartModel = $this->getCustomer()->getCart();
-        $this->cartItemModel = \Ccc::objectManager('\Model\Item',true);
         $this->categoryModel = \Ccc::objectManager('\Model\Category',true);
         $this->productModel = \Ccc::objectManager('\Model\Product',true);
     }
 
     public function indexAction(){
-        $this->getCustomer();
-
         $indexBlock = $this->getLayout()
                         ->createBlock('Block\Category\Index\Index');
     
         $indexBlock->addChild('Block\Category\Index\Index\Category','category');
         $indexBlock->addChild('Block\Category\Index\Index\Product','product');      
         $indexBlock->addChild('Block\Category\Index\Index\Cart','cart');              
-        $this->_addContent($indexBlock,'index');
 
         $this->addElement('content',$indexBlock->toHtml());
         $this->addElementBlock('cart','Block\Category\Index\Index\Cart');
-        $this->addIdentifier('#categories','remove','active');
-        $this->addIdentifier('#category_'.$this->getCurrentCategory(),'add','active');
+        $this->addIdentifier('#categories','remove','activeBlue');
+        $this->addIdentifier('#category_'.$this->getCurrentCategory(),'add','activeBlue');
         $this->sendResponse();
     }
 
     public function viewAction(){
-        if(!$id = (int)$this->getRequest()->getRequest('id')){
+        if(!$categoryId = (int)$this->getRequest()->getRequest('id')){
             if(!key_exists('currentCategory',$_SESSION)){
-                $id = 1;
+                $categoryId = 1;
             }
             else{
-                $id = $_SESSION['currentCategory'];
+                $categoryId = $_SESSION['currentCategory'];
             }
         }
 
-        \Ccc::objectManager('\Model\Category',true)->load($id);
-        $_SESSION['currentCategory'] = $id;
+        \Ccc::objectManager('\Model\Category',true)->load($categoryId);
+        $_SESSION['currentCategory'] = $categoryId;
         
         $this->addElementBlock('productList','Block\Category\Index\Index\Product');
-        $this->addIdentifier('#categories','remove','active');
-        $this->addIdentifier('#category_'.$id,'add','active');
+        $this->addIdentifier('#categories','remove','activeBlue');
+        $this->addIdentifier('#category_'.$categoryId,'add','activeBlue');
         $this->sendResponse();
 
     }
 
     public function addAction(){
         try{
-            if(!$id = (int)$this->getRequest()->getRequest('productId')){
+            if(!$productId = (int)$this->getRequest()->getRequest('productId')){
                 throw new Exception("Invalid Request.");   
             }
 
-            if($this->cartModel->addItem($id)){
+            if($this->cartModel->addItem($productId)){
                 $this->cartModel->reCalculateTotal();
                 
                 $this->addElementBlock('productList','Block\Category\Index\Index\Product');                
@@ -74,11 +70,11 @@ class Index extends \Controller\Base{
     
     public function removeAction(){
         try{
-            if(!$id = $this->getRequest()->getRequest('productId')){
+            if(!$productId = $this->getRequest()->getRequest('productId')){
                 throw new Exception("Invalid Request");
             }
             
-            if($this->cartModel->removeItem($id,1)){
+            if($this->cartModel->removeItem($productId,1)){
                 $this->cartModel->recalculateTotal();
                 $this->addElementBlock('productList','Block\Category\Index\Index\Product');
                 $this->addElementBlock('cart','Block\Category\Index\Index\Cart');
@@ -92,17 +88,17 @@ class Index extends \Controller\Base{
     
     public function updateQuantityAction(){
         try{
-            if(!$id = $this->getRequest()->getRequest('productId')){
+            if(!$productId = $this->getRequest()->getRequest('productId')){
                 throw new Exception("Invalid Request");
             }
             
             $flag = $this->getRequest()->getRequest('flag');
 
             if(!$flag){
-                $this->cartModel->removeItem($id);      
+                $this->cartModel->removeItem($productId);      
             }
             else{
-                if($this->cartModel->addItem($id)){
+                if($this->cartModel->addItem($productId)){
                 }    
             }
             

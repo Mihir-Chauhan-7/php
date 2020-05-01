@@ -11,12 +11,8 @@ class Category extends \Block\Core\Template{
     }
 
     public function getCategories(){
-        $categories = $this->categoryModel
+        return $this->categoryModel
             ->fetchAll("SELECT * FROM Categories WHERE status != 0") ?? [];
-        foreach($categories as $category){
-            $category->path = $this->categoryModel->getName($category->path);
-        }
-        return $categories;
     }
 }
 

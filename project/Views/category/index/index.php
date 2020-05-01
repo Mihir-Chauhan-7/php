@@ -1,21 +1,13 @@
-<div style="width: 1330px">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-auto p-0 m-1 category category-index-left">
             <?php echo $this->getChild('category')->toHtml(); ?>
         </div>
-        <div class="col-lg-6" id="productList">
+        <div class="col-auto p-0 m-1 product category-index-center" id="productList">
             <?php echo $this->getChild('product')->toHtml(); ?>
         </div>
-        <div class="col-lg-3.5" id="cart">
+        <div class="col-auto p-0 m-1 category-index-right" id="cart">
             <?php echo $this->getChild('cart')->toHtml(); ?>
         </div>
     </div>
 </div>
-
-<!-- <table>
-    <tr>
-        <td width="250px" style="background-color: cyan"><?php //echo $this->getChild('category')->toHtml(); ?></td>
-        <td width="780px" style="background-color: red"><div id="productList"></div></td>
-        <td width="180px" style="background-color: lightpink"><div id="cart"></div></td>
-    </tr>
-</table> -->

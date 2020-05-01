@@ -2,22 +2,36 @@
 
 namespace Block\Payment;
 
-class Add extends \Block\Core\Template{
-    
+class Add extends \Block\Core\Component\Form{
+
     protected $paymentmethod = NULL;
 
     public function __construct()
     {
-        $this->setTemplate('payment/method/form.php');
-    }
+        parent::__construct();
+        $this->title = 'Payment Method';
+        $this->paymentMethod = \Ccc::objectManager('\Model\Payment\Method',true);
+        $this->setModel('\Model\Payment\Method');
+        $this->formFields = 
+        [
+            'name' => 
+                [
+                    'label' => 'Name',
+                    'type' => 'text',
+                    'required' => 'true'
+                ],
+            'status' => 
+                [
+                    'label' => 'Status',
+                    'type' => 'dropdown',
+                    'required' => 'true',
+                    'data' => [
+                        'options' => 'getStatusOptions'
+                    ]           
+            ]
+        ];
 
-    // public function setPaymentMethod($paymentmethod){
-    //     $this->paymentmethod = $paymentmethod;
-    //     return $this;
-    // }
-
-    public function getPaymentMethod(){
-        return \Ccc::objectManager('\Model\Payment\Method',true);
+        $this->setFormFields($this->formFields);
     }
 }
 

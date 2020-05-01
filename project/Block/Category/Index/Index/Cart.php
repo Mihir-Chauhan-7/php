@@ -7,7 +7,7 @@ class Cart extends \Block\Core\Template{
     public function __construct()
     {
         $this->customerId = $_SESSION['customerId'];
-        $this->customerModel = \Ccc::objectManager('\Model\Customer\Customer',true);
+        $this->customerModel = \Ccc::objectManager('\Model\Customer',true);
         $this->setTemplate('category\index\index\cart.php');
     }
 
@@ -17,7 +17,7 @@ class Cart extends \Block\Core\Template{
     } 
 
     public function getCustomers(){
-        return \Ccc::objectManager('\Model\Customer\Customer',false)->getAdapter()->fetchPairs("SELECT id,name FROM customers");
+        return $this->customerModel->getCustomers();
     }
 
 }

@@ -10,7 +10,7 @@ class PaymentMethod extends \Block\Core\Template{
     }
 
     public function getPaymentMethods(){
-        return \Ccc::objectManager('\Model\Payment\Method',false)
+        return \Ccc::objectManager('\Model\Payment\Method',true)
             ->fetchAll() ?? [];
     }
 

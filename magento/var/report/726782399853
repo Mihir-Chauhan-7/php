@@ -1,0 +1,24 @@
+a:5:{i:0;s:1786:"Error in file: "C:\xampp\htdocs\Cybercom\php\magento\app\code\core\Mage\Catalog\sql\catalog_setup\upgrade-1.6.0.0.9-1.6.0.0.10.php" - SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'catalog_product_entity_group_price' already exists, query was: CREATE TABLE `catalog_product_entity_group_price` (
+  `value_id` int NOT NULL auto_increment COMMENT 'Value ID' ,
+  `entity_id` int UNSIGNED NOT NULL default '0' COMMENT 'Entity ID' ,
+  `all_groups` smallint UNSIGNED NOT NULL default '1' COMMENT 'Is Applicable To All Customer Groups' ,
+  `customer_group_id` smallint UNSIGNED NOT NULL default '0' COMMENT 'Customer Group ID' ,
+  `value` decimal(12,4) NOT NULL default '0.0000' COMMENT 'Value' ,
+  `website_id` smallint UNSIGNED NOT NULL COMMENT 'Website ID' ,
+  PRIMARY KEY (`value_id`),
+  UNIQUE `CC12C83765B562314470A24F2BDD0F36` (`entity_id`, `all_groups`, `customer_group_id`, `website_id`),
+  INDEX `IDX_CATALOG_PRODUCT_ENTITY_GROUP_PRICE_ENTITY_ID` (`entity_id`),
+  INDEX `IDX_CATALOG_PRODUCT_ENTITY_GROUP_PRICE_CUSTOMER_GROUP_ID` (`customer_group_id`),
+  INDEX `IDX_CATALOG_PRODUCT_ENTITY_GROUP_PRICE_WEBSITE_ID` (`website_id`),
+  CONSTRAINT `FK_DF909D22C11B60B1E5E3EE64AB220ECE` FOREIGN KEY (`customer_group_id`) REFERENCES `customer_group` (`customer_group_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_CAT_PRD_ENTT_GROUP_PRICE_ENTT_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_CAT_PRD_ENTT_GROUP_PRICE_WS_ID_CORE_WS_WS_ID` FOREIGN KEY (`website_id`) REFERENCES `core_website` (`website_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) COMMENT='Catalog Product Group Price Attribute Backend Table' ENGINE=INNODB charset=utf8 COLLATE=utf8_general_ci";i:1;s:1084:"#0 C:\xampp\htdocs\Cybercom\php\magento\app\code\core\Mage\Core\Model\Resource\Setup.php(644): Mage::exception('Mage_Core', 'Error in file: ...')
+#1 C:\xampp\htdocs\Cybercom\php\magento\app\code\core\Mage\Core\Model\Resource\Setup.php(437): Mage_Core_Model_Resource_Setup->_modifyResourceDb('upgrade', '1.6.0.0.9', '1.6.0.0.19.1.6')
+#2 C:\xampp\htdocs\Cybercom\php\magento\app\code\core\Mage\Core\Model\Resource\Setup.php(320): Mage_Core_Model_Resource_Setup->_upgradeResourceDb('1.6.0.0.9', '1.6.0.0.19.1.6')
+#3 C:\xampp\htdocs\Cybercom\php\magento\app\code\core\Mage\Core\Model\Resource\Setup.php(235): Mage_Core_Model_Resource_Setup->applyUpdates()
+#4 C:\xampp\htdocs\Cybercom\php\magento\app\code\core\Mage\Core\Model\App.php(444): Mage_Core_Model_Resource_Setup::applyAllUpdates()
+#5 C:\xampp\htdocs\Cybercom\php\magento\app\code\core\Mage\Core\Model\App.php(370): Mage_Core_Model_App->_initModules()
+#6 C:\xampp\htdocs\Cybercom\php\magento\app\Mage.php(686): Mage_Core_Model_App->run(Array)
+#7 C:\xampp\htdocs\Cybercom\php\magento\index.php(83): Mage::run('', 'store')
+#8 {main}";s:3:"url";s:31:"/Cybercom/php/magento/index.php";s:11:"script_name";s:31:"/Cybercom/php/magento/index.php";s:4:"skin";s:7:"default";}

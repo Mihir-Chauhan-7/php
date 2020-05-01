@@ -6,7 +6,9 @@ class Method extends \Model\Core\Row{
 
     protected $tableName = 'payment_method';
     protected $primaryKey = 'methodId';
+    protected $formFields = [];
 
+    
     const STATUS_ENABLE = 1;
     const STATUS_ENABLE_LABEL = 'Enable';
     const STATUS_DISABLE = 0;
@@ -23,8 +25,8 @@ class Method extends \Model\Core\Row{
         $this->setTable($this->tableName)->setPrimaryKey($this->primaryKey);
     }
 
-    public function getStatusLabel($status){
-        return key_exists($status,$this->statusOptions) ? $this->statusOptions[$status] : NULL;
+    public function getStatusLabel(){
+        return key_exists($this->status,$this->statusOptions) ? $this->statusOptions[$this->status] : NULL;
     }
 
     public function getStatusOptions(){

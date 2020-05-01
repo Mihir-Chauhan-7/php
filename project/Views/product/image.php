@@ -1,18 +1,23 @@
 <?php $imageList = $this->getImages()->displayImages();
     $product = $this->getProduct(); ?>
-
+<div class="container-fluid">
 <form id="imageForm" enctype="multipart/form-data" method="POST" 
     action="<?php echo $this
         ->getUrl('saveImage',null,[ 'id' => $product->id ] ) ?>">
-    <input type="file" name="image">
-    <input type="button" onclick="ajax.setForm('imageForm').load();" 
-        value="Upload"> 
+    <div class="form-group row">
+        <input class="form-control col-3" type="file" name="image">
+        <input class="col-1 btn btn-outline-secondary bp" 
+            type="button" onclick="ajax.setForm('imageForm').load();" 
+            value="Upload">
+    </div>
+     
 </form>
 <form id="imageUpdate" action="<?php echo $this
     ->getUrl('updateGallery',null,[ 'id' => $product->id ])?>" 
     method="POST">
 
-<table border="1" width=100% align="center">
+<table class="table-striped" width="100%">
+    <thead>
     <tr>
     <th>Base</th>
     <th>Thumbnail</th>
@@ -22,6 +27,8 @@
     <th>Action</th>
     </tr>
     <tr>
+    </thead>
+    <tbody>
     <?php foreach($imageList as $image) : ?>
         <tr>
             <td>
@@ -60,13 +67,14 @@
                         ->getDirectory().$image['name']; ?>">
             </td>
             <td>
-                <a href="<?php echo $this->
-                    getUrl('deleteImage',NULL,['id' => $image['imageId'],
-                    'pid' => $product->id]); ?>">Delete</a>
+                <button class="btn btn-outline-secondary bp btn-sm" 
+                    type="button" onclick="ajax.setUrl('<?php echo $this->getUrl('deleteImage',NULL,['id' => $image['imageId'],'pid' => $product->id]); ?>').load()">Delete</button>
             </td>
         </tr>
     <?php endforeach; ?>    
     </tr>
+    </tbody>
 </table>
-    <input type="button" onclick="ajax.setForm('imageUpdate').load();" value="Update"> 
+    <input class="btn btn-outline-secondary bp" type="button" onclick="ajax.setForm('imageUpdate').load();" value="Update"> 
 </form>
+</div>

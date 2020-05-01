@@ -10,7 +10,7 @@ class Customer extends \Block\Core\Template{
     }
 
     public function getCustomer(){
-        return \Ccc::objectManager('\Model\Customer\Customer',false)->load($_SESSION['customerId']);
+        return \Ccc::objectManager('\Model\Customer',true);
     }
 }
 

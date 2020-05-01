@@ -1,7 +1,8 @@
 <?php $address = $this->getAddress(0); ?>
-    
-<fieldset>
-<legend>Billing Address</legend>
+<fieldset class="fieldset">
+
+<legend>Billing Address 
+    <input style="margin-left: 120px" type="checkbox" onclick="changeAddress(this)">  Same as Shipping</legend>
     <div class="form-group">  
         <input name="billing[line1]" type="text" placeholder="Address Line 1" class="form-control input-md" required value="<?php echo $address->line1; ?>">
     </div>
@@ -27,7 +28,7 @@
     </div>
 
     <div class="form-group">
-        <button id="billingSubmit" type="button" onclick="ajax.setForm('orderForm'); ajax.setUrl('<?php echo $this->getUrl('updateAddress','checkout',['type' => 0 ]) ?>'); ajax.load()">Update</button>
+        <button id="billingSubmit" class="btn btn-outline-secondary bp btn-sm" type="button" onclick="ajax.setForm('orderForm'); ajax.setUrl('<?php echo $this->getUrl('updateAddress','checkout',['type' => 0 ]) ?>'); ajax.load()">Update</button>
     </div>
 
 </fieldset>

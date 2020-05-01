@@ -10,21 +10,12 @@ class Add extends \Block\Core\Template{
         $this->setTemplate('customer/form.php');
     }
 
-    // public function setAddress($address){
-    //     $this->address = $address;
-    //     return $this;
-    // }
-
     public function getAddress(){
         return $this->address;
     }
     
-    // public function setCustomer($customer){
-    //     $this->customer = $customer;
-    // }
-
     public function getCustomer(){
-        return \Ccc::objectManager('\Model\Customer\Customer',true);
+        return \Ccc::objectManager('\Model\Customer',true);
     }
 }
 

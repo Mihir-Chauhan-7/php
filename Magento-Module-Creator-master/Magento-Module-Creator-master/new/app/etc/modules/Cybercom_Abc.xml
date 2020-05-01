@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Cybercom_Abc>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Cybercom_Abc>
+    </modules>
+</config> 

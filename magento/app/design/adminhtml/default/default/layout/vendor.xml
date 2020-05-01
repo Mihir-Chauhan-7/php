@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<layout>
+    <vendor_adminhtml_index_index>
+        <reference name="content">
+            <block type="vendor/adminhtml_index" name="index"/>
+        </reference>
+    </vendor_adminhtml_index_index>
+</layout>
+  

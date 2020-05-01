@@ -1,4 +1,6 @@
-<?php $selected = $this->getSelectedProducts();?>
+<?php 
+
+$selected = $this->getSelectedProducts();?>
 
 <div>
     <div class="path">
@@ -8,28 +10,31 @@
     <div>
         <?php if (!empty($this->getProducts())) : ?>
         <div>
-            <?php foreach ($this->getProducts() as $product) : ?>     
-            <div class="card border-info" style="margin : 8px ;float: left">
-                <div style="margin: 10px">
-                    <img width="175px" height="180px" 
-                        src="<?php echo "media\catalog\product\\" .$this->getProductImage($product->thumbnail_image) ?>" >
+            <?php foreach ($this->getProducts() as $product) : ?>    
+            <div class="card" style="box-shadow: 1px 1px 8px 1px #c4c5cc;
+                width: 195px;margin : 8px ;float: left">
+                <div class="text-center m-2">
+                    <img class="img" width="175px" height="150px" 
+
+                        src="<?php echo $product->getImage(); ?>" >
                 </div>
                 <div>
-                    <div style="text-align: center; font-weight: bold;font-size: large">
-                        <?php echo $product->name; ?> 
+                    <div style="width: 95%;color: #283593;text-align: center;font-size: large">
+                        <?php echo strlen($product->name) > 30 
+                            ? substr($product->name,0,30).".." 
+                            : $product->name;  ?> 
                         <hr>
                     </div>
-                <div style="margin: 10px;text-align: center;font-weight: bold;font-size: larger">&#8377;
-                    <?php echo $product->price; ?>
-                    <input type="hidden" name="productId" value="<?php echo $product->id ?>">
+                <div style="margin: 10px;text-align: center;font-weight: bold;font-size: larger">
+                    $<?php echo $product->price; ?>
                 <div>
                         <?php if(in_array($product->id,$selected)): ?>    
-                            <?php $item = $this->getItemId($product->id); ?>
-                            <input type="button" class="btn btn-outline-primary btn-sm" value="-" onclick="ajax.setUrl('<?php echo $this->getUrl('updateQuantity','category_index',['productId' => $product->id,'flag' => 0 ]);?>').load()">
+                            <?php $item = $this->getItem($product->id); ?>
+                            <input type="button" class="btn btn-outline-secondary bp btn-sm" value="-" onclick="ajax.setUrl('<?php echo $this->getUrl('updateQuantity','category_index',['productId' => $product->id,'flag' => 0 ]);?>').load()">
                             <input id="product_<?php echo $product->id ?>" class="btn btn-outline-secondary btn-sm" type="button" value="<?php echo $item->quantity; ?>" disabled>
-                            <input type="button" class="btn btn-outline-primary btn-sm" value="+" onclick="ajax.setUrl('<?php echo $this->getUrl('updateQuantity','category_index',['productId' => $product->id,'flag' => 1 ]);?>').load()">
+                            <input type="button" class="btn btn-outline-secondary bp btn-sm" value="+" onclick="ajax.setUrl('<?php echo $this->getUrl('updateQuantity','category_index',['productId' => $product->id,'flag' => 1 ]);?>').load()">
                         <?php else : ?>
-                            <button type="button" class="btn btn-outline-info btn-sm" onclick="ajax.setUrl('<?php echo $this->getUrl('add','category_index',['productId' => $product->id ]);?>'); ajax.load()">Add To Cart</button>
+                            <button type="button" class="btn btn-outline-secondary bp btn-sm" onclick="ajax.setUrl('<?php echo $this->getUrl('add','category_index',['productId' => $product->id ]);?>'); ajax.load()">Add To Cart</button>
                         <?php endif; ?> 
                         </div>
                     </div> 

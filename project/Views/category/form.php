@@ -1,29 +1,25 @@
 <?php $category = $this->getCategory(); ?>
-<form id="addCategory" 
-    action="<?php echo $this
-                ->getUrl('save',NULL,['id' => $category->id]) ?>" 
-    method="POST">
-    <table border="1" width=100% cellspacing="4">
-        <tr>
-            <td colspan="2">
-                <h3>Category</h3>
-            </td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td><input type="text" name="name" 
-                    value="<?php echo $category->name ?>">
-            </td>
-        </tr>
-        <tr>
-            <td>Description</td>
-            <td><input type="text" name="description" 
+<div class="card-page">
+<div class="card border-secondary mb-3" style="width: 30rem">
+    <form id="addCategory" action="<?php echo $this
+        ->getUrl('save',NULL,['id' => $category->id]) ?>" method="POST">
+    <div class="card-header">
+        <div class="title-card">Category</div>
+    </div>
+    <div class="card-body text-info">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" type="text" name="name" 
+                value="<?php echo $category->name ?>" required>
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <input class="form-control" type="text" name="description" 
                 value="<?php echo $category->description ?>">
-            </td>
-        </tr>
-        <tr>
-            <td>Status</td>
-            <td><Select name="status">
+        </div>
+        <div class="form-group">
+            <label>Status</label>
+            <select class="form-control" name="status" required>
                 <?php foreach($category->getStatusOptions() as $key => $value) : ?> 
                 <option value="<?php echo $key ?>" 
                     <?php echo $key == $category->status 
@@ -33,29 +29,35 @@
                     <?php echo $value; ?>
                 </option>
                 <?php endforeach; ?>
-        </tr>
-        <tr>
-            <td>Parent Category</td>
-            <td>
-                <select name="parent_id">
-                    <option value="0">No Parent</option>
-                    <?php foreach($this->getCategories() as $id => $name):?>
-                    <option value="<?php echo $id ?>" 
-                        <?php echo $category->parent_id == $id 
+            </select>
+        </div>
+        <?php $childList = $category->getChildId() ?>
+        <div class="form-group">
+            <label>Parent</label>
+            <select class="form-control" name="parent_id" required>
+                <option value="">Select Parent</option>
+                <option value="0">No Parent</option>
+                <?php foreach($this->getCategories() as $singleCategory): ?>
+                <option value="<?php echo $singleCategory->id ?>" 
+                    <?php echo $category->parent_id == $singleCategory->id 
                         ? 'selected' 
                         : ''; ?>
-                        <?php echo $category->id == $id 
+                    <?php echo ($category->id == $singleCategory->id) || in_array($singleCategory->id,$childList) 
                         ? 'disabled' 
                         : ''; ?>>
-                        <?php echo $name ?>
-                    </option>
-                    <?php endforeach;?>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td><button type="button" onclick="ajax.setUrl('<?php echo $this->getUrl('grid','category');?>'); ajax.load();">Back</button></td></td>
-            <td><button type="button" onclick="ajax.setForm('addCategory'); ajax.saveForm()">Save</button></td>
-        </tr>
-    </table>
-</form>
+                    <?php echo $singleCategory->getName($singleCategory->path) ?>
+                </option>
+                <?php endforeach;?>
+            </select>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-outline-secondary bp" 
+                type="button" onclick="ajax.setUrl('<?php echo $this->getUrl('grid','category');?>'); ajax.load();">Back</button>
+        
+            <button class="btn btn-outline-secondary bp" 
+                type="button" onclick="addCategory.checkValidity() ? (ajax.setForm('addCategory'), ajax.saveForm()) : addCategory.reportValidity();">Save</button>
+        </div>
+    </div>
+    </form>
+</div>
+</div>

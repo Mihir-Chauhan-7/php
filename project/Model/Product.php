@@ -5,11 +5,14 @@ use Model\Product\Image;
 
 class Product extends \Model\Core\Row{
     
-    protected $acceptedTypes = ['png' => 'image/png',
-    'jpeg' => 'image/jpeg',
-    'jpg' => 'image/jpeg',
-    'gif' => 'image/gif',
-    'bmp' => 'image/bmp'];
+    protected $acceptedTypes = [
+        'png' => 'image/png',
+        'jpeg' => 'image/jpeg',
+        'jpg' => 'image/jpeg',
+        'gif' => 'image/gif',
+        'bmp' => 'image/bmp',
+        'webp' => 'image/webp'
+    ];
 
     const STATUS_ENABLE = 1;
     const STATUS_ENABLE_LABEL = 'Enable';
@@ -40,8 +43,10 @@ class Product extends \Model\Core\Row{
         return $this->directory;
     }
 
-    public function getStatusLabel($status){
-        return key_exists($status,$this->statusOptions) ? $this->statusOptions[$status] : NULL;
+    public function getStatusLabel(){
+        return key_exists($this->status,$this->statusOptions) 
+            ? $this->statusOptions[$this->status] 
+            : NULL;
     }
     
     public function getStatusOptions(){
@@ -75,11 +80,20 @@ class Product extends \Model\Core\Row{
             echo $e->getMessage();
         }
     }
-    public function getCategories(){
-        return $this->getAdapter()->fetchPairs("SELECT id,name FROM categories"); 
-    }
 
     public function getSelectedCategory(){
-        return \Ccc::objectManager('\Model\Product\ProductCategories',false)->fetchRow("SELECT * FROM product_categories WHERE productId = $this->id")->categoryId;   
+        $productCategoryModel = \Ccc::objectManager('\Model\Product\ProductCategories',false);
+        return $productCategoryModel->fetchRow("SELECT * 
+            FROM ".$productCategoryModel->getTable()." WHERE productId = "
+            .$this->getData($this->primaryKey))->categoryId ?? 0;     
+    }
+
+    public function getImage(){
+        $imageModel = \Ccc::objectManager('\Model\Product\Image',true);
+        $image = $imageModel->fetchRow("SELECT * FROM ".$imageModel->getTable()." WHERE ".$imageModel->getPrimaryKey()." = $this->thumbnail_image");
+        
+        $name = $image ? $image->name : "no_image.jpg";
+
+        return $this->getDirectory().$name;
     }
 }

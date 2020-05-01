@@ -77,7 +77,7 @@ abstract class Base{
     }
 
     public function setMessage(){
-        $this->message = new \Model\Core\Message();
+        $this->message = \Ccc::objectManager('\Model\Core\Message',true);
         $this->message->getSession()->setNameSpace('admin');
         return $this;
     }
@@ -147,7 +147,7 @@ abstract class Base{
         }
 
         $_SESSION['customerId'] = $customerId;
-        $customerModel = \Ccc::objectManager('\Model\Customer\Customer',false)->load($customerId);
+        $customerModel = \Ccc::objectManager('\Model\Customer',true)->load($customerId);
         if(!$customerModel){
             throw new Exception("Customer Not Found");
         }

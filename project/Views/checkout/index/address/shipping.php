@@ -1,6 +1,4 @@
 <?php $address = $this->getAddress(1); ?>
-
-<form id="shippingForm" method="POST">
 <fieldset>
 
 <legend>Shipping Address</legend>
@@ -27,7 +25,8 @@
     <input name="shipping[code]" type="text" placeholder="Zip Code" class="form-control input-md" required="" value="<?php echo $address->code; ?>">    
 </div>
 <div class="form-group"> 
-    <button id="shippingSubmit" type="button" onclick="ajax.setForm('orderForm'); ajax.setUrl('<?php echo $this->getUrl('updateAddress','checkout',['type' => 1 ]) ?>'); ajax.saveForm()">Update</button>
+    <button id="shippingSubmit" class="btn btn-outline-secondary bp btn-sm" 
+        type="button" onclick="ajax.setForm('orderForm'); ajax.setUrl('<?php echo $this->getUrl('updateAddress','checkout',['type' => 1 ]) ?>'); ajax.saveForm()">Update</button>
 </div>
 </fieldset>
 

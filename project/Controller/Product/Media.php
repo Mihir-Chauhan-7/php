@@ -30,7 +30,6 @@ class Media extends \Controller\Base{
             if(!($product = $this->productModel->load($id))){
                 throw new \Exception("Product Not Loaded.");
             }
-
             $gallery = $this->getLayout()->createBlock('Block\Product\Gallery')->toHtml();
             $this->sendResponse('content',$gallery);
         }
@@ -42,6 +41,7 @@ class Media extends \Controller\Base{
     public function saveImageAction(){
         try{
             $id = (int)$this->getRequest()->getRequest('id');
+    
             if(!$id){
                 throw new \Exception("Invalid Request.");
             }
@@ -51,6 +51,7 @@ class Media extends \Controller\Base{
             }
 
             $this->setProduct($product);
+
             if((key_exists('image',$_FILES) && empty($_FILES['image']['name']))){
                 throw new \Exception("Image Not Found.");
             }

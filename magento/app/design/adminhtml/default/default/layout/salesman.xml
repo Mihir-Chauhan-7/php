@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<layout>
+    <salesman_adminhtml_index_index>
+        <reference name="content">
+            <block type="salesman/adminhtml_index" name="index"/>
+        </reference>
+    </salesman_adminhtml_index_index>
+</layout>
+  

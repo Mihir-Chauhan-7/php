@@ -61,7 +61,7 @@ var ajax = {
 
             if(typeof(element.identifier) === 'string'){
                 if(element.class.remove != undefined){
-                    jQuery(element.identifier+" .active").removeClass('active');
+                    jQuery(element.identifier+" .activeBlue").removeClass('activeBlue');
                 }
             }
 
@@ -113,6 +113,22 @@ function selectAll(el){
 
 function changeCustomer(el,url){
     ajax.setUrl(url+"&cid="+el.value).load();
+}
+
+function changeAddress(chekbox){
+    if(chekbox.checked){
+        $('input[name^="shipping"]' ).each(function(index) {
+            element = $('input[name^="billing"]').get(index);
+            $(element).attr("oldValue",element.value);
+            element.value = this.value;
+        });
+    }
+    else{
+        $('input[name^="shipping"]' ).each(function(index) {
+            element = $('input[name^="billing"]').get(index);
+            element.value = $(element).attr('oldValue');
+        });
+    }
 }
 
 function call(el,url){

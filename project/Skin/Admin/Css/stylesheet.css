@@ -1,30 +1,87 @@
 .Success{
+    border: 1px solid  green;
+    font-weight: bold;
     background-color: lightgreen;
     color: green;
 }
 
 .Failed{
+    border: 1px solid  red;
+    font-weight: bold;
     background-color: lightpink;
     color: red;
 }
 
 .Notice{
+    border: 1px solid  yellow;
+    font-weight: bold;
     background-color: lightyellow;
     color: yellow;
 }
 .btn.header-btn{
-    background-color: #536DFE;
+    background-color: #283593;
+    box-shadow: 1px 1px 10px 1px #878ed3;
+    min-width: 120px;
+    margin: 8px;
     color: white;
 }
-.badge.badge-primary.badge-pill.count{
+.badge.badge-secondary.badge-pill.count{
     float: right;
+    font-weight: unset;
 }
 .heading{
     padding-top: 10px;
     text-align: center;
     color: #283593;
 }
+.order-text{
+    color: #283593;
+    font-weight: bold;
+    margin-left: 20px;
+}
+.title{
+    text-align: center;
+    font-weight: bold;
+    color: #283593;
+    font-size: 40px;
+}
+.title-card{
+    text-align: center;
+    font-weight: bold;
+    color: #283593;
+    font-size: 30px;
+}
 
+.card-page{
+    margin-left: 420px;
+    margin-top: 20px;
+}
+
+.bp{
+    box-shadow: 1px 1px 10px 1px #c4c5cc;
+    font-weight: bold;
+    color: #283593;
+}
+
+.activeBlue{
+    color: whitesmoke;
+    box-shadow: 1px 1px 10px 1px #878ed3;
+    background-color: #283593;
+}
+
+.label-sum{
+    font-weight: bold;
+}
+
+.buttons-success{
+    font-weight: bold;
+    color: #1ea104;
+}
+
+.buttons-danger{
+    font-weight: bold;
+    color: #f01515;
+}
 h4{
     font-weight: bold;
 }
@@ -34,11 +91,64 @@ h4{
     color: #283593;
 }
 .header{
+    min-height: 90px;
+    padding-top: 20px;
+    text-align: center;
     background-color: #283593;
 }
 
+.footer{
+    height: 60px;
+    vertical-align: text-bottom;
+    background-color: #283593;
+}
+
+.one-col-content{
+    min-height: 505px;
+}
+
+.order-summary{
+    margin: 10px;
+    font-size: large;
+}
+
 .footer-text{
-    margin-top: 20px; 
+    margin-top: 2px; 
     text-align: center;
     color: whitesmoke;
 }
+.category-index-left{
+    width: 23%;
+    float: left;
+}
+
+.category-index-center{
+    width: 48%;
+    float: left;
+}
+
+.category-index-right{
+    width: 27%;
+    float: left;
+}
+
+.cart-table-div{
+    box-shadow: 1px 1px 8px 1px #c4c5cc";
+}
+
+.cart-table{
+    text-align: center;
+    box-shadow: 1px 1px 10px 1px #888888;
+}
+
+.cart-table-th{
+    color: whitesmoke;background-color: #283593
+}
+.customer-dropdown{
+    box-shadow: 1px 1px 10px 1px #c4c5cc;
+    border: 1px solid #283593;
+}
+
+
+
+

@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Cybercom_Abcadmin>
+            <version>0.1.0</version>
+        </Cybercom_Abcadmin>
+    </modules>
+    <admin>
+        <routers>
+			<abcadmin>
+				<use>admin</use>
+				<args>
+					<module>Cybercom_Abcadmin</module>
+					<frontName>abcadmin</frontName>
+				</args>
+			</abcadmin>
+        </routers>
+    </admin>
+    <adminhtml>
+		<menu>
+			<abcadmin module="abcadmin">
+				<title>Abc</title>
+				<sort_order>71</sort_order>               
+				<children>
+					<items module="abcadmin">
+						<title>Manage Items</title>
+						<sort_order>0</sort_order>
+						<action>abcadmin/abc</action>
+					</items>
+				</children>
+			</abcadmin>
+		</menu>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<Cybercom_Abcadmin>
+							<title>Abc Module</title>
+							<sort_order>10</sort_order>
+						</Cybercom_Abcadmin>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<abcadmin>
+					<file>abcadmin.xml</file>
+				</abcadmin>
+			</updates>
+		</layout>
+    </adminhtml>   
+    <global>
+		<blocks>
+			<abcadmin>
+				<class>Cybercom_Abcadmin_Block</class>
+			</abcadmin>
+		</blocks>
+		<helpers>
+			<abcadmin>
+				<class>Cybercom_Abcadmin_Helper</class>
+			</abcadmin>
+		</helpers>
+    </global>
+</config>

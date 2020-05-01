@@ -13,21 +13,23 @@ class Product extends Base{
         $this->productModel = \Ccc::objectManager('\Model\Product',true);
         $this->productCategoriesModel = \Ccc::objectManager('\Model\Product\ProductCategories',true);
     }
+    
+    public function addAction(){
+        $addData = \Ccc::objectManager('Block\Product\Add',true)->toHtml();
+        $this->sendResponse('content',$addData);
+    }
 
     public function gridAction(){
         $gridData = $this->getLayout()->createBlock('Block\Product\Grid')->toHtml();
         $this->sendResponse('content',$gridData);
     }
 
-    public function addAction(){
-        $addData = \Ccc::objectManager('Block\Product\Add',true)->toHtml();
-        $this->sendResponse('content',$addData);
-    }
 
     public function editAction(){
         try{
             
-            $id = (int) $this->getRequest()->getRequest('id');
+            $id = (int) $this->getRequest()->getRequest($this->productModel
+                ->getPrimaryKey());
             if(!$id){
                 throw new Exception("Invalid Request.");
             }
@@ -38,7 +40,6 @@ class Product extends Base{
 
             $addData = \Ccc::objectManager('Block\Product\Add',true)->toHtml();
             $this->sendResponse('content',$addData);
-
         }
         catch(Exception $e){
             $this->displayMessage($e->getMessage(),0);
@@ -47,15 +48,14 @@ class Product extends Base{
     }
 
     public function deleteAction(){
-        
         try{
-            if($id = (int)$this->getRequest()->getRequest('id')){
+            if($id = (int)$this->getRequest()->getRequest($this
+                ->productModel->getPrimaryKey())){
                 
                 if($id){
                     $this->productModel->id = $id;
                     if($this->productModel->deleteData()){
                         $this->displayMessage('Deleted Successfully..',1);
-                        $this->redirect();
                     } 
                 }
             }
@@ -69,12 +69,13 @@ class Product extends Base{
             else{
                 throw new Exception('Invalid Operation.');
             }
-            $gridData = $this->getLayout()->createBlock('Block\Product\Grid')->toHtml();
-            $this->sendResponse('content',$gridData);
         }
         catch(Exception $e){
             $this->displayMessage($e->getMessage(),0);
         }    
+        $gridData = $this->getLayout()->createBlock('Block\Product\Grid')
+            ->toHtml();
+        $this->sendResponse('content',$gridData);
     }
 
     public function saveAction(){
@@ -83,7 +84,9 @@ class Product extends Base{
             if(!$this->getRequest()->isPOST()){
                 throw new Exception('Invalid Request.');
             }
-            if($id = (int)$this->getRequest()->getRequest('id')){
+            if($id = (int)$this->getRequest()->getRequest($this
+                ->productModel->getPrimaryKey())){
+                    
                 $this->displayMessage('Updated Successfully..',1);
                 $this->productModel->load($id);
             }        
@@ -95,21 +98,25 @@ class Product extends Base{
                 throw new Exception("Error Operation Failed.");
             }
         
-            $productId = $this->productModel->id;
+            $productId = $this->productModel->getData($this->productModel
+                ->getPrimaryKey());
 
-            $this->productCategoriesModel->getAdapter()->delete("DELETE FROM `product_categories` WHERE productId = $productId ");
-            $this->productCategoriesModel->setData(['categoryId' => $categoryId,'productId' => $this->productModel->id]);
+            $this->productCategoriesModel->getAdapter()->delete("DELETE 
+                FROM `product_categories` WHERE productId = $productId ");
+            $this->productCategoriesModel
+                ->setData(['categoryId' => $categoryId,'productId' 
+                        => $this->productModel->id]);
 
             if(!$this->productCategoriesModel->saveData()){
                 throw new Exception("Error Operation Failed.");
             }
-
-            $gridData = $this->getLayout()->createBlock('Block\Product\Grid')->toHtml();
-            $this->sendResponse('content',$gridData);
         }
         catch(Exception $e){
             $this->displayMessage($e->getMessage(),0);
         }
+        $gridData = $this->getLayout()->createBlock('Block\Product\Grid')
+            ->toHtml();
+        $this->sendResponse('content',$gridData);
     }
 }
 

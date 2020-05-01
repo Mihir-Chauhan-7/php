@@ -23,7 +23,7 @@ class Layout extends Template{
     }
 
     public function createBlock($class){
-        $object = new $class();
+        $object = \Ccc::objectManager($class);
         $object->setLayout($this);
         return $object;
     }

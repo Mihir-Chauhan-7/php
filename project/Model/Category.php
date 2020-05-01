@@ -23,8 +23,14 @@ class Category extends \Model\Core\Row{
         $this->setTable($this->tableName)->setPrimaryKey($this->primaryKey);
     }
 
-    public function getStatusLabel($status){
-        return key_exists($status,$this->statusOptions) ? $this->statusOptions[$status] : NULL;
+    public function getCategories(){
+        return $this->fetchAll() ?? []; 
+    }
+
+    public function getStatusLabel(){
+        return key_exists($this->status,$this->statusOptions) 
+            ? $this->statusOptions[$this->status] 
+            : NULL;
     }
 
     public function getStatusOptions(){
@@ -36,46 +42,69 @@ class Category extends \Model\Core\Row{
         return $parent->path.'_'.$this->id; 
     }
 
-    public function getProductImage($id){
-        return $this->fetchRow("SELECT name FROM product_images WHERE imageId = $id")->name;
-    }
-
     public function getProducts(){
-        return $this->fetchAll("SELECT * FROM product_categories AS PC INNER JOIN products AS P ON PC.productId = P.id  WHERE PC.categoryId = $this->id");
+        $productModel = \Ccc::objectManager('\Model\Product',true);
+        return $productModel->fetchAll("SELECT * 
+            FROM product_categories AS PC INNER JOIN products AS P 
+                ON PC.productId = P.id  WHERE PC.categoryId = $this->id");
     }
 
-    public function updateChilds(){
-
-        $childs = $this->getChilds($this->id);
-        $newPath = (new Category())->getAdapter()->fetchOne("SELECT path FROM Categories WHERE id = $this->id");  
-
+    public function updateChilds($id = NULL,$newPath = NULL){
+        if($id == NULL){
+            $id = $this->id;
+        }    
+        
+        $childs = (new Category())->fetchAll("SELECT * FROM 
+            Categories WHERE parent_id = $id ORDER BY id ASC") ?? [];
+        $newPath = (new Category())->getAdapter()->fetchOne("SELECT path 
+            FROM Categories WHERE id = $id");  
 
         if(sizeof($childs) > 0){
             foreach($childs as $child){
-                $this->update($child,$newPath);
+                $categoryModel = new Category();
+                $child->setTable($this->tableName)->setPrimaryKey($this
+                    ->primaryKey);
+                $child->path = $newPath.'_'.$child->id;
+                $child->level = count(explode('_',$child->path));
+                $child->saveData();
+
+                if(sizeof($categoryModel->getAdapter()->fetchRow("SELECT * 
+                    FROM Categories WHERE parent_id = $child->id") ?? []) > 0 ){
+                      $this->updateChilds($child->id,$newPath);
+                }
             }    
         }
         else{
             return false;
         }
-        
     }
-
-    function update($childsList,$newPath){
-        foreach($childsList as $keys => $child){
-            $category = (new Category())->load($keys);
-            $category->path = $newPath.'_'.$keys;
-            $category->level = count(explode('_',$category->path));
-            $category->saveData();
-        }
-    }
-
+    
     public function getChilds($id){
-        $childList = [];
-        $childs = (new Category())->fetchAll("SELECT id,path FROM Categories WHERE parent_id = $id ORDER BY id ASC");
+        $childList = []; 
+        $childs = (new Category())->fetchAll("SELECT id,path 
+            FROM ".$this->tableName." WHERE parent_id = $id ORDER BY id ASC") ?? [];
         if($childs > 0){
             foreach($childs as $child){
                 $childList[$child->id] = $this->getChilds($child->id);
+            }
+        }
+        
+        return $childList;
+    }
+
+    public function getChildId($id = NULL){
+
+        if($id == NULL){
+           $id = $this->id ?? 'NULL'; 
+        }
+        
+        $childList = []; 
+        $childs = (new Category())->fetchAll("SELECT id 
+            FROM ".$this->tableName." WHERE parent_id = ".$id) ?? [];
+        if($childs > 0){
+            foreach($childs as $child){
+                $childList[] = $child->id;
+                $childList = array_merge($childList,$this->getChildId($child->id));
             }
         }
         
@@ -89,14 +118,16 @@ class Category extends \Model\Core\Row{
     }
 
     public function getProductCount(){
-        return $this->getAdapter()->fetchOne("SELECT count(id) FROM product_categories WHERE categoryId = $this->id");
+        return $this->getAdapter()->fetchOne("SELECT count(id) 
+            FROM product_categories WHERE categoryId = $this->id");
     }
 
-    public function getName($path=NULL){
+    public function getName($path = NULL){
         if($path == NULL){
             $path = $this->path;
         }
-        $categories = $this->getAdapter()->fetchPairs('SELECT id,name FROM Categories');
+        $categories = $this->getAdapter()->fetchPairs("SELECT id,name 
+            FROM ".$this->tableName);
         $currentPath = '';
         foreach(explode('_',$path) as $parent){
             if(key_exists($parent,$categories)){
@@ -104,6 +135,12 @@ class Category extends \Model\Core\Row{
             }
         }
         return trim($currentPath,' > ');
+    }
+
+    public function getParentName(){
+        return $this->getAdapter()
+            ->fetchOne("SELECT name FROM {$this->tableName} 
+                WHERE {$this->primaryKey} = $this->parent_id");
     }
 
 }

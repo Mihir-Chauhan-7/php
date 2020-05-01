@@ -2,37 +2,39 @@
 
 namespace Controller\Shipment;
 
-use Exception;
-
 class Method extends \Controller\Base{
 
     public function __construct()
     {
-        $this->shipmentModel = \Ccc::objectManager('\Model\Shipment\Method',true);
+        $this->shipmentModel = \Ccc::
+            objectManager('\Model\Shipment\Method',true);
         $this->add = \Ccc::objectManager('\Block\Shipment\Add',true);
     }
 
     public function gridAction(){
-        $gridData = $this->getLayout()->createBlock('Block\Shipment\Grid')->toHtml();
+        $gridData = $this->getLayout()->createBlock('Block\Shipment\Grid')
+            ->toHtml();
         $this->sendResponse('content',$gridData);
     }
 
     public function addAction(){
-        $addData = $this->getLayout()->createBlock('Block\Shipment\Add')->toHtml();
+        $addData = $this->getLayout()->createBlock('Block\Shipment\Add')
+            ->toHtml();
         $this->sendResponse('content',$addData);
     }
 
     public function editAction(){
         try{
-            if(!$id = (int)$this->getRequest()->getRequest('id')){
-                throw new Exception("Invalid Request");
+            if(!$id = (int)$this->getRequest()->getRequest($this
+                ->shipmentModel->getPrimaryKey())){
+                throw new \Exception("Invalid Request");
             }
 
             $this->shipmentModel->load($id);
             $addData = $this->getLayout()->createBlock('Block\Shipment\Add')->toHtml();
             $this->sendResponse('content',$addData);
         }
-        catch(Exception $e){
+        catch(\Exception $e){
             $this->displayMessage($e->getMessage(),0);
         }
         
@@ -42,10 +44,12 @@ class Method extends \Controller\Base{
         try{
             $this->displayMessage('Inserted Successfully..');
             if(!$this->getRequest()->isPOST()){
-                throw new Exception("Invalid Request");
+                throw new \Exception("Invalid Request");
             }
 
-            if($id = (int)$this->getRequest()->getRequest('id')){
+            if($id = (int)$this->getRequest()->getRequest($this
+                ->shipmentModel->getPrimaryKey())){
+
                 $this->shipmentModel->load($id);
                 $this->displayMessage('Updated Successfully..');
             }
@@ -54,7 +58,7 @@ class Method extends \Controller\Base{
             $this->shipmentModel->saveData();
 
         }
-        catch(Exception $e){
+        catch(\Exception $e){
             $this->displayMessage($e->getMessage(),0);
         }
         $gridData = $this->getLayout()->createBlock('Block\Shipment\Grid')->toHtml();
@@ -63,7 +67,8 @@ class Method extends \Controller\Base{
 
     public function deleteAction(){
         try{
-            if($id = (int)$this->getRequest()->getRequest('id')){
+            if($id = (int)$this->getRequest()->getRequest($this
+                ->shipmentModel->getPrimaryKey())){
                 
                 $this->shipmentModel->id = $id; 
                 if($this->shipmentModel->deleteData()){
@@ -79,12 +84,13 @@ class Method extends \Controller\Base{
             else{
                 throw new \Exception("Invalid Request.");
             }
-            $gridData = $this->getLayout()->createBlock('Block\Shipment\Grid')->toHtml();
-            $this->sendResponse('content',$gridData);
         }
-        catch(Exception $e){
-            echo $e->getMessage();
+        catch(\Exception $e){
+            $this->displayMessage($e->getMessage(),0);
         }
+        $gridData = $this->getLayout()->createBlock('Block\Shipment\Grid')
+            ->toHtml();
+        $this->sendResponse('content',$gridData);
     }
 }
 ?>

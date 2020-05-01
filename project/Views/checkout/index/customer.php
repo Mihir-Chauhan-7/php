@@ -1,10 +1,10 @@
 <?php $customer = $this->getCustomer() ?>
-<table class="table">
-    <tr>
-        <td>Name : <?php echo $customer->name ?></td>
-        <td>Email : <?php echo $customer->email ?></td>
-        <td>Mobile No : <?php echo $customer->mobileNo ?></td>
-    </tr>
-</table>
+<h5>
+<div class="d-flex">
+        <div style="margin-left: 30px;margin-top: 20px"><p>Name : <?php echo $customer->name ?></p></div>
+        <div style="margin-left: 30px;margin-top: 20px"><p>Email : <?php echo $customer->email ?></p></div>
+        <div style="margin-left: 30px;margin-top: 20px"><p>Mobile No : <?php echo $customer->mobileNo ?></p></div>
+</div>
+</h5>
 
 

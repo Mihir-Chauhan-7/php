@@ -10,19 +10,22 @@ class Category extends Base{
     }
 
     public function gridAction(){
-        $gridData = $this->getLayout()->createBlock('Block\Category\Grid')->toHtml();
+        $gridData = $this->getLayout()->createBlock('Block\Category\Grid')
+            ->toHtml();
         $this->sendResponse('content',$gridData);   
     }
 
     public function addAction(){
-        $addData = $this->getLayout()->createBlock('Block\Category\Add')->toHtml();
+        $addData = $this->getLayout()->createBlock('Block\Category\Add')
+            ->toHtml();
         $this->sendResponse('content',$addData);
     }
     
     public function editAction(){
         try{
 
-            $id = (int)$this->getRequest()->getRequest('id');
+            $id = (int)$this->getRequest()->getRequest($this->categoryModel
+                ->getPrimaryKey());
             if(!$id){
                 throw new Exception('Invalid Request.');
             }
@@ -43,7 +46,8 @@ class Category extends Base{
 
     public function deleteAction(){
         try{
-            if($id = (int)$this->getRequest()->getRequest('id')){    
+            if($id = (int)$this->getRequest()->getRequest($this->categoryModel
+                ->getPrimaryKey())){    
                 if($id){
                     $this->categoryModel->id = ($id);
                     if($this->categoryModel->deleteData()){
@@ -60,12 +64,12 @@ class Category extends Base{
             else{
                 throw new Exception('Invalid Operation.');
             }
-            $gridData = $this->getLayout()->createBlock('Block\Category\Grid')->toHtml();
-            $this->sendResponse('content',$gridData);
         }
         catch(Exception $e){
             $this->displayMessage($e->getMessage(),0);
         }   
+        $gridData = $this->getLayout()->createBlock('Block\Category\Grid')->toHtml();
+        $this->sendResponse('content',$gridData);
     }
 
     public function saveAction(){
@@ -75,7 +79,8 @@ class Category extends Base{
                 throw new Exception('Invalid Request.');
             }
 
-            if($id = (int)$this->getRequest()->getRequest('id')){
+            if($id = (int)$this->getRequest()->getRequest($this->categoryModel
+                ->getPrimaryKey())){
                 $this->displayMessage('Updated Successfully..',1);
                 $this->categoryModel->load($id);
             }
@@ -87,10 +92,12 @@ class Category extends Base{
             }
 
             if(!$this->categoryModel->parent_id){
-                $this->categoryModel->path = $this->categoryModel->id;
+                $this->categoryModel->path = $this->categoryModel
+                    ->getData($this->categoryModel->getPrimaryKey());
             }
             else{
-                $this->categoryModel->path = $this->categoryModel->getParentPath();
+                $this->categoryModel->path = $this->categoryModel
+                    ->getParentPath();
             }
 
             $this->categoryModel->level = count(explode('_',$this->categoryModel->path));

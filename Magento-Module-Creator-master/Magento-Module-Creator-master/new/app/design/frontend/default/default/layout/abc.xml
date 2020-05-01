@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <abc_index_index>
+        <reference name="content">
+            <block type="abc/abc" name="abc" template="abc/abc.phtml" />
+        </reference>
+    </abc_index_index>
+</layout> 

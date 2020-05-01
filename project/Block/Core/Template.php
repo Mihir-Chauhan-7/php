@@ -3,6 +3,7 @@
 namespace Block\Core;
 
 class Template{
+
     protected $layout = NULL;
     protected $template = NULL;
     protected $children = [];
@@ -26,7 +27,7 @@ class Template{
             $this->children[$key] = $child; 
         }
         else{
-            $object = new $child();
+            $object = \Ccc::objectManager($child);
             $this->children[$key] = $object;
         }
         return $this;
@@ -36,24 +37,28 @@ class Template{
         if($key == NULL){
             return $this->children;
         }
-        return key_exists($key,$this->children) ? $this->children[$key] : NULL;
+        return key_exists($key,$this->children) 
+            ? $this->children[$key] 
+            : NULL;
     }
 
     public function toHTML(){
+
         ob_start();
+
         require "Views".DIRECTORY_SEPARATOR.$this->getTemplate();
         $content = ob_get_clean();
         return $content;
     }
 
     public function getUrl($action = null, $controller = null, $params = []){
-        $urlModel = new \Model\Core\Url();
+        $urlModel = \Ccc::objectManager('\Model\Core\Url');
 
         return $urlModel->getUrl($action,$controller,$params);
     }
 
     public function getChildHTML($className){
-        $class = new $className();
+        $class = \Ccc::objectManager($className);
         return $class->toHTML();
     }
 

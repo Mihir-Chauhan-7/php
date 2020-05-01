@@ -25,12 +25,14 @@ class Item extends \Model\Core\Row{
                 $productModel = \Ccc::objectManager('\Model\Product',false)
                     ->load($item->productId);
                 
+
                 $orderItem->orderId = $orderId;
+                $orderItem->productId = $productModel->id;
                 $orderItem->name = $productModel->name;
                 $orderItem->price = $productModel->price;
-                $orderItem->quantity = $productModel->quantity;
-                $orderItem->sku = $productModel->sku;
-                
+                $orderItem->quantity = $item->quantity;
+                $orderItem->sku = $item->sku;
+
                 $orderItem->saveData();
 
             }
@@ -40,8 +42,12 @@ class Item extends \Model\Core\Row{
             $e->getMessage();
             return false;
         }
+    }
 
-        
+    public function getProduct(){
+        $product = \Ccc::objectManager('\Model\Product',false)
+            ->load($this->productId);
+        return $product;
     }
 }
 

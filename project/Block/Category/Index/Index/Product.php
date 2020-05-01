@@ -5,6 +5,7 @@ namespace Block\Category\Index\Index;
 class Product extends \Block\Core\Template{
     public function __construct()
     {
+        $this->cartModel = \Ccc::objectManager('\Model\Cart',true);
         $currentCategory = key_exists('currentCategory',$_SESSION) 
             ? $_SESSION['currentCategory'] 
             : $_SESSION['currentCategory'] = 1; 
@@ -12,26 +13,12 @@ class Product extends \Block\Core\Template{
             ->load($currentCategory);
         $this->cartItemModel = \Ccc::objectManager('\Model\Item',true);
         $this->setTemplate('category\index\index\product.php');
-        $this->items = $this->getItems();
+        $this->cartItems = $this->cartModel->getCartItems();
     }
 
-    public function getProducts(){
-        return $this->categoryModel->getProducts();
-    }
 
-    public function getItems(){
-        $cartId = \Ccc::objectManager('Model\Cart',true)
-            ->getCart($_SESSION['customerId'])->cartId;
-
-        $cartItem = \Ccc::objectManager('Model\Item',true);
-
-        return $cartItem->fetchAll("SELECT * 
-                FROM cart_items 
-                WHERE cartId = $cartId") ?? [];
-    }
-
-    public function getItemId($productId){
-        foreach($this->items as $item){
+    public function getItem($productId){
+        foreach($this->cartItems as $item){
             if($item->productId == $productId){
                 return $item;
             }
@@ -39,12 +26,13 @@ class Product extends \Block\Core\Template{
         return NULL;
     }
 
+    public function getProducts(){
+        return $this->categoryModel->getProducts();
+    }
+
     public function getSelectedProducts(){
-        return $this->cartItemModel->getProducts($_SESSION['customerId']);
+        return $this->cartModel->getProducts();
     }
-   
-    public function getProductImage($id){
-        return $this->categoryModel->getProductImage($id);
-    }
+
 }
 ?>
